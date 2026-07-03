@@ -106,6 +106,16 @@ class Interval:
             result *= self
         return result
 
+    def ln(self) -> "Interval":
+        """Outward-rounded natural logarithm of a strictly positive interval."""
+
+        if self.lo <= 0:
+            raise ValueError("ln requires a strictly positive interval")
+        return Interval(
+            directed(lambda: self.lo.ln(), ROUND_FLOOR),
+            directed(lambda: self.hi.ln(), ROUND_CEILING),
+        )
+
     def to_json(self) -> list[str]:
         return [str(self.lo), str(self.hi)]
 
