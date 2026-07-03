@@ -27,6 +27,11 @@ python -m venv .venv
 
 Outputs are written under `data/` and `figures/`. Seeds and run parameters are stored in `configs/`.
 
+## Mother-facing digest
+
+`docs/MOTHER_DIGEST.md` lists the exact sidecar APIs, files, hypotheses, JSON
+payloads, and consumption limits currently available to `THE-ERIKSSON-PROGRAMME`.
+
 ## Synchronization pins
 
 At repository creation, the mother repository `lluiseriksson/THE-ERIKSSON-PROGRAMME` had:
