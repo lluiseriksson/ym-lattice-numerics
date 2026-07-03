@@ -1,0 +1,34 @@
+{
+  "mother": {
+    "branch": "main",
+    "commit": "7a71754b93da6f447544211af51fd513a90b086c",
+    "lean_toolchain": "leanprover/lean4:v4.29.0-rc6",
+    "mathlib_commit": "07642720480157414db592fa85b626dafb71355b",
+    "repo": "https://github.com/lluiseriksson/THE-ERIKSSON-PROGRAMME"
+  },
+  "results": [
+    {
+      "certification": "pass",
+      "d": [
+        "4",
+        "4"
+      ],
+      "expression": "(16*d+1)^2*sigma < 1",
+      "id": "kp_sigma_schema_example",
+      "lhs": [
+        "0.4225",
+        "0.4225"
+      ],
+      "provenance": "Synthetic smoke value. Not imported from the mother repository.",
+      "rhs": [
+        "1",
+        "1"
+      ],
+      "sigma": [
+        "0.0001",
+        "0.0001"
+      ],
+      "status": "example_only"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+run_id: m0_su2_smoke
+description: "Tiny SU(2) Wilson-action smoke run for reproducibility plumbing."
+honesty: "Smoke test only; not a physics-grade ensemble and not mass-gap evidence."
+seed: 20260703
+start: hot
+lattice:
+  length: 2
+  ndim: 4
+beta_values:
+  - 0.5
+  - 1.0
+  - 2.0
+updates:
+  thermalization_sweeps: 2
+  measurements: 4
+  sweeps_between_measurements: 1
+  overrelaxation_per_heatbath: 1
+wilson_loops:
+  - [1, 1]
+  - [1, 2]
+creutz_ratios:
+  - [2, 2]

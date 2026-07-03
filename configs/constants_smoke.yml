@@ -1,0 +1,14 @@
+mother:
+  repo: "https://github.com/lluiseriksson/THE-ERIKSSON-PROGRAMME"
+  branch: "main"
+  commit: "7a71754b93da6f447544211af51fd513a90b086c"
+  lean_toolchain: "leanprover/lean4:v4.29.0-rc6"
+  mathlib_commit: "07642720480157414db592fa85b626dafb71355b"
+checks:
+  - id: kp_sigma_schema_example
+    status: example_only
+    expression: "(16*d+1)^2*sigma < 1"
+    d: ["4", "4"]
+    sigma: ["0.0001", "0.0001"]
+    rhs: ["1", "1"]
+    provenance: "Synthetic smoke value. Not imported from the mother repository."

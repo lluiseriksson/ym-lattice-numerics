@@ -1,0 +1,163 @@
+{
+  "config": {
+    "beta_values": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "creutz_ratios": [
+      [
+        2,
+        2
+      ]
+    ],
+    "description": "Tiny SU(2) Wilson-action smoke run for reproducibility plumbing.",
+    "honesty": "Smoke test only; not a physics-grade ensemble and not mass-gap evidence.",
+    "lattice": {
+      "length": 2,
+      "ndim": 4
+    },
+    "run_id": "m0_su2_smoke",
+    "seed": 20260703,
+    "start": "hot",
+    "updates": {
+      "measurements": 4,
+      "overrelaxation_per_heatbath": 1,
+      "sweeps_between_measurements": 1,
+      "thermalization_sweeps": 2
+    },
+    "wilson_loops": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ]
+    ]
+  },
+  "description": "Tiny SU(2) Wilson-action smoke run for reproducibility plumbing.",
+  "honesty": "Smoke test only; not a physics-grade ensemble and not mass-gap evidence.",
+  "package_version": "0.1.0",
+  "runs": [
+    {
+      "beta": 0.5,
+      "plaquette_mean": 0.08046878612052573,
+      "plaquette_std": 0.06537545106992848,
+      "samples": [
+        {
+          "creutz_2x2": -7.588041398010975,
+          "measurement": 0,
+          "plaquette": 0.09426438957500921,
+          "wilson_1x1": 0.09426438957500928,
+          "wilson_1x2": -0.003396409179052639
+        },
+        {
+          "creutz_2x2": 1.2453154112930125,
+          "measurement": 1,
+          "plaquette": -0.014588571515665338,
+          "wilson_1x1": -0.014588571515665354,
+          "wilson_1x2": 0.03823819094814757
+        },
+        {
+          "creutz_2x2": -3.9948229977216134,
+          "measurement": 2,
+          "plaquette": 0.13322180299768818,
+          "wilson_1x1": 0.13322180299768807,
+          "wilson_1x2": -0.029945795456237757
+        },
+        {
+          "creutz_2x2": -2.583736325895802,
+          "measurement": 3,
+          "plaquette": 0.10897752342507087,
+          "wilson_1x1": 0.10897752342507087,
+          "wilson_1x2": 0.04582389370995377
+        }
+      ],
+      "seed_sequence": [
+        20260703,
+        0
+      ]
+    },
+    {
+      "beta": 1.0,
+      "plaquette_mean": 0.24995127059908556,
+      "plaquette_std": 0.0415174030922024,
+      "samples": [
+        {
+          "creutz_2x2": -1.4263788701777596,
+          "measurement": 0,
+          "plaquette": 0.23132552024212738,
+          "wilson_1x1": 0.23132552024212746,
+          "wilson_1x2": 0.1412823977525184
+        },
+        {
+          "creutz_2x2": -2.9738504231531047,
+          "measurement": 1,
+          "plaquette": 0.2055504546981531,
+          "wilson_1x1": 0.20555045469815303,
+          "wilson_1x2": 0.05287236108290661
+        },
+        {
+          "creutz_2x2": -2.848010774002744,
+          "measurement": 2,
+          "plaquette": 0.30227992331882714,
+          "wilson_1x1": 0.3022799233188271,
+          "wilson_1x2": 0.06125914770459095
+        },
+        {
+          "creutz_2x2": -0.814331140520463,
+          "measurement": 3,
+          "plaquette": 0.26064918413723454,
+          "wilson_1x1": 0.26064918413723465,
+          "wilson_1x2": 0.14563151395298546
+        }
+      ],
+      "seed_sequence": [
+        20260703,
+        1
+      ]
+    },
+    {
+      "beta": 2.0,
+      "plaquette_mean": 0.4985369853295142,
+      "plaquette_std": 0.08912280018258373,
+      "samples": [
+        {
+          "creutz_2x2": -0.5661194172800299,
+          "measurement": 0,
+          "plaquette": 0.38367785279971045,
+          "wilson_1x1": 0.3836778527997107,
+          "wilson_1x2": 0.21834945667327768
+        },
+        {
+          "creutz_2x2": -0.2627347600379713,
+          "measurement": 1,
+          "plaquette": 0.4816210423521052,
+          "wilson_1x1": 0.4816210423521045,
+          "wilson_1x2": 0.32832215075838855
+        },
+        {
+          "creutz_2x2": -0.5084112420868488,
+          "measurement": 2,
+          "plaquette": 0.593299389510296,
+          "wilson_1x1": 0.5932993895102961,
+          "wilson_1x2": 0.39607114107220237
+        },
+        {
+          "creutz_2x2": -0.47397686054322974,
+          "measurement": 3,
+          "plaquette": 0.5355496566559451,
+          "wilson_1x1": 0.5355496566559456,
+          "wilson_1x2": 0.4346068435722832
+        }
+      ],
+      "seed_sequence": [
+        20260703,
+        2
+      ]
+    }
+  ],
+  "schema_version": 1
+}

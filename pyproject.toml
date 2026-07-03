@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ym-lattice-numerics"
+version = "0.1.0"
+description = "Reproducible numerical anchoring for a lattice Yang-Mills formalization programme."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "THE-ERIKSSON-PROGRAMME contributors" }
+]
+dependencies = [
+  "numpy>=1.26",
+  "PyYAML>=6.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0"
+]
+plot = [
+  "matplotlib>=3.8"
+]
+
+[project.scripts]
+ym-mc = "ym_lattice_numerics.mc:main"
+ym-check-constants = "ym_lattice_numerics.constants:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
