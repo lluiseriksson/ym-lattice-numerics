@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-04T22:49:00+02:00.
+Last audited by the hourly satellite: 2026-07-04T23:55:00+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `dcdd07a5debf87fce8812c9da71981e4f9de01c8`.
+- Audited main HEAD: `d24781eea03ec9656ef73684dfcc8adb2c2436e7`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28717901969`
-  - `heartbeat`: success, run `28717901973`
+  - `ci`: success, run `28719619089`
+  - `heartbeat`: success, run `28719832482`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -40,9 +40,8 @@ Last audited by the hourly satellite: 2026-07-04T22:49:00+02:00.
 
 ## Next exact step
 
-When the next generated sidecar report is introduced, add it to
-`data/processed/artifact_manifest.json` in the same PR and keep its
-`command_argv`, `producer`, inputs, outputs, stdout log, and verification
-command covered by `tests/test_artifact_manifest.py`. Keep
-`scripts/regenerate_all.py` scoped to smoke Monte Carlo and plot refreshes
-unless a later `interface-change` issue requests a broader regeneration driver.
+After this digest-contract PR merges, keep every future generated sidecar
+report mirrored in both `data/processed/artifact_manifest.json` and
+`docs/MOTHER_DIGEST.md` in the same PR. Keep `scripts/regenerate_all.py` scoped
+to smoke Monte Carlo and plot refreshes unless a later `interface-change` issue
+requests a broader regeneration driver.

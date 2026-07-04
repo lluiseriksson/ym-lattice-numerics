@@ -9,6 +9,7 @@ from scripts.honesty_gap_2d import build_report
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT_PATH = ROOT / "data" / "processed" / "honesty_gap_2d.json"
+MANIFEST_PATH = ROOT / "data" / "processed" / "artifact_manifest.json"
 DIGEST_PATH = ROOT / "docs" / "MOTHER_DIGEST.md"
 REPRODUCIBILITY_PATH = ROOT / "REPRODUCIBILITY.md"
 
@@ -79,3 +80,28 @@ def test_honesty_gap_regeneration_command_is_documented() -> None:
     assert "python scripts\\honesty_gap_2d.py --output data\\processed\\honesty_gap_2d.json" in reproducibility
     assert "`data/processed/honesty_gap_2d.json`" in reproducibility
     assert "separate from `scripts/regenerate_all.py`" in reproducibility
+
+
+def test_artifact_manifest_is_surfaced_in_mother_digest() -> None:
+    digest = DIGEST_PATH.read_text(encoding="utf-8")
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+    for field in {
+        "schema_version",
+        "honesty",
+        "artifacts[]",
+        "id",
+        "scope",
+        "producer",
+        "command_argv",
+        "inputs",
+        "outputs",
+        "verification",
+        "stdout_log",
+    }:
+        assert field in digest
+
+    for artifact in manifest["artifacts"]:
+        assert artifact["id"] in digest
+        for output_path in artifact["outputs"]:
+            assert output_path in digest

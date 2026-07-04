@@ -178,6 +178,41 @@ Possible mother/satellite consumption:
 - The scripts are intentionally under `scripts/aqft_bridges/` to keep them
   separate from the SU(2) lattice Monte Carlo path.
 
+## Sidecar artifact manifest
+
+File: `data/processed/artifact_manifest.json`
+
+Schema fields:
+
+- `schema_version`
+- `honesty`
+- `artifacts[]`
+- per artifact: `id`, `scope`, `producer`, `command_argv`, `inputs`,
+  `outputs`, `verification`
+- optional per artifact: `stdout_log`
+
+Current artifact ids and outputs:
+
+- `m0_su2_smoke`: `data/raw/m0_su2_smoke.json`,
+  `data/raw/m0_su2_smoke.csv`, `figures/m0_su2_smoke_plaquette.png`
+- `constants_smoke_report`: `data/processed/constants_smoke_report.json`
+- `honesty_gap_2d`: `data/processed/honesty_gap_2d.json`
+- `aqft_gaussian_covariance`:
+  `data/processed/aqft_bridges/gaussian_covariance_certificate.json`,
+  `data/processed/aqft_bridges/run_gaussian_covariance.log`
+- `aqft_transfer_gap`:
+  `data/processed/aqft_bridges/transfer_gap_certificate.json`,
+  `data/processed/aqft_bridges/run_transfer_gap.log`
+
+Possible mother/satellite consumption:
+
+- Use `command_argv` as the exact local regeneration command for each listed
+  sidecar artifact.
+- Use `producer`, `inputs`, `outputs`, and `verification` to decide whether a
+  PR has updated generated files and their check surface together.
+- Treat the manifest as reproducibility routing only; it is not a proof
+  artifact or a mathematical claim.
+
 ## Current blockers for stronger consumption
 
 - No Lean import surface exists in this repository; `INTERFACES.md` explicitly
