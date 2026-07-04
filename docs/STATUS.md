@@ -1,16 +1,17 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-04T12:29:56+02:00.
+Last audited by the hourly satellite: 2026-07-04T13:48:44+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `e47da2ad26cddb5c7a8d59a7b6641b9f82063394`.
+- Audited main HEAD: `6513ae12fb918868eee4e8576e8501926b8829d8`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28702608707`
-  - `heartbeat`: success, run `28702608718`
+  - `ci`: success, run `28703953737`
+  - `heartbeat`: success, run `28703953736`
 - Open PRs at audit time: none.
-- Open issues with `agent-task`, `blocked`, or `interface-change`: none.
+- Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
+  #7.
 
 ## Mother-facing surfaces currently worth consuming
 
@@ -36,6 +37,6 @@ Last audited by the hourly satellite: 2026-07-04T12:29:56+02:00.
 
 ## Next exact step
 
-Add a small machine-readable status check that validates
-`data/processed/honesty_gap_2d.json` against the fields named in
-`docs/MOTHER_DIGEST.md`, without changing the public JSON schema.
+After the honesty-gap JSON contract check lands, add a similarly small
+regeneration freshness check that compares `scripts/honesty_gap_2d.py` output
+against `data/processed/honesty_gap_2d.json`.
