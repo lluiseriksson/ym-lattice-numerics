@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-04T23:55:00+02:00.
+Last audited by the hourly satellite: 2026-07-05T00:56:18+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `d24781eea03ec9656ef73684dfcc8adb2c2436e7`.
+- Audited main HEAD: `b1958c3b9e6416370bbc89282ac95d15220afdfd`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28719619089`
-  - `heartbeat`: success, run `28719832482`
+  - `ci`: success, run `28720963125`
+  - `heartbeat`: success, run `28721257784`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -40,8 +40,8 @@ Last audited by the hourly satellite: 2026-07-04T23:55:00+02:00.
 
 ## Next exact step
 
-After this digest-contract PR merges, keep every future generated sidecar
-report mirrored in both `data/processed/artifact_manifest.json` and
-`docs/MOTHER_DIGEST.md` in the same PR. Keep `scripts/regenerate_all.py` scoped
-to smoke Monte Carlo and plot refreshes unless a later `interface-change` issue
-requests a broader regeneration driver.
+After this log-contract PR merges, keep every future `stdout_log` entry listed
+under `outputs` and make the log name the certificate file it records. Keep
+every future generated sidecar report mirrored in both
+`data/processed/artifact_manifest.json` and `docs/MOTHER_DIGEST.md` in the same
+PR.
