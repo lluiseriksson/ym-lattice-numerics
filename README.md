@@ -23,6 +23,7 @@ python -m venv .venv
 .venv\Scripts\python -m pytest
 .venv\Scripts\python scripts\regenerate_all.py --config configs\m0_su2_smoke.yml
 .venv\Scripts\python scripts\check_constants.py configs\constants_smoke.yml
+.venv\Scripts\python scripts\honesty_gap_2d.py --output data\processed\honesty_gap_2d.json
 ```
 
 Outputs are written under `data/` and `figures/`. Seeds and run parameters are stored in `configs/`.

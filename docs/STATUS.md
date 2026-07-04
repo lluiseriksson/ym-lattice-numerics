@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-04T15:55:26+02:00.
+Last audited by the hourly satellite: 2026-07-04T17:18:47+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `35d92c2bc41d0d19df60964470a3d48a8b238448`.
+- Audited main HEAD: `210b7dfd589aa9e74b024827835d650c19562d9c`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28707082953`
-  - `heartbeat`: success, run `28707082899`
+  - `ci`: success, run `28709061357`
+  - `heartbeat`: success, run `28709061353`
 - Open PRs at audit time: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -37,7 +37,7 @@ Last audited by the hourly satellite: 2026-07-04T15:55:26+02:00.
 
 ## Next exact step
 
-Document the exact regeneration command for
-`data/processed/honesty_gap_2d.json` and decide whether it should be wired
-into `scripts/regenerate_all.py` or remain a separate certified sidecar
-command.
+If another processed sidecar report is added, create a machine-readable
+artifact manifest mapping each generated file to its exact regeneration
+command. Keep `scripts/regenerate_all.py` scoped to smoke Monte Carlo and plot
+refreshes until such a manifest exists.
