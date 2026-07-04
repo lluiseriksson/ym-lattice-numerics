@@ -4,6 +4,8 @@ import json
 from decimal import Decimal
 from pathlib import Path
 
+from scripts.honesty_gap_2d import build_report
+
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT_PATH = ROOT / "data" / "processed" / "honesty_gap_2d.json"
@@ -62,3 +64,9 @@ def test_honesty_gap_report_matches_mother_digest_contract() -> None:
         certifications[row["beta"]] = row["certification_lhs_lt_1"]
 
     assert certifications == EXPECTED_CERTIFICATIONS
+
+
+def test_honesty_gap_report_is_fresh_against_generator() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+
+    assert report == build_report()
