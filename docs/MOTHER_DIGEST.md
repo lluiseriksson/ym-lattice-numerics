@@ -6,13 +6,16 @@ exports no Lean theorem.
 
 ## Synchronization
 
-- Sidecar HEAD summarized here: `3eb6049af96bb4f343d2531ba3d103b230561277`.
+- Last audited main HEAD for this digest:
+  `e47da2ad26cddb5c7a8d59a7b6641b9f82063394`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
   - Mathlib commit: `07642720480157414db592fa85b626dafb71355b`
 - Re-synchronize those files before treating any exported number as aligned
   with a newer mother commit.
+- `docs/STATUS.md` records the latest hourly satellite heartbeat and the next
+  exact sidecar step.
 
 ## Exact 2D certified layer
 

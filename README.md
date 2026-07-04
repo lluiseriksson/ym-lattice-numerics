@@ -31,6 +31,8 @@ Outputs are written under `data/` and `figures/`. Seeds and run parameters are s
 
 `docs/MOTHER_DIGEST.md` lists the exact sidecar APIs, files, hypotheses, JSON
 payloads, and consumption limits currently available to `THE-ERIKSSON-PROGRAMME`.
+`docs/STATUS.md` records the latest hourly satellite heartbeat and next exact
+sidecar step.
 
 ## Synchronization pins
 
