@@ -1,15 +1,16 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-04T17:18:47+02:00.
+Last audited by the hourly satellite: 2026-07-04T21:38:12+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `210b7dfd589aa9e74b024827835d650c19562d9c`.
+- Audited main HEAD: `53cf0d9011638bb270cd7406b58eb5c8aceca19b`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28709061357`
-  - `heartbeat`: success, run `28709061353`
-- Open PRs at audit time: none.
+  - `ci`: success, run `28713722897`
+  - `heartbeat`: success, run `28717383564`
+- Open PRs at audit time: draft PR #12, `codex/artifact-manifest`,
+  checks green and merge state clean.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
 
@@ -23,6 +24,9 @@ Last audited by the hourly satellite: 2026-07-04T17:18:47+02:00.
   and trivalent inequality checks.
 - `data/processed/honesty_gap_2d.json`: schema-versioned 2D honesty-gap seed
   for `(16*d+1)^2*sigma < 1`.
+- `data/processed/artifact_manifest.json`: machine-readable map from generated
+  sidecar artifacts to exact regeneration commands, inputs, outputs, and
+  verification commands.
 - `docs/DATASETS.md`: raw Monte Carlo JSON schema for smoke data.
 
 ## Current blockers for stronger claims
@@ -37,7 +41,7 @@ Last audited by the hourly satellite: 2026-07-04T17:18:47+02:00.
 
 ## Next exact step
 
-If another processed sidecar report is added, create a machine-readable
-artifact manifest mapping each generated file to its exact regeneration
-command. Keep `scripts/regenerate_all.py` scoped to smoke Monte Carlo and plot
-refreshes until such a manifest exists.
+Wire `data/processed/artifact_manifest.json` into any future generated
+sidecar report at the same time the report is introduced. Keep
+`scripts/regenerate_all.py` scoped to smoke Monte Carlo and plot refreshes
+unless a later interface-change issue requests a broader regeneration driver.

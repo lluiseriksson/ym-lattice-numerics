@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "honesty": "This manifest records regeneration commands for sidecar artifacts only. It is not a Lean theorem, continuum statement, source construction, or mass-gap claim.",
+  "artifacts": [
+    {
+      "id": "m0_su2_smoke",
+      "scope": "smoke Monte Carlo dataset and plot",
+      "producer": "scripts/regenerate_all.py",
+      "command_argv": [
+        "python",
+        "scripts/regenerate_all.py",
+        "--config",
+        "configs/m0_su2_smoke.yml"
+      ],
+      "inputs": [
+        "configs/m0_su2_smoke.yml"
+      ],
+      "outputs": [
+        "data/raw/m0_su2_smoke.json",
+        "data/raw/m0_su2_smoke.csv",
+        "figures/m0_su2_smoke_plaquette.png"
+      ],
+      "verification": [
+        "python -m pytest tests/test_mc.py tests/test_lattice.py tests/test_mc_vs_exact2d.py"
+      ]
+    },
+    {
+      "id": "constants_smoke_report",
+      "scope": "synthetic constant-check schema example",
+      "producer": "scripts/check_constants.py",
+      "command_argv": [
+        "python",
+        "scripts/check_constants.py",
+        "configs/constants_smoke.yml"
+      ],
+      "inputs": [
+        "configs/constants_smoke.yml"
+      ],
+      "outputs": [
+        "data/processed/constants_smoke_report.json"
+      ],
+      "verification": [
+        "python scripts/check_constants.py configs/constants_smoke.yml"
+      ]
+    },
+    {
+      "id": "honesty_gap_2d",
+      "scope": "certified exact-2D honesty-gap sidecar report",
+      "producer": "scripts/honesty_gap_2d.py",
+      "command_argv": [
+        "python",
+        "scripts/honesty_gap_2d.py",
+        "--output",
+        "data/processed/honesty_gap_2d.json"
+      ],
+      "inputs": [
+        "scripts/honesty_gap_2d.py",
+        "src/ym_lattice_numerics/constants.py",
+        "src/ym_lattice_numerics/exact2d.py",
+        "src/ym_lattice_numerics/intervals.py"
+      ],
+      "outputs": [
+        "data/processed/honesty_gap_2d.json"
+      ],
+      "verification": [
+        "python -m pytest tests/test_honesty_gap.py tests/test_mother_digest_contract.py"
+      ]
+    },
+    {
+      "id": "aqft_gaussian_covariance",
+      "scope": "finite-lattice Gaussian covariance numerical bridge oracle",
+      "producer": "scripts/aqft_bridges/gaussian_covariance_oracle.py",
+      "command_argv": [
+        "python",
+        "scripts/aqft_bridges/gaussian_covariance_oracle.py",
+        "--output",
+        "data/processed/aqft_bridges/gaussian_covariance_certificate.json"
+      ],
+      "stdout_log": "data/processed/aqft_bridges/run_gaussian_covariance.log",
+      "inputs": [
+        "scripts/aqft_bridges/gaussian_covariance_oracle.py"
+      ],
+      "outputs": [
+        "data/processed/aqft_bridges/gaussian_covariance_certificate.json",
+        "data/processed/aqft_bridges/run_gaussian_covariance.log"
+      ],
+      "verification": [
+        "python -m pytest tests/test_aqft_bridge_certificates.py"
+      ]
+    },
+    {
+      "id": "aqft_transfer_gap",
+      "scope": "discrete Gaussian transfer-gap numerical bridge oracle",
+      "producer": "scripts/aqft_bridges/transfer_gap_oracle.py",
+      "command_argv": [
+        "python",
+        "scripts/aqft_bridges/transfer_gap_oracle.py",
+        "--output",
+        "data/processed/aqft_bridges/transfer_gap_certificate.json"
+      ],
+      "stdout_log": "data/processed/aqft_bridges/run_transfer_gap.log",
+      "inputs": [
+        "scripts/aqft_bridges/transfer_gap_oracle.py"
+      ],
+      "outputs": [
+        "data/processed/aqft_bridges/transfer_gap_certificate.json",
+        "data/processed/aqft_bridges/run_transfer_gap.log"
+      ],
+      "verification": [
+        "python -m pytest tests/test_aqft_bridge_certificates.py"
+      ]
+    }
+  ]
+}
