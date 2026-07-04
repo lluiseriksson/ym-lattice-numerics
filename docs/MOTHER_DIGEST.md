@@ -147,6 +147,37 @@ Possible mother consumption:
 - Do not treat estimator existence as evidence that M1 or M2 physics deliverables
   are complete.
 
+## AQFT bridge oracles
+
+Files:
+
+- `scripts/aqft_bridges/gaussian_covariance_oracle.py`
+- `scripts/aqft_bridges/transfer_gap_oracle.py`
+- `data/processed/aqft_bridges/gaussian_covariance_certificate.json`
+- `data/processed/aqft_bridges/transfer_gap_certificate.json`
+- `data/processed/aqft_bridges/run_gaussian_covariance.log`
+- `data/processed/aqft_bridges/run_transfer_gap.log`
+
+Payloads:
+
+- `gaussian_covariance_certificate.json` records finite-lattice massive
+  Gaussian covariance checks for 1D chains and a 2D grid: coercivity proxy `c`,
+  Schur bound `S`, admissible Combes-Thomas-style rate `theta_adm`, fitted 1D
+  sharp rates, and mass-to-zero guardrails.
+- `transfer_gap_certificate.json` records a discrete Gaussian transfer-matrix
+  sanity oracle: transfer gap, covariance clustering rate, and
+  `arccosh(1 + m^2/2)` agree numerically for the tested masses, with small-mass
+  guardrails.
+
+Possible mother/satellite consumption:
+
+- Treat these as numerical acceptance oracles for future
+  `lean-gaussian-field` and `lean-transfer-matrix` M3 work.
+- Use them as sidecar data only; they are not Lean theorems and do not prove
+  a Yang-Mills activity estimate.
+- The scripts are intentionally under `scripts/aqft_bridges/` to keep them
+  separate from the SU(2) lattice Monte Carlo path.
+
 ## Current blockers for stronger consumption
 
 - No Lean import surface exists in this repository; `INTERFACES.md` explicitly
