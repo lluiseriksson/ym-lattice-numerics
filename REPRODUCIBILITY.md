@@ -25,3 +25,17 @@ This writes:
 - `data/processed/constants_smoke_report.json`
 
 The smoke constants are schema examples only.
+
+## Certified 2D honesty-gap report
+
+```powershell
+python scripts\honesty_gap_2d.py --output data\processed\honesty_gap_2d.json
+```
+
+This writes:
+
+- `data/processed/honesty_gap_2d.json`
+
+This command is intentionally separate from `scripts/regenerate_all.py`: it
+regenerates a deterministic certified 2D sidecar report, while
+`regenerate_all.py` is the smoke Monte Carlo and plot refresh entrypoint.

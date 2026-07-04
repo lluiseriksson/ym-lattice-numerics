@@ -10,6 +10,7 @@ from scripts.honesty_gap_2d import build_report
 ROOT = Path(__file__).resolve().parents[1]
 REPORT_PATH = ROOT / "data" / "processed" / "honesty_gap_2d.json"
 DIGEST_PATH = ROOT / "docs" / "MOTHER_DIGEST.md"
+REPRODUCIBILITY_PATH = ROOT / "REPRODUCIBILITY.md"
 
 TOP_LEVEL_FIELDS = {
     "schema_version",
@@ -70,3 +71,11 @@ def test_honesty_gap_report_is_fresh_against_generator() -> None:
     report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
 
     assert report == build_report()
+
+
+def test_honesty_gap_regeneration_command_is_documented() -> None:
+    reproducibility = REPRODUCIBILITY_PATH.read_text(encoding="utf-8")
+
+    assert "python scripts\\honesty_gap_2d.py --output data\\processed\\honesty_gap_2d.json" in reproducibility
+    assert "`data/processed/honesty_gap_2d.json`" in reproducibility
+    assert "separate from `scripts/regenerate_all.py`" in reproducibility
