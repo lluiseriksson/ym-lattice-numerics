@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-04T13:48:44+02:00.
+Last audited by the hourly satellite: 2026-07-04T15:55:26+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `6513ae12fb918868eee4e8576e8501926b8829d8`.
+- Audited main HEAD: `35d92c2bc41d0d19df60964470a3d48a8b238448`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28703953737`
-  - `heartbeat`: success, run `28703953736`
+  - `ci`: success, run `28707082953`
+  - `heartbeat`: success, run `28707082899`
 - Open PRs at audit time: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -37,6 +37,7 @@ Last audited by the hourly satellite: 2026-07-04T13:48:44+02:00.
 
 ## Next exact step
 
-After the honesty-gap JSON contract check lands, add a similarly small
-regeneration freshness check that compares `scripts/honesty_gap_2d.py` output
-against `data/processed/honesty_gap_2d.json`.
+Document the exact regeneration command for
+`data/processed/honesty_gap_2d.json` and decide whether it should be wired
+into `scripts/regenerate_all.py` or remain a separate certified sidecar
+command.
