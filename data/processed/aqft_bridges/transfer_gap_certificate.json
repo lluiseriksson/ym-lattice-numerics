@@ -1,0 +1,38 @@
+{
+ "tool": "transfer_gap_oracle",
+ "rows": [
+  {
+   "m": 0.5,
+   "gap": 0.49493,
+   "clustering": 0.49493,
+   "analytic": 0.49493,
+   "match": true
+  },
+  {
+   "m": 1.0,
+   "gap": 0.96242,
+   "clustering": 0.96242,
+   "analytic": 0.96242,
+   "match": true
+  },
+  {
+   "m": 2.0,
+   "gap": 1.76275,
+   "clustering": 1.76275,
+   "analytic": 1.76275,
+   "match": true
+  },
+  {
+   "m": 0.05,
+   "gap": 0.04999,
+   "analytic": 0.04999,
+   "guardrail": true
+  },
+  {
+   "m": 0.01,
+   "gap": 0.01,
+   "analytic": 0.01,
+   "guardrail": true
+  }
+ ]
+}

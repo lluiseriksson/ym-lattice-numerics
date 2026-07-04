@@ -1,0 +1,17 @@
+== 1D chain, K = (m^2+2)I - S - S^T, coord=1 ==
+m=0.5 N=120: c=0.2507 theta_adm=0.0573 q_sharp=0.4949 q_fit=0.4949 pts=56 OK
+m=0.5 N=240: c=0.2502 theta_adm=0.0572 q_sharp=0.4949 q_fit=0.4949 pts=56 OK
+m=1.0 N=120: c=1.0007 theta_adm=0.1824 q_sharp=0.9624 q_fit=0.9624 pts=28 OK
+m=1.0 N=240: c=1.0002 theta_adm=0.1823 q_sharp=0.9624 q_fit=0.9624 pts=28 OK
+m=2.0 N=120: c=4.0007 theta_adm=0.4055 q_sharp=1.7627 q_fit=1.7627 pts=15 OK
+m=2.0 N=240: c=4.0002 theta_adm=0.4055 q_sharp=1.7627 q_fit=1.7627 pts=15 OK
+volume-uniformity: c, S, theta_adm independent of N above (c -> m^2).
+
+== 2D grid, K = (m^2+4)I - adj, coord=2 ==
+m=1.0 L=24x24: c=1.0315 theta_adm=0.1085 axis q_fit=1.0674  (certified rate is theta_adm; sharp 2D rate is anisotropic and larger)
+
+== guardrail: m -> 0 closes both rates ==
+m=0.01: theta_adm=6.75e-05  q_sharp=1.00e-02
+m=0.0001: theta_adm=4.25e-05  q_sharp=1.00e-04
+
+certificate written: data\processed\aqft_bridges\gaussian_covariance_certificate.json

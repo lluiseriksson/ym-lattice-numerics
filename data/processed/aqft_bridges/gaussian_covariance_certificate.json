@@ -1,0 +1,102 @@
+{
+ "tool": "gaussian_covariance_oracle",
+ "lattice": [
+  {
+   "dim": 1,
+   "N": 120,
+   "m": 0.5,
+   "c": 0.250674,
+   "S": 4.25,
+   "theta_adm": 0.0573,
+   "q_sharp": 0.4949,
+   "q_fit": 0.4949,
+   "fit_points": 56,
+   "sharp_matches_fit": true
+  },
+  {
+   "dim": 1,
+   "N": 240,
+   "m": 0.5,
+   "c": 0.25017,
+   "S": 4.25,
+   "theta_adm": 0.0572,
+   "q_sharp": 0.4949,
+   "q_fit": 0.4949,
+   "fit_points": 56,
+   "sharp_matches_fit": true
+  },
+  {
+   "dim": 1,
+   "N": 120,
+   "m": 1.0,
+   "c": 1.000674,
+   "S": 5.0,
+   "theta_adm": 0.1824,
+   "q_sharp": 0.9624,
+   "q_fit": 0.9624,
+   "fit_points": 28,
+   "sharp_matches_fit": true
+  },
+  {
+   "dim": 1,
+   "N": 240,
+   "m": 1.0,
+   "c": 1.00017,
+   "S": 5.0,
+   "theta_adm": 0.1823,
+   "q_sharp": 0.9624,
+   "q_fit": 0.9624,
+   "fit_points": 28,
+   "sharp_matches_fit": true
+  },
+  {
+   "dim": 1,
+   "N": 120,
+   "m": 2.0,
+   "c": 4.000674,
+   "S": 8.0,
+   "theta_adm": 0.4055,
+   "q_sharp": 1.7627,
+   "q_fit": 1.7627,
+   "fit_points": 15,
+   "sharp_matches_fit": true
+  },
+  {
+   "dim": 1,
+   "N": 240,
+   "m": 2.0,
+   "c": 4.00017,
+   "S": 8.0,
+   "theta_adm": 0.4055,
+   "q_sharp": 1.7627,
+   "q_fit": 1.7627,
+   "fit_points": 15,
+   "sharp_matches_fit": true
+  },
+  {
+   "dim": 2,
+   "L": 24,
+   "m": 1.0,
+   "c": 1.031541,
+   "S": 9.0,
+   "theta_adm": 0.1085,
+   "q_fit_axis": 1.0674
+  },
+  {
+   "dim": 1,
+   "N": 240,
+   "m": 0.01,
+   "guardrail": true,
+   "theta_adm": 6.747750464825463e-05,
+   "q_sharp": 0.009999958333812628
+  },
+  {
+   "dim": 1,
+   "N": 240,
+   "m": 0.0001,
+   "guardrail": true,
+   "theta_adm": 4.2483065776288624e-05,
+   "q_sharp": 9.99999996544598e-05
+  }
+ ]
+}
