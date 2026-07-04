@@ -19,7 +19,7 @@ def test_artifact_manifest_paths_and_commands_are_current() -> None:
     produced_outputs = set()
     for artifact in artifacts:
         seen_ids.add(artifact["id"])
-        assert artifact["producer"] in artifact["command_argv"]
+        assert artifact["command_argv"][:2] == ["python", artifact["producer"]]
         assert (ROOT / artifact["producer"]).is_file()
         assert artifact["outputs"]
         assert artifact["verification"]
@@ -28,6 +28,7 @@ def test_artifact_manifest_paths_and_commands_are_current() -> None:
             assert (ROOT / input_path).exists()
         for output_path in artifact["outputs"]:
             assert (ROOT / output_path).exists()
+            assert output_path not in produced_outputs
             produced_outputs.add(output_path)
         if stdout_log := artifact.get("stdout_log"):
             assert stdout_log in artifact["outputs"]

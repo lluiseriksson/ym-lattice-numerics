@@ -1,16 +1,15 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-04T21:38:12+02:00.
+Last audited by the hourly satellite: 2026-07-04T22:49:00+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `53cf0d9011638bb270cd7406b58eb5c8aceca19b`.
+- Audited main HEAD: `dcdd07a5debf87fce8812c9da71981e4f9de01c8`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28713722897`
-  - `heartbeat`: success, run `28717383564`
-- Open PRs at audit time: draft PR #12, `codex/artifact-manifest`,
-  checks green and merge state clean.
+  - `ci`: success, run `28717901969`
+  - `heartbeat`: success, run `28717901973`
+- Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
 
@@ -41,7 +40,9 @@ Last audited by the hourly satellite: 2026-07-04T21:38:12+02:00.
 
 ## Next exact step
 
-Wire `data/processed/artifact_manifest.json` into any future generated
-sidecar report at the same time the report is introduced. Keep
+When the next generated sidecar report is introduced, add it to
+`data/processed/artifact_manifest.json` in the same PR and keep its
+`command_argv`, `producer`, inputs, outputs, stdout log, and verification
+command covered by `tests/test_artifact_manifest.py`. Keep
 `scripts/regenerate_all.py` scoped to smoke Monte Carlo and plot refreshes
-unless a later interface-change issue requests a broader regeneration driver.
+unless a later `interface-change` issue requests a broader regeneration driver.
