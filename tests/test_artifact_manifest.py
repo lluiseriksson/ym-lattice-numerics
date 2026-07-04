@@ -32,6 +32,13 @@ def test_artifact_manifest_paths_and_commands_are_current() -> None:
             produced_outputs.add(output_path)
         if stdout_log := artifact.get("stdout_log"):
             assert stdout_log in artifact["outputs"]
+            log_text = (ROOT / stdout_log).read_text(encoding="utf-8").strip()
+            assert log_text
+            assert "certificate written:" in log_text
+
+            non_log_outputs = [path for path in artifact["outputs"] if path != stdout_log]
+            assert non_log_outputs
+            assert any(Path(path).name in log_text for path in non_log_outputs)
 
     assert len(seen_ids) == len(artifacts)
     assert "data/processed/honesty_gap_2d.json" in produced_outputs
