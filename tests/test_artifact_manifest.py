@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 
@@ -58,3 +60,24 @@ def test_artifact_manifest_commands_are_documented_for_reproduction() -> None:
     for artifact in manifest["artifacts"]:
         command = " ".join(artifact["command_argv"])
         assert command in reproducibility, artifact["id"]
+
+
+def test_constants_smoke_report_matches_manifest_regeneration(tmp_path: Path) -> None:
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    artifact = next(
+        artifact for artifact in manifest["artifacts"] if artifact["id"] == "constants_smoke_report"
+    )
+    committed_output = ROOT / artifact["outputs"][0]
+    generated_output = tmp_path / Path(artifact["outputs"][0]).name
+
+    command = list(artifact["command_argv"])
+    assert command == ["python", "scripts/check_constants.py", "configs/constants_smoke.yml"]
+    command[0] = sys.executable
+    command.extend(["--output", str(generated_output)])
+
+    subprocess.run(command, cwd=ROOT, check=True, capture_output=True, text=True)
+
+    committed_report = json.loads(committed_output.read_text(encoding="utf-8"))
+    generated_report = json.loads(generated_output.read_text(encoding="utf-8"))
+
+    assert generated_report == committed_report
