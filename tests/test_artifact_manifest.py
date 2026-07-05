@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import csv
 import json
 import subprocess
 import sys
 from pathlib import Path
+
+from ym_lattice_numerics.mc import run_from_file
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +16,11 @@ REPRODUCIBILITY_PATH = ROOT / "REPRODUCIBILITY.md"
 
 def _normalized_command_text(text: str) -> str:
     return text.replace("\\", "/")
+
+
+def _read_csv_rows(path: Path) -> list[dict[str, str]]:
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle))
 
 
 def test_artifact_manifest_paths_and_commands_are_current() -> None:
@@ -81,3 +89,27 @@ def test_constants_smoke_report_matches_manifest_regeneration(tmp_path: Path) ->
     generated_report = json.loads(generated_output.read_text(encoding="utf-8"))
 
     assert generated_report == committed_report
+
+
+def test_m0_smoke_dataset_matches_manifest_regeneration(tmp_path: Path) -> None:
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    artifact = next(artifact for artifact in manifest["artifacts"] if artifact["id"] == "m0_su2_smoke")
+
+    assert artifact["command_argv"] == [
+        "python",
+        "scripts/regenerate_all.py",
+        "--config",
+        "configs/m0_su2_smoke.yml",
+    ]
+
+    generated_json = tmp_path / "m0_su2_smoke.json"
+    generated_csv = tmp_path / "m0_su2_smoke.csv"
+    run_from_file(ROOT / artifact["inputs"][0], generated_json, generated_csv)
+
+    committed_json = ROOT / "data/raw/m0_su2_smoke.json"
+    committed_csv = ROOT / "data/raw/m0_su2_smoke.csv"
+
+    assert json.loads(generated_json.read_text(encoding="utf-8")) == json.loads(
+        committed_json.read_text(encoding="utf-8")
+    )
+    assert _read_csv_rows(generated_csv) == _read_csv_rows(committed_csv)

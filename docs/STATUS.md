@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-05T20:06:47+02:00.
+Last audited by the hourly satellite: 2026-07-05T21:09:32+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `e32bbd49666c3e37175c9e8b99790e7696411ff0`.
+- Audited main HEAD: `225c6918eac9201adf0255a451869e0b100cd7ed`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28748643113`
-  - `heartbeat`: success, run `28748643116`
+  - `ci`: success, run `28750238163`
+  - `heartbeat`: success, run `28750284246`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -43,6 +43,6 @@ Last audited by the hourly satellite: 2026-07-05T20:06:47+02:00.
 
 ## Next exact step
 
-After the constants smoke-report freshness check merges, extend the same
-temporary-regeneration pattern to the M0 smoke dataset or leave an exact
-blocker if plot regeneration is too heavy for hourly CI.
+After the M0 smoke dataset freshness check merges, add an output-redirection
+option to `scripts/regenerate_all.py` so a future test can compare the smoke
+plot in a temporary directory without rewriting committed artifacts.
