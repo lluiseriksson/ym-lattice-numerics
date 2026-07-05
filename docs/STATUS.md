@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-05T17:52:26+02:00.
+Last audited by the hourly satellite: 2026-07-05T19:07:27+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `b7d9db9649a6e939d756a963138ab979d2bde718`.
+- Audited main HEAD: `7817223d09105fcf28c0056ae7dbb0a27c5e90c2`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28745433753`
-  - `heartbeat`: success, run `28745433760`
+  - `ci`: success, run `28746508600`
+  - `heartbeat`: success, run `28747069959`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -43,7 +43,6 @@ Last audited by the hourly satellite: 2026-07-05T17:52:26+02:00.
 
 ## Next exact step
 
-Keep the audited main HEAD in `docs/MOTHER_DIGEST.md` and this heartbeat
-aligned whenever a digest-facing PR changes the sidecar consumption surface;
-when adding or removing documented Python APIs, update
-`tests/test_mother_digest_contract.py` in the same PR.
+After this freshness check merges, extend the same temporary-regeneration
+pattern to one more committed manifest artifact before changing any
+mother-facing API or dataset surface.
