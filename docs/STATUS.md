@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-05T19:07:27+02:00.
+Last audited by the hourly satellite: 2026-07-05T20:06:47+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `7817223d09105fcf28c0056ae7dbb0a27c5e90c2`.
+- Audited main HEAD: `e32bbd49666c3e37175c9e8b99790e7696411ff0`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28746508600`
-  - `heartbeat`: success, run `28747069959`
+  - `ci`: success, run `28748643113`
+  - `heartbeat`: success, run `28748643116`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -43,6 +43,6 @@ Last audited by the hourly satellite: 2026-07-05T19:07:27+02:00.
 
 ## Next exact step
 
-After this freshness check merges, extend the same temporary-regeneration
-pattern to one more committed manifest artifact before changing any
-mother-facing API or dataset surface.
+After the constants smoke-report freshness check merges, extend the same
+temporary-regeneration pattern to the M0 smoke dataset or leave an exact
+blocker if plot regeneration is too heavy for hourly CI.
