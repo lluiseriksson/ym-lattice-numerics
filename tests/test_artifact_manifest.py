@@ -6,6 +6,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "data" / "processed" / "artifact_manifest.json"
+REPRODUCIBILITY_PATH = ROOT / "REPRODUCIBILITY.md"
+
+
+def _normalized_command_text(text: str) -> str:
+    return text.replace("\\", "/")
 
 
 def test_artifact_manifest_paths_and_commands_are_current() -> None:
@@ -44,3 +49,12 @@ def test_artifact_manifest_paths_and_commands_are_current() -> None:
     assert "data/processed/honesty_gap_2d.json" in produced_outputs
     assert "data/processed/aqft_bridges/gaussian_covariance_certificate.json" in produced_outputs
     assert "data/processed/aqft_bridges/transfer_gap_certificate.json" in produced_outputs
+
+
+def test_artifact_manifest_commands_are_documented_for_reproduction() -> None:
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    reproducibility = _normalized_command_text(REPRODUCIBILITY_PATH.read_text(encoding="utf-8"))
+
+    for artifact in manifest["artifacts"]:
+        command = " ".join(artifact["command_argv"])
+        assert command in reproducibility, artifact["id"]

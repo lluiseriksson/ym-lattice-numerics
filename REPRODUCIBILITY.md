@@ -39,3 +39,18 @@ This writes:
 This command is intentionally separate from `scripts/regenerate_all.py`: it
 regenerates a deterministic certified 2D sidecar report, while
 `regenerate_all.py` is the smoke Monte Carlo and plot refresh entrypoint.
+
+## AQFT bridge certificates
+
+```powershell
+python scripts\aqft_bridges\gaussian_covariance_oracle.py --output data\processed\aqft_bridges\gaussian_covariance_certificate.json
+python scripts\aqft_bridges\transfer_gap_oracle.py --output data\processed\aqft_bridges\transfer_gap_certificate.json
+```
+
+These write:
+
+- `data/processed/aqft_bridges/gaussian_covariance_certificate.json`
+- `data/processed/aqft_bridges/transfer_gap_certificate.json`
+
+The paired `run_*.log` files are audit logs committed with the manifest outputs;
+temporary round-trip tests redirect only the certificate JSON path.
