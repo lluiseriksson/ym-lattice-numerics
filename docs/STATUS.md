@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-05T12:40:10+02:00.
+Last audited by the hourly satellite: 2026-07-05T13:47:46+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `9e09cd504736e0ae0926036983c9844bdb7e5d92`.
+- Audited main HEAD: `caf0e04512e11d965324ba599ca15b936527b3b1`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28736991134`
-  - `heartbeat`: success, run `28737773185`
+  - `ci`: success, run `28738161193`
+  - `heartbeat`: success, run `28738161195`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -44,4 +44,6 @@ Last audited by the hourly satellite: 2026-07-05T12:40:10+02:00.
 ## Next exact step
 
 Keep the audited main HEAD in `docs/MOTHER_DIGEST.md` and this heartbeat
-aligned whenever a digest-facing PR changes the sidecar consumption surface.
+aligned whenever a digest-facing PR changes the sidecar consumption surface;
+when adding or removing documented Python APIs, update
+`tests/test_mother_digest_contract.py` in the same PR.

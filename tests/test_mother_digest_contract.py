@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import json
 import re
 from decimal import Decimal
@@ -38,6 +39,47 @@ EXPECTED_CERTIFICATIONS = {
 }
 
 COMMIT_SHA_RE = re.compile(r"`([0-9a-f]{40})`")
+
+MODULE_API_SURFACES = {
+    "ym_lattice_numerics.exact2d": {
+        "file": "src/ym_lattice_numerics/exact2d.py",
+        "names": {
+            "bessel_i_interval",
+            "plaquette_exact_interval",
+            "string_tension_exact_interval",
+            "bessel_i",
+            "plaquette_exact",
+            "string_tension_exact",
+            "strong_coupling_plaquette",
+        },
+    },
+    "ym_lattice_numerics.intervals": {
+        "file": "src/ym_lattice_numerics/intervals.py",
+        "names": {
+            "Interval",
+            "sum_intervals",
+            "certify_less",
+        },
+    },
+    "ym_lattice_numerics.analysis": {
+        "file": "src/ym_lattice_numerics/analysis.py",
+        "names": {
+            "jackknife",
+            "binned_series",
+            "binned_error",
+            "creutz_string_tension",
+            "effective_mass",
+        },
+    },
+}
+
+INTERVAL_METHODS = {
+    "point",
+    "parse",
+    "reciprocal",
+    "pow_int",
+    "ln",
+}
 
 
 def _assert_decimal_interval(value: object) -> None:
@@ -150,3 +192,19 @@ def test_aqft_manifest_contract_is_surfaced_in_mother_digest() -> None:
         "floating-point last-bit drift",
     }:
         assert phrase in digest
+
+
+def test_mother_digest_documented_python_apis_exist() -> None:
+    digest = DIGEST_PATH.read_text(encoding="utf-8")
+
+    for module_name, surface in MODULE_API_SURFACES.items():
+        module = importlib.import_module(module_name)
+        assert surface["file"] in digest
+        for public_name in surface["names"]:
+            assert public_name in digest
+            assert hasattr(module, public_name), f"{module_name}.{public_name}"
+
+    interval_module = importlib.import_module("ym_lattice_numerics.intervals")
+    for method_name in INTERVAL_METHODS:
+        assert method_name in digest
+        assert hasattr(interval_module.Interval, method_name), f"Interval.{method_name}"
