@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-05T07:08:26+02:00.
+Last audited by the hourly satellite: 2026-07-05T08:16:22+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `2f054fdbc66ac07ce99e86650c3f9e1503bf5cfd`.
+- Audited main HEAD: `0dc6635aa568d9741446d0bc2fe69d72f7765b54`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28722535343`
-  - `heartbeat`: success, run `28729317856`
+  - `ci`: success, run `28730449481`
+  - `heartbeat`: success, run `28730449460`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -26,6 +26,9 @@ Last audited by the hourly satellite: 2026-07-05T07:08:26+02:00.
 - `data/processed/artifact_manifest.json`: machine-readable map from generated
   sidecar artifacts to exact regeneration commands, inputs, outputs, and
   verification commands.
+- `scripts/aqft_bridges/gaussian_covariance_oracle.py` and
+  `scripts/aqft_bridges/transfer_gap_oracle.py`: importable deterministic
+  builders for the committed AQFT bridge certificate JSON files.
 - `docs/DATASETS.md`: raw Monte Carlo JSON schema for smoke data.
 
 ## Current blockers for stronger claims
@@ -40,7 +43,6 @@ Last audited by the hourly satellite: 2026-07-05T07:08:26+02:00.
 
 ## Next exact step
 
-Make the AQFT bridge oracle scripts import-safe by moving CLI parsing behind
-`main()` helpers and exposing deterministic certificate builders. Then add a
-freshness oracle comparing the committed AQFT JSON certificates with those
-builders, while keeping stdout logs as human audit artifacts.
+After this AQFT freshness PR merges, add a manifest-level CLI round-trip check
+that writes AQFT certificates to temporary outputs and compares those files
+with `build_certificate()`, while keeping stdout logs as human audit artifacts.
