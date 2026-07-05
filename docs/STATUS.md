@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-05T08:16:22+02:00.
+Last audited by the hourly satellite: 2026-07-05T09:17:40+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `0dc6635aa568d9741446d0bc2fe69d72f7765b54`.
+- Audited main HEAD: `c3df33381bf6ac83d2efb7410202c2333042bc70`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28730449481`
-  - `heartbeat`: success, run `28730449460`
+  - `ci`: success, run `28732381034`
+  - `heartbeat`: success, run `28732381028`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -43,6 +43,6 @@ Last audited by the hourly satellite: 2026-07-05T08:16:22+02:00.
 
 ## Next exact step
 
-After this AQFT freshness PR merges, add a manifest-level CLI round-trip check
-that writes AQFT certificates to temporary outputs and compares those files
-with `build_certificate()`, while keeping stdout logs as human audit artifacts.
+After this AQFT CLI round-trip PR merges, add mother-facing digest coverage for
+the exact AQFT manifest contract: `command_argv`, temporary certificate output,
+`stdout_log` as audit-only output, and `build_certificate()` equality.
