@@ -162,6 +162,7 @@ def test_artifact_manifest_is_surfaced_in_mother_digest() -> None:
 
     for artifact in manifest["artifacts"]:
         assert artifact["id"] in digest
+        assert artifact["scope"] in digest
         for output_path in artifact["outputs"]:
             assert output_path in digest
 
