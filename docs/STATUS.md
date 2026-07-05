@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-05T00:56:18+02:00.
+Last audited by the hourly satellite: 2026-07-05T07:08:26+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `b1958c3b9e6416370bbc89282ac95d15220afdfd`.
+- Audited main HEAD: `2f054fdbc66ac07ce99e86650c3f9e1503bf5cfd`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28720963125`
-  - `heartbeat`: success, run `28721257784`
+  - `ci`: success, run `28722535343`
+  - `heartbeat`: success, run `28729317856`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -40,8 +40,7 @@ Last audited by the hourly satellite: 2026-07-05T00:56:18+02:00.
 
 ## Next exact step
 
-After this log-contract PR merges, keep every future `stdout_log` entry listed
-under `outputs` and make the log name the certificate file it records. Keep
-every future generated sidecar report mirrored in both
-`data/processed/artifact_manifest.json` and `docs/MOTHER_DIGEST.md` in the same
-PR.
+Make the AQFT bridge oracle scripts import-safe by moving CLI parsing behind
+`main()` helpers and exposing deterministic certificate builders. Then add a
+freshness oracle comparing the committed AQFT JSON certificates with those
+builders, while keeping stdout logs as human audit artifacts.
