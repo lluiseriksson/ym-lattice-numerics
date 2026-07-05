@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from decimal import Decimal
 from pathlib import Path
 
@@ -12,6 +13,7 @@ REPORT_PATH = ROOT / "data" / "processed" / "honesty_gap_2d.json"
 MANIFEST_PATH = ROOT / "data" / "processed" / "artifact_manifest.json"
 DIGEST_PATH = ROOT / "docs" / "MOTHER_DIGEST.md"
 REPRODUCIBILITY_PATH = ROOT / "REPRODUCIBILITY.md"
+STATUS_PATH = ROOT / "docs" / "STATUS.md"
 
 TOP_LEVEL_FIELDS = {
     "schema_version",
@@ -35,6 +37,8 @@ EXPECTED_CERTIFICATIONS = {
     "2000": "pass",
 }
 
+COMMIT_SHA_RE = re.compile(r"`([0-9a-f]{40})`")
+
 
 def _assert_decimal_interval(value: object) -> None:
     assert isinstance(value, list)
@@ -43,6 +47,12 @@ def _assert_decimal_interval(value: object) -> None:
     assert isinstance(lo, str)
     assert isinstance(hi, str)
     assert Decimal(lo) <= Decimal(hi)
+
+
+def _first_documented_sha(text: str) -> str:
+    match = COMMIT_SHA_RE.search(text)
+    assert match
+    return match.group(1)
 
 
 def test_honesty_gap_report_matches_mother_digest_contract() -> None:
@@ -66,6 +76,13 @@ def test_honesty_gap_report_matches_mother_digest_contract() -> None:
         certifications[row["beta"]] = row["certification_lhs_lt_1"]
 
     assert certifications == EXPECTED_CERTIFICATIONS
+
+
+def test_mother_digest_and_status_audit_same_main_head() -> None:
+    digest = DIGEST_PATH.read_text(encoding="utf-8")
+    status = STATUS_PATH.read_text(encoding="utf-8")
+
+    assert _first_documented_sha(digest) == _first_documented_sha(status)
 
 
 def test_honesty_gap_report_is_fresh_against_generator() -> None:
