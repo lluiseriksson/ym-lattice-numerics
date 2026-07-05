@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `e47da2ad26cddb5c7a8d59a7b6641b9f82063394`.
+  `0dc6635aa568d9741446d0bc2fe69d72f7765b54`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -169,10 +169,21 @@ Payloads:
   `arccosh(1 + m^2/2)` agree numerically for the tested masses, with small-mass
   guardrails.
 
+Importable script APIs:
+
+- `gaussian_covariance_oracle.build_certificate()`
+- `gaussian_covariance_oracle.write_certificate(cert, output)`
+- `gaussian_covariance_oracle.main(argv=None)`
+- `transfer_gap_oracle.build_certificate()`
+- `transfer_gap_oracle.write_certificate(cert, output)`
+- `transfer_gap_oracle.main(argv=None)`
+
 Possible mother/satellite consumption:
 
 - Treat these as numerical acceptance oracles for future
   `lean-gaussian-field` and `lean-transfer-matrix` M3 work.
+- Import `build_certificate()` in tests or satellite checks to compare the
+  committed JSON certificates with deterministic rebuilds.
 - Use them as sidecar data only; they are not Lean theorems and do not prove
   a Yang-Mills activity estimate.
 - The scripts are intentionally under `scripts/aqft_bridges/` to keep them
