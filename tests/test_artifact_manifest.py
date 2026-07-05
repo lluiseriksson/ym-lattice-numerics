@@ -113,3 +113,38 @@ def test_m0_smoke_dataset_matches_manifest_regeneration(tmp_path: Path) -> None:
         committed_json.read_text(encoding="utf-8")
     )
     assert _read_csv_rows(generated_csv) == _read_csv_rows(committed_csv)
+
+
+def test_regenerate_all_cli_can_redirect_smoke_outputs(tmp_path: Path) -> None:
+    generated_json = tmp_path / "m0_su2_smoke.json"
+    generated_csv = tmp_path / "m0_su2_smoke.csv"
+    generated_figure = tmp_path / "m0_su2_smoke_plaquette.png"
+
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/regenerate_all.py",
+            "--config",
+            "configs/m0_su2_smoke.yml",
+            "--output-json",
+            str(generated_json),
+            "--output-csv",
+            str(generated_csv),
+            "--output-figure",
+            str(generated_figure),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    committed_json = ROOT / "data/raw/m0_su2_smoke.json"
+    committed_csv = ROOT / "data/raw/m0_su2_smoke.csv"
+    committed_figure = ROOT / "figures/m0_su2_smoke_plaquette.png"
+
+    assert json.loads(generated_json.read_text(encoding="utf-8")) == json.loads(
+        committed_json.read_text(encoding="utf-8")
+    )
+    assert _read_csv_rows(generated_csv) == _read_csv_rows(committed_csv)
+    assert generated_figure.read_bytes() == committed_figure.read_bytes()

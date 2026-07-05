@@ -38,11 +38,15 @@ def write_plaquette_figure(result: dict, path: Path) -> None:
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=Path("configs/m0_su2_smoke.yml"))
+    parser.add_argument("--output-json", type=Path, default=None)
+    parser.add_argument("--output-csv", type=Path, default=None)
+    parser.add_argument("--output-figure", type=Path, default=None)
     args = parser.parse_args(argv)
 
-    result = run_from_file(args.config)
+    result = run_from_file(args.config, args.output_json, args.output_csv)
     run_id = result["config"].get("run_id", args.config.stem)
-    write_plaquette_figure(result, Path("figures") / f"{run_id}_plaquette.png")
+    output_figure = args.output_figure or Path("figures") / f"{run_id}_plaquette.png"
+    write_plaquette_figure(result, output_figure)
 
 
 if __name__ == "__main__":

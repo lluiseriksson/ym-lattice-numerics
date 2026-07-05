@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-05T21:09:32+02:00.
+Last audited by the hourly satellite: 2026-07-05T22:12:19+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `225c6918eac9201adf0255a451869e0b100cd7ed`.
+- Audited main HEAD: `84bc3c93d0548ef239b8d503d12d65877b584cef`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28750238163`
-  - `heartbeat`: success, run `28750284246`
+  - `ci`: success, run `28751852117`
+  - `heartbeat`: success, run `28752673586`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -43,6 +43,6 @@ Last audited by the hourly satellite: 2026-07-05T21:09:32+02:00.
 
 ## Next exact step
 
-After the M0 smoke dataset freshness check merges, add an output-redirection
-option to `scripts/regenerate_all.py` so a future test can compare the smoke
-plot in a temporary directory without rewriting committed artifacts.
+After the `scripts/regenerate_all.py` output-redirection PR merges, keep any
+future manifest-facing M0 smoke command change covered by a CLI round-trip that
+compares JSON, CSV, and plot outputs in a temporary directory.

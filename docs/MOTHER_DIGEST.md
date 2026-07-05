@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `225c6918eac9201adf0255a451869e0b100cd7ed`.
+  `84bc3c93d0548ef239b8d503d12d65877b584cef`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -241,6 +241,9 @@ Possible mother/satellite consumption:
 
 - Use `command_argv` as the exact local regeneration command for each listed
   sidecar artifact.
+- For `m0_su2_smoke` CLI freshness checks, `scripts/regenerate_all.py` may be
+  run with `--output-json`, `--output-csv`, and `--output-figure` redirected to
+  temporary paths, then compared with the committed JSON, CSV, and plot.
 - Use `producer`, `inputs`, `outputs`, and `verification` to decide whether a
   PR has updated generated files and their check surface together.
 - Treat the manifest as reproducibility routing only; it is not a proof

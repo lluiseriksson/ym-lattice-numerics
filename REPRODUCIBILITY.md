@@ -14,6 +14,13 @@ This writes:
 - `data/raw/m0_su2_smoke.csv`
 - `figures/m0_su2_smoke_plaquette.png`
 
+For temporary freshness checks, redirect the three outputs without rewriting
+committed artifacts:
+
+```powershell
+python scripts\regenerate_all.py --config configs\m0_su2_smoke.yml --output-json tmp\m0_su2_smoke.json --output-csv tmp\m0_su2_smoke.csv --output-figure tmp\m0_su2_smoke_plaquette.png
+```
+
 ## Constant checks
 
 ```powershell
