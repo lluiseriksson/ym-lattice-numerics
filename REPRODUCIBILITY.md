@@ -54,3 +54,8 @@ These write:
 
 The paired `run_*.log` files are audit logs committed with the manifest outputs;
 temporary round-trip tests redirect only the certificate JSON path.
+
+Committed audit-log outputs:
+
+- `data/processed/aqft_bridges/run_gaussian_covariance.log`
+- `data/processed/aqft_bridges/run_transfer_gap.log`
