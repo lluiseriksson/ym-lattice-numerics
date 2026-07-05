@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `0dc6635aa568d9741446d0bc2fe69d72f7765b54`.
+  `13715aa40abdb43cb2323f97703e87d4cdea2a75`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -184,6 +184,10 @@ Possible mother/satellite consumption:
   `lean-gaussian-field` and `lean-transfer-matrix` M3 work.
 - Import `build_certificate()` in tests or satellite checks to compare the
   committed JSON certificates with deterministic rebuilds.
+- For manifest-driven CLI checks, run each AQFT artifact `command_argv` with
+  its `--output` argument redirected to a temporary certificate path, then
+  compare the generated JSON with the corresponding `build_certificate()`
+  payload.
 - Use them as sidecar data only; they are not Lean theorems and do not prove
   a Yang-Mills activity estimate.
 - The scripts are intentionally under `scripts/aqft_bridges/` to keep them
@@ -214,6 +218,22 @@ Current artifact ids and outputs:
 - `aqft_transfer_gap`:
   `data/processed/aqft_bridges/transfer_gap_certificate.json`,
   `data/processed/aqft_bridges/run_transfer_gap.log`
+
+AQFT manifest contract:
+
+- `aqft_gaussian_covariance` uses producer
+  `scripts/aqft_bridges/gaussian_covariance_oracle.py` and
+  `command_argv` beginning with
+  `python scripts/aqft_bridges/gaussian_covariance_oracle.py --output`.
+- `aqft_transfer_gap` uses producer
+  `scripts/aqft_bridges/transfer_gap_oracle.py` and `command_argv` beginning
+  with `python scripts/aqft_bridges/transfer_gap_oracle.py --output`.
+- In round-trip checks, the declared certificate output path may be replaced
+  by a temporary certificate path; the committed `stdout_log` entries are
+  audit-only outputs and are not rewritten by that temporary run.
+- The generated temporary certificate JSON should match the corresponding
+  `build_certificate()` payload, allowing only the repository test tolerance
+  for floating-point last-bit drift.
 
 Possible mother/satellite consumption:
 

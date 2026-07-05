@@ -105,3 +105,31 @@ def test_artifact_manifest_is_surfaced_in_mother_digest() -> None:
         assert artifact["id"] in digest
         for output_path in artifact["outputs"]:
             assert output_path in digest
+
+
+def test_aqft_manifest_contract_is_surfaced_in_mother_digest() -> None:
+    digest = DIGEST_PATH.read_text(encoding="utf-8")
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+    aqft_artifacts = [
+        artifact
+        for artifact in manifest["artifacts"]
+        if artifact["id"] in {"aqft_gaussian_covariance", "aqft_transfer_gap"}
+    ]
+    assert len(aqft_artifacts) == 2
+
+    for artifact in aqft_artifacts:
+        assert artifact["id"] in digest
+        assert artifact["producer"] in digest
+        assert artifact["command_argv"][:2] == ["python", artifact["producer"]]
+        assert "--output" in artifact["command_argv"]
+        assert " ".join(artifact["command_argv"][:3]) in digest
+        assert artifact["stdout_log"] in artifact["outputs"]
+
+    for phrase in {
+        "temporary certificate path",
+        "audit-only outputs",
+        "build_certificate()",
+        "floating-point last-bit drift",
+    }:
+        assert phrase in digest
