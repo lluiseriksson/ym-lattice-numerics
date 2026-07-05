@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-05T09:17:40+02:00.
+Last audited by the hourly satellite: 2026-07-05T10:23:05+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `c3df33381bf6ac83d2efb7410202c2333042bc70`.
+- Audited main HEAD: `13715aa40abdb43cb2323f97703e87d4cdea2a75`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28732381034`
-  - `heartbeat`: success, run `28732381028`
+  - `ci`: success, run `28733241922`
+  - `heartbeat`: success, run `28734496909`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -43,6 +43,6 @@ Last audited by the hourly satellite: 2026-07-05T09:17:40+02:00.
 
 ## Next exact step
 
-After this AQFT CLI round-trip PR merges, add mother-facing digest coverage for
-the exact AQFT manifest contract: `command_argv`, temporary certificate output,
-`stdout_log` as audit-only output, and `build_certificate()` equality.
+After this digest-contract PR merges, keep future AQFT bridge artifacts covered
+by both `docs/MOTHER_DIGEST.md` and `tests/test_mother_digest_contract.py` in
+the same PR that introduces them.
