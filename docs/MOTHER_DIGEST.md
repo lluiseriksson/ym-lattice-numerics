@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `9e09cd504736e0ae0926036983c9844bdb7e5d92`.
+  `caf0e04512e11d965324ba599ca15b936527b3b1`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -16,6 +16,8 @@ exports no Lean theorem.
   with a newer mother commit.
 - `docs/STATUS.md` records the latest hourly satellite heartbeat and the next
   exact sidecar step.
+- `tests/test_mother_digest_contract.py` checks that documented Python API
+  names still exist in the modules named by this digest.
 
 ## Exact 2D certified layer
 
