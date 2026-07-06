@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-06T05:42:41+02:00.
+Last audited by the hourly satellite: 2026-07-06T07:57:02+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `c19fac9dc7f1e33302d3fefc8af1fa6b5dba1370`.
+- Audited main HEAD: `40e4d1b8fc7a7d85c9ee46f4c040c29d899796cc`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28764867221`
-  - `heartbeat`: success, run `28764867195`
+  - `ci`: success, run `28769513459`
+  - `heartbeat`: success, run `28769513450`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -43,7 +43,6 @@ Last audited by the hourly satellite: 2026-07-06T05:42:41+02:00.
 
 ## Next exact step
 
-After this AQFT log/manifest contract merges, keep the next reproducibility
-change focused on one generated artifact at a time: either add a
-manifest-driven temporary regeneration check for another deterministic output,
-or document the exact blocker if an artifact still rewrites committed files.
+After the M0 plot freshness check merges, extend the same temporary-output
+pattern to the next deterministic sidecar artifact whose producer can avoid
+rewriting committed paths.

@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `c19fac9dc7f1e33302d3fefc8af1fa6b5dba1370`.
+  `40e4d1b8fc7a7d85c9ee46f4c040c29d899796cc`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -246,6 +246,15 @@ AQFT manifest contract:
   for floating-point last-bit drift.
 - Each committed `stdout_log` must end with a `certificate written:` line whose
   path matches the certificate output declared by the manifest `command_argv`.
+
+M0 smoke manifest contract:
+
+- `scripts/regenerate_all.py` keeps the manifest `command_argv` default paths
+  for committed refreshes.
+- For round-trip checks, callers may pass `--output-json`, `--output-csv`, and
+  `--output-figure` to redirect all generated M0 smoke outputs to temporary
+  paths before comparing deterministic JSON/CSV payloads and checking the PNG
+  render shape against the committed figure.
 
 Possible mother/satellite consumption:
 
