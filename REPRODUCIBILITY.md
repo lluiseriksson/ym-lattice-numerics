@@ -72,5 +72,7 @@ This writes:
 
 The report records only finite-dimensional numerical diagnostics for the
 conditional 2602.0032 paper: the SU(2) `2^3` Wilson-action Hessian at
-`theta = 0`, a generic-theta Hessian check, and a quartic toron ratio. It is
-not a proof artifact or a continuum claim.
+`theta = 0`, a generic-theta Hessian check, a quartic toron ratio, and the
+Born-Oppenheimer `V_BO` proof-formula versus literal-formula diagnostic from
+the reference verification script. It is not a proof artifact or a continuum
+claim.

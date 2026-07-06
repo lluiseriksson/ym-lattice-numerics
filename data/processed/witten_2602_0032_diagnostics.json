@@ -1,5 +1,63 @@
 {
   "diagnostics": {
+    "born_oppenheimer_vbo_lemma_5_2": {
+      "consumption_limit": "Finite-dimensional diagnostic for the conditional paper only; it records a proof-formula versus literal-formula mismatch.",
+      "grid_scan": {
+        "case": "SU(2), L=4, grid 15^3",
+        "grid_max": 4.442882938158,
+        "grid_min": -4.442882938158,
+        "literal_argmin": [
+          -4.442882938158,
+          -4.442882938158,
+          -4.442882938158
+        ],
+        "literal_min": -2.449489742783,
+        "proof_min_off_coroot_lattice": 9.915841015161
+      },
+      "hessian_rows": [
+        {
+          "L": 4,
+          "Nc": 2,
+          "S1": 27.396949085991,
+          "literal_hessian_diag": -0.1167,
+          "literal_max_eigenvalue": -0.1167,
+          "proof_expected_diag_over_S1": 2.0,
+          "proof_hessian_diag_over_S1": 2.0,
+          "proof_max_relative_deviation_from_Nc_S1_identity": 0.0,
+          "rank": 1,
+          "variables": 3
+        },
+        {
+          "L": 8,
+          "Nc": 2,
+          "S1": 229.545998746146,
+          "literal_hessian_diag": -0.0722,
+          "literal_max_eigenvalue": -0.0722,
+          "proof_expected_diag_over_S1": 2.0,
+          "proof_hessian_diag_over_S1": 2.0,
+          "proof_max_relative_deviation_from_Nc_S1_identity": 0.0,
+          "rank": 1,
+          "variables": 3
+        },
+        {
+          "L": 4,
+          "Nc": 3,
+          "S1": 27.396949085991,
+          "literal_hessian_diag": -0.175,
+          "literal_max_eigenvalue": -0.175,
+          "proof_expected_diag_over_S1": 3.0,
+          "proof_hessian_diag_over_S1": 3.0,
+          "proof_max_relative_deviation_from_Nc_S1_identity": 0.0,
+          "rank": 2,
+          "variables": 6
+        }
+      ],
+      "reference": "verify_2602_0032.py Lemma 5.2 diagnostic",
+      "versions": {
+        "literal": "paper-v1 literal equations (2)+(3) inside sin^2",
+        "proof": "omega^2 = khat^2 + m_a(theta)^2"
+      }
+    },
     "wilson_hessian_su2_2x2x2": {
       "generic_theta": {
         "expected_kernel_dimension": 26,
