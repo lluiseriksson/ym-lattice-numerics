@@ -1,17 +1,17 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-06T07:57:02+02:00.
+Last audited by the hourly satellite: 2026-07-06T09:03:38+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `40e4d1b8fc7a7d85c9ee46f4c040c29d899796cc`.
+- Audited main HEAD: `bfddc740ae04911d6b5905a1b5c2d67896228c12`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28769513459`
-  - `heartbeat`: success, run `28769513450`
+  - `ci`: success, run `28771589507`
+  - `heartbeat`: success, run `28771589516`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
-  #7.
+  #7 and #34.
 
 ## Mother-facing surfaces currently worth consuming
 
@@ -29,6 +29,9 @@ Last audited by the hourly satellite: 2026-07-06T07:57:02+02:00.
 - `scripts/aqft_bridges/gaussian_covariance_oracle.py` and
   `scripts/aqft_bridges/transfer_gap_oracle.py`: importable deterministic
   builders for the committed AQFT bridge certificate JSON files.
+- `data/processed/witten_2602_0032_diagnostics.json`: conditional 2602.0032
+  SU(2) `2^3` Hessian diagnostic with exact file/API names for mother-side
+  review.
 - `docs/DATASETS.md`: raw Monte Carlo JSON schema for smoke data.
 
 ## Current blockers for stronger claims
@@ -43,6 +46,6 @@ Last audited by the hourly satellite: 2026-07-06T07:57:02+02:00.
 
 ## Next exact step
 
-After the M0 plot freshness check merges, extend the same temporary-output
-pattern to the next deterministic sidecar artifact whose producer can avoid
-rewriting committed paths.
+After the conditional 2602.0032 Hessian diagnostic lands, extend the same
+manifest pattern to one more listed diagnostic only if it can remain small and
+clearly conditional.

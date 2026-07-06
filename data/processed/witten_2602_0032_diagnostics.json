@@ -1,0 +1,45 @@
+{
+  "diagnostics": {
+    "wilson_hessian_su2_2x2x2": {
+      "generic_theta": {
+        "expected_kernel_dimension": 26,
+        "kernel_dimension": 26,
+        "min_positive_eigenvalue": 1.512689626902,
+        "theta": [
+          0.53,
+          0.91,
+          0.36
+        ]
+      },
+      "lattice": "2^3 spatial periodic",
+      "quartic_toron_ratio": {
+        "action_at_2t": 1.023454e-05,
+        "action_at_t": 6.39915e-07,
+        "expected_near": 16.0,
+        "ratio": 15.993601095319,
+        "t": 0.02
+      },
+      "theta_zero": {
+        "expected_kernel_dimension": 30,
+        "flat_tangent_dimension_reference": 24,
+        "kernel_dimension": 30,
+        "max_abs_deviation_from_maxwell_reference": 3.33231e-07,
+        "maxwell_metric_factor": "1/Nc for Nc=2",
+        "nonzero_eigenvalues_unique": [
+          2.0,
+          4.0,
+          6.0
+        ],
+        "theta": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "variables": 72
+    }
+  },
+  "honesty": "Numerical sidecar diagnostics only. These checks do not prove any hypothesis, source construction, continuum statement, or mass-gap claim.",
+  "schema_version": 1,
+  "source": "2602.0032 conditional Witten-lattice diagnostics"
+}

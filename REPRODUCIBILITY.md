@@ -59,3 +59,18 @@ Committed audit-log outputs:
 
 - `data/processed/aqft_bridges/run_gaussian_covariance.log`
 - `data/processed/aqft_bridges/run_transfer_gap.log`
+
+## Conditional 2602.0032 Witten-lattice diagnostics
+
+```powershell
+python scripts\witten_2602_0032_diagnostics.py --output data\processed\witten_2602_0032_diagnostics.json
+```
+
+This writes:
+
+- `data/processed/witten_2602_0032_diagnostics.json`
+
+The report records only finite-dimensional numerical diagnostics for the
+conditional 2602.0032 paper: the SU(2) `2^3` Wilson-action Hessian at
+`theta = 0`, a generic-theta Hessian check, and a quartic toron ratio. It is
+not a proof artifact or a continuum claim.

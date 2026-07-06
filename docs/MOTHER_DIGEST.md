@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `40e4d1b8fc7a7d85c9ee46f4c040c29d899796cc`.
+  `bfddc740ae04911d6b5905a1b5c2d67896228c12`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -195,6 +195,55 @@ Possible mother/satellite consumption:
 - The scripts are intentionally under `scripts/aqft_bridges/` to keep them
   separate from the SU(2) lattice Monte Carlo path.
 
+## Conditional 2602.0032 Witten-lattice diagnostic
+
+Files:
+
+- Producer: `scripts/witten_2602_0032_diagnostics.py`
+- Output: `data/processed/witten_2602_0032_diagnostics.json`
+- Test: `tests/test_witten_2602_0032_diagnostics.py`
+
+Importable script APIs:
+
+- `witten_2602_0032_diagnostics.build_report()`
+- `witten_2602_0032_diagnostics.write_report(report, output)`
+- `witten_2602_0032_diagnostics.main(argv=None)`
+
+Payload fields:
+
+- `schema_version`
+- `source`
+- `honesty`
+- `diagnostics.wilson_hessian_su2_2x2x2`
+- `theta_zero.kernel_dimension`
+- `theta_zero.flat_tangent_dimension_reference`
+- `theta_zero.max_abs_deviation_from_maxwell_reference`
+- `theta_zero.nonzero_eigenvalues_unique`
+- `quartic_toron_ratio.ratio`
+- `generic_theta.kernel_dimension`
+- `generic_theta.min_positive_eigenvalue`
+
+Current diagnostic values:
+
+- SU(2) spatial lattice: `2^3`.
+- Variables in the finite-difference Hessian: `72`.
+- At `theta = 0`, kernel dimension: `30`.
+- Reference flat-tangent dimension recorded for comparison: `24`.
+- Nonzero Hessian eigenvalue representatives: `2.0`, `4.0`, `6.0`.
+- Quartic toron ratio `S(2t)/S(t)` at `t = 0.02`: about `15.9936`.
+- At generic `theta = [0.53, 0.91, 0.36]`, kernel dimension: `26`.
+
+Possible mother consumption:
+
+- Use this JSON as a finite-dimensional diagnostic for issue #34's
+  conditional 2602.0032 review surface.
+- Treat `theta_zero.kernel_dimension`, `generic_theta.kernel_dimension`, and
+  `quartic_toron_ratio.ratio` as reproducible numerical checks, not as
+  theorem exports.
+- The report is intentionally scoped to one diagnostic cluster from the
+  reference `verify_2602_0032.py`; it does not assert any continuum
+  reconstruction or physical gap.
+
 ## Sidecar artifact manifest
 
 File: `data/processed/artifact_manifest.json`
@@ -220,6 +269,8 @@ Current artifact ids and outputs:
 - `aqft_transfer_gap`:
   `data/processed/aqft_bridges/transfer_gap_certificate.json`,
   `data/processed/aqft_bridges/run_transfer_gap.log`
+- `witten_2602_0032_hessian`:
+  `data/processed/witten_2602_0032_diagnostics.json`
 
 Manifest scope semantics:
 
@@ -228,6 +279,7 @@ Manifest scope semantics:
 - `honesty_gap_2d`: `certified exact-2D honesty-gap sidecar report`.
 - `aqft_gaussian_covariance`: `finite-lattice Gaussian covariance numerical bridge oracle`.
 - `aqft_transfer_gap`: `discrete Gaussian transfer-gap numerical bridge oracle`.
+- `witten_2602_0032_hessian`: `conditional 2602.0032 SU(2) 2^3 Hessian diagnostic`.
 
 AQFT manifest contract:
 
@@ -255,6 +307,17 @@ M0 smoke manifest contract:
   `--output-figure` to redirect all generated M0 smoke outputs to temporary
   paths before comparing deterministic JSON/CSV payloads and checking the PNG
   render shape against the committed figure.
+
+Conditional 2602.0032 manifest contract:
+
+- `witten_2602_0032_hessian` uses producer
+  `scripts/witten_2602_0032_diagnostics.py` and `command_argv` beginning with
+  `python scripts/witten_2602_0032_diagnostics.py --output`.
+- `tests/test_witten_2602_0032_diagnostics.py` compares the committed JSON
+  with `build_report()` and checks the expected kernel dimensions, eigenvalue
+  representatives, generic-theta positivity, and quartic toron ratio.
+- The diagnostic is conditional paper evidence only; it is not a Lean theorem,
+  a source construction, a continuum statement, or a mass-gap claim.
 
 Possible mother/satellite consumption:
 
