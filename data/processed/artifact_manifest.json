@@ -109,6 +109,26 @@
       "verification": [
         "python -m pytest tests/test_aqft_bridge_certificates.py"
       ]
+    },
+    {
+      "id": "witten_2602_0032_hessian",
+      "scope": "conditional 2602.0032 SU(2) 2^3 Hessian diagnostic",
+      "producer": "scripts/witten_2602_0032_diagnostics.py",
+      "command_argv": [
+        "python",
+        "scripts/witten_2602_0032_diagnostics.py",
+        "--output",
+        "data/processed/witten_2602_0032_diagnostics.json"
+      ],
+      "inputs": [
+        "scripts/witten_2602_0032_diagnostics.py"
+      ],
+      "outputs": [
+        "data/processed/witten_2602_0032_diagnostics.json"
+      ],
+      "verification": [
+        "python -m pytest tests/test_witten_2602_0032_diagnostics.py"
+      ]
     }
   ]
 }
