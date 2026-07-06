@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-07T00:04:24+02:00.
+Last audited by the hourly satellite: 2026-07-07T01:06:40+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `814820004d0b363791561bcc1cf1721a831e04d7`.
+- Audited main HEAD: `9d96c57b222ce8e691599906c1b4d2419d20e051`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28823836973`
-  - `heartbeat`: success, run `28823836986`
+  - `ci`: success, run `28827473938`
+  - `heartbeat`: success, run `28828034149`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7, #34, and #42.
@@ -46,8 +46,8 @@ Last audited by the hourly satellite: 2026-07-07T00:04:24+02:00.
 
 - No Lean theorem is exported by this repository.
 - Mother synchronization pins reference mother main
-  `7e08458bcce48a9080a21fe90375cae62557a122`; the snapshot sidecar
-  `audited_head` is the merged hourly status digest commit.
+  `48e066040c224c848d2f1f8b39d346de72d6506c`; the snapshot sidecar
+  `audited_head` is the merged synchronization-pins commit.
 - The certified honesty-gap report is a 2D sandbox report, not a 4D continuum
   statement.
 - No gradient-flow integration is present; `docs/LEAN_YM_FLOW_COORDINATION.md`
@@ -55,6 +55,6 @@ Last audited by the hourly satellite: 2026-07-07T00:04:24+02:00.
 
 ## Next exact step
 
-With main green at `814820004d0b363791561bcc1cf1721a831e04d7`, prefer a new
+With main green at `9d96c57b222ce8e691599906c1b4d2419d20e051`, prefer a new
 `agent-task` unit with an exact sidecar artifact target. Do not extend issue
 #34 again unless a specific upstream verifier/source reference is named.
