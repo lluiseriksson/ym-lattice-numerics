@@ -76,3 +76,19 @@ conditional 2602.0032 paper: the SU(2) `2^3` Wilson-action Hessian at
 Born-Oppenheimer `V_BO` proof-formula versus literal-formula diagnostic from
 the reference verification script. It is not a proof artifact or a continuum
 claim.
+
+## Conditional 2602.0041 LSI/H-DOB window contract
+
+```powershell
+python scripts\verify_2602_0041.py --output data\processed\verify_2602_0041_report.json
+```
+
+This writes:
+
+- `data/processed/verify_2602_0041_report.json`
+
+The report records a deterministic verifier-boundary subset for the 2602.0041
+package: Ricci convention coherence for `Ric = Nc/2` at `SU(2)`, the corrected
+decreasing beta flow, the elementary geometric sum `r/(1-r)^2`, and an explicit
+H-DOB kappa-vs-beta window exhibit. It does not discharge H-XSD or H-DOB and is
+not a source-construction, hRpoly, continuum, mass-gap, or Clay claim.
