@@ -19,6 +19,15 @@ def _normalized_command_text(text: str) -> str:
     return text.replace("\\", "/")
 
 
+def _verification_targets(command: str) -> list[str]:
+    parts = _normalized_command_text(command).split()
+    if parts[:3] == ["python", "-m", "pytest"]:
+        return [part for part in parts[3:] if part.startswith("tests/")]
+    if len(parts) >= 2 and parts[0] == "python" and parts[1].endswith(".py"):
+        return [parts[1]]
+    return []
+
+
 def _read_csv_rows(path: Path) -> list[dict[str, str]]:
     with path.open("r", encoding="utf-8", newline="") as handle:
         return list(csv.DictReader(handle))
@@ -117,6 +126,17 @@ def test_artifact_manifest_outputs_are_documented_for_reproduction() -> None:
     for artifact in manifest["artifacts"]:
         for output_path in artifact["outputs"]:
             assert output_path in reproducibility, (artifact["id"], output_path)
+
+
+def test_artifact_manifest_verification_targets_exist() -> None:
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+    for artifact in manifest["artifacts"]:
+        for command in artifact["verification"]:
+            targets = _verification_targets(command)
+            assert targets, (artifact["id"], command)
+            for target in targets:
+                assert (ROOT / target).is_file(), (artifact["id"], command, target)
 
 
 def test_constants_smoke_report_matches_manifest_regeneration(tmp_path: Path) -> None:
