@@ -7,6 +7,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from ym_lattice_numerics.mc import run_from_file
 
 
@@ -74,6 +76,18 @@ def _assert_smoke_csv_rows_close(generated_rows: list[dict[str, str]], committed
                 assert generated_value == committed_value
             else:
                 assert math.isclose(generated_float, committed_float, rel_tol=0.0, abs_tol=1e-5), key
+
+
+def _assert_png_rendered_like(generated_path: Path, committed_path: Path) -> None:
+    pytest.importorskip("matplotlib.image")
+    import matplotlib.image as mpimg
+
+    generated = mpimg.imread(generated_path)
+    committed = mpimg.imread(committed_path)
+    assert generated.shape == committed.shape
+    assert float(generated.max()) <= 1.0
+    assert float(generated.min()) < 0.99
+    assert float(committed.min()) < 0.99
 
 
 def test_artifact_manifest_paths_and_commands_are_current() -> None:
@@ -192,3 +206,35 @@ def test_m0_smoke_dataset_matches_manifest_regeneration(tmp_path: Path) -> None:
         json.loads(committed_json.read_text(encoding="utf-8")),
     )
     _assert_smoke_csv_rows_close(_read_csv_rows(generated_csv), _read_csv_rows(committed_csv))
+
+
+def test_m0_smoke_plot_matches_manifest_regeneration(tmp_path: Path) -> None:
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    artifact = next(artifact for artifact in manifest["artifacts"] if artifact["id"] == "m0_su2_smoke")
+
+    generated_json = tmp_path / "m0_su2_smoke.json"
+    generated_csv = tmp_path / "m0_su2_smoke.csv"
+    generated_figure = tmp_path / "m0_su2_smoke_plaquette.png"
+
+    command = list(artifact["command_argv"])
+    assert command == [
+        "python",
+        "scripts/regenerate_all.py",
+        "--config",
+        "configs/m0_su2_smoke.yml",
+    ]
+    command[0] = sys.executable
+    command.extend(
+        [
+            "--output-json",
+            str(generated_json),
+            "--output-csv",
+            str(generated_csv),
+            "--output-figure",
+            str(generated_figure),
+        ]
+    )
+
+    subprocess.run(command, cwd=ROOT, check=True, capture_output=True, text=True)
+
+    _assert_png_rendered_like(generated_figure, ROOT / "figures/m0_su2_smoke_plaquette.png")
