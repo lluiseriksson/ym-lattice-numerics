@@ -1,15 +1,15 @@
 {
-  "audited_at": "2026-07-06T18:35:00+02:00",
+  "audited_at": "2026-07-07T00:04:24+02:00",
   "honesty": "Metadata-only synchronization snapshot. It is not a Lean theorem, continuum statement, source construction, or mass-gap claim.",
   "mother": {
     "branch": "main",
-    "commit": "42b77fae7118e6be69210233bfc7172bf7845eec",
+    "commit": "7e08458bcce48a9080a21fe90375cae62557a122",
     "lean_toolchain": "leanprover/lean4:v4.29.0-rc6",
     "mathlib_commit": "07642720480157414db592fa85b626dafb71355b",
     "repo": "https://github.com/lluiseriksson/THE-ERIKSSON-PROGRAMME"
   },
   "notes": [
-    "Sidecar main moved to the merged mother-sync snapshot commit.",
+    "Sidecar main moved to the merged hourly status digest commit.",
     "Mother main moved since the previous pin; Lean toolchain and Mathlib commit remained unchanged."
   ],
   "observed_by": [
@@ -19,16 +19,16 @@
   ],
   "schema_version": 1,
   "sidecar": {
-    "audited_head": "e68a300e69e06919a11d5ed5c117cb22c1666087",
+    "audited_head": "814820004d0b363791561bcc1cf1721a831e04d7",
     "branch": "main",
     "ci": {
       "conclusion": "success",
-      "run_id": "28804166370",
+      "run_id": "28823836973",
       "workflow": "ci"
     },
     "heartbeat": {
       "conclusion": "success",
-      "run_id": "28806966801",
+      "run_id": "28823836986",
       "workflow": "heartbeat"
     },
     "repo": "https://github.com/lluiseriksson/ym-lattice-numerics"
