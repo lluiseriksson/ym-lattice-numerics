@@ -1,7 +1,7 @@
 {
   "mother": {
     "branch": "main",
-    "commit": "7e08458bcce48a9080a21fe90375cae62557a122",
+    "commit": "48e066040c224c848d2f1f8b39d346de72d6506c",
     "lean_toolchain": "leanprover/lean4:v4.29.0-rc6",
     "mathlib_commit": "07642720480157414db592fa85b626dafb71355b",
     "repo": "https://github.com/lluiseriksson/THE-ERIKSSON-PROGRAMME"
