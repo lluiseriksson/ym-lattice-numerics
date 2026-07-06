@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `bfddc740ae04911d6b5905a1b5c2d67896228c12`.
+  `ab511c830ec666e1e28f10de9993acb687f67db1`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -215,6 +215,7 @@ Payload fields:
 - `source`
 - `honesty`
 - `diagnostics.wilson_hessian_su2_2x2x2`
+- `diagnostics.born_oppenheimer_vbo_lemma_5_2`
 - `theta_zero.kernel_dimension`
 - `theta_zero.flat_tangent_dimension_reference`
 - `theta_zero.max_abs_deviation_from_maxwell_reference`
@@ -222,6 +223,10 @@ Payload fields:
 - `quartic_toron_ratio.ratio`
 - `generic_theta.kernel_dimension`
 - `generic_theta.min_positive_eigenvalue`
+- `hessian_rows[].proof_hessian_diag_over_S1`
+- `hessian_rows[].literal_hessian_diag`
+- `grid_scan.proof_min_off_coroot_lattice`
+- `grid_scan.literal_min`
 
 Current diagnostic values:
 
@@ -232,6 +237,17 @@ Current diagnostic values:
 - Nonzero Hessian eigenvalue representatives: `2.0`, `4.0`, `6.0`.
 - Quartic toron ratio `S(2t)/S(t)` at `t = 0.02`: about `15.9936`.
 - At generic `theta = [0.53, 0.91, 0.36]`, kernel dimension: `26`.
+- Born-Oppenheimer `V_BO` proof-formula rows:
+  - `SU(2), L=4`: `Hess_proof/S1 = 2.0`, literal Hessian diagonal
+    about `-0.1167`.
+  - `SU(2), L=8`: `Hess_proof/S1 = 2.0`, literal Hessian diagonal
+    about `-0.0722`.
+  - `SU(3), L=4`: `Hess_proof/S1 = 3.0`, literal Hessian diagonal
+    about `-0.1750`.
+- Born-Oppenheimer `SU(2), L=4` grid scan over `15^3` points:
+  `proof_min_off_coroot_lattice` about `9.9158`, `literal_min` about
+  `-2.4495` at `[-4.4429, -4.4429, -4.4429]`, using the first grid point
+  under the explicit tie-break.
 
 Possible mother consumption:
 
@@ -240,6 +256,8 @@ Possible mother consumption:
 - Treat `theta_zero.kernel_dimension`, `generic_theta.kernel_dimension`, and
   `quartic_toron_ratio.ratio` as reproducible numerical checks, not as
   theorem exports.
+- Treat the Born-Oppenheimer rows as a finite-dimensional proof-formula versus
+  literal-formula diagnostic only.
 - The report is intentionally scoped to one diagnostic cluster from the
   reference `verify_2602_0032.py`; it does not assert any continuum
   reconstruction or physical gap.
@@ -315,7 +333,8 @@ Conditional 2602.0032 manifest contract:
   `python scripts/witten_2602_0032_diagnostics.py --output`.
 - `tests/test_witten_2602_0032_diagnostics.py` compares the committed JSON
   with `build_report()` and checks the expected kernel dimensions, eigenvalue
-  representatives, generic-theta positivity, and quartic toron ratio.
+  representatives, generic-theta positivity, quartic toron ratio, and the
+  Born-Oppenheimer proof-formula versus literal-formula rows.
 - The diagnostic is conditional paper evidence only; it is not a Lean theorem,
   a source construction, a continuum statement, or a mass-gap claim.
 

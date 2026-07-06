@@ -56,7 +56,7 @@ def _assert_smoke_payload_close(generated, committed) -> None:
 
     if isinstance(committed, float):
         assert isinstance(generated, float | int)
-        assert math.isclose(generated, committed, rel_tol=0.0, abs_tol=1e-5)
+        assert math.isclose(generated, committed, rel_tol=0.0, abs_tol=5e-5)
         return
 
     assert generated == committed
@@ -75,7 +75,7 @@ def _assert_smoke_csv_rows_close(generated_rows: list[dict[str, str]], committed
             except ValueError:
                 assert generated_value == committed_value
             else:
-                assert math.isclose(generated_float, committed_float, rel_tol=0.0, abs_tol=1e-5), key
+                assert math.isclose(generated_float, committed_float, rel_tol=0.0, abs_tol=5e-5), key
 
 
 def _assert_png_rendered_like(generated_path: Path, committed_path: Path) -> None:

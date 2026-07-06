@@ -93,6 +93,140 @@ def _maxwell_reference_hessian() -> np.ndarray:
     return np.kron(maxwell, np.eye(3)) / 2.0
 
 
+def _su_roots(n_colors: int) -> np.ndarray:
+    projector = np.eye(n_colors) - np.ones((n_colors, n_colors)) / n_colors
+    q_matrix, _ = np.linalg.qr(projector[:, : n_colors - 1])
+    roots = []
+    for i in range(n_colors):
+        for j in range(n_colors):
+            if i != j:
+                roots.append(q_matrix.T @ (np.eye(n_colors)[i] - np.eye(n_colors)[j]))
+    return np.array(roots)
+
+
+def _spatial_momenta(size: int) -> np.ndarray:
+    momenta = np.array(list(product(range(size), repeat=3)))
+    return momenta[1:]
+
+
+def _born_oppenheimer_potential(
+    theta: np.ndarray, roots: np.ndarray, size: int, version: str
+) -> float:
+    momenta = _spatial_momenta(size)
+    khat_squared = np.sum(4 * np.sin(np.pi * momenta / size) ** 2, axis=1)
+    total = 0.0
+    for root in roots:
+        phi = theta @ root / 2.0
+        if version == "literal":
+            nu = np.sum(
+                4 * np.sin((np.pi * momenta + phi[None, :]) / size) ** 2, axis=1
+            )
+        else:
+            nu = khat_squared + np.sum(4 * np.sin(phi) ** 2)
+        total += np.sum(np.sqrt(nu) - np.sqrt(khat_squared))
+    return 0.5 * float(total)
+
+
+def _finite_difference_hessian(function, n_variables: int, h: float = 1e-4) -> np.ndarray:
+    hessian = np.zeros((n_variables, n_variables))
+    for i in range(n_variables):
+        for j in range(i, n_variables):
+            ei = np.zeros(n_variables)
+            ej = np.zeros(n_variables)
+            ei[i] = h
+            ej[j] = h
+            hessian[i, j] = hessian[j, i] = (
+                function(ei + ej)
+                - function(ei - ej)
+                - function(-ei + ej)
+                + function(-ei - ej)
+            ) / (4 * h * h)
+    return hessian
+
+
+def _born_oppenheimer_diagnostic_rows() -> list[dict[str, object]]:
+    rows = []
+    for n_colors, size in ((2, 4), (2, 8), (3, 4)):
+        roots = _su_roots(n_colors)
+        rank = n_colors - 1
+        n_variables = 3 * rank
+        momenta = _spatial_momenta(size)
+        s1 = float(
+            np.sum(np.sum(4 * np.sin(np.pi * momenta / size) ** 2, axis=1) ** -0.5)
+        )
+        proof_hessian = _finite_difference_hessian(
+            lambda values: _born_oppenheimer_potential(
+                values.reshape(3, rank), roots, size, "proof"
+            ),
+            n_variables,
+        )
+        literal_hessian = _finite_difference_hessian(
+            lambda values: _born_oppenheimer_potential(
+                values.reshape(3, rank), roots, size, "literal"
+            ),
+            n_variables,
+        )
+        proof_deviation = float(
+            np.abs(proof_hessian - n_colors * s1 * np.eye(n_variables)).max()
+            / (n_colors * s1)
+        )
+        rows.append(
+            {
+                "Nc": n_colors,
+                "L": size,
+                "rank": rank,
+                "variables": n_variables,
+                "S1": _rounded_float(s1),
+                "proof_hessian_diag_over_S1": _rounded_float(proof_hessian[0, 0] / s1, 4),
+                "proof_expected_diag_over_S1": float(n_colors),
+                "proof_max_relative_deviation_from_Nc_S1_identity": _rounded_float(
+                    proof_deviation, 4
+                ),
+                "literal_hessian_diag": _rounded_float(literal_hessian[0, 0], 4),
+                "literal_max_eigenvalue": _rounded_float(
+                    float(np.linalg.eigvalsh(literal_hessian).max()), 4
+                ),
+            }
+        )
+    return rows
+
+
+def _born_oppenheimer_grid_scan() -> dict[str, object]:
+    roots = _su_roots(2)
+    size = 4
+    grid = np.linspace(-np.pi * np.sqrt(2.0), np.pi * np.sqrt(2.0), 15)
+    coroot_lattice = np.array([-np.pi * np.sqrt(2.0), 0.0, np.pi * np.sqrt(2.0)])
+    proof_min_off_lattice = np.inf
+    literal_min = np.inf
+    literal_argmin = None
+
+    for t1 in grid:
+        for t2 in grid:
+            for t3 in grid:
+                theta = np.array([[t1], [t2], [t3]])
+                proof_value = _born_oppenheimer_potential(theta, roots, size, "proof")
+                literal_value = _born_oppenheimer_potential(theta, roots, size, "literal")
+                off_lattice = max(
+                    min(abs(t - lattice_point) for lattice_point in coroot_lattice)
+                    for t in (t1, t2, t3)
+                )
+                if off_lattice > 1e-6:
+                    proof_min_off_lattice = min(proof_min_off_lattice, proof_value)
+                if literal_value < literal_min - 1e-10:
+                    literal_min = literal_value
+                    literal_argmin = (t1, t2, t3)
+
+    assert literal_argmin is not None
+    return {
+        "case": "SU(2), L=4, grid 15^3",
+        "grid_min": _rounded_float(float(grid[0])),
+        "grid_max": _rounded_float(float(grid[-1])),
+        "proof_min_off_coroot_lattice": _rounded_float(float(proof_min_off_lattice)),
+        "literal_min": _rounded_float(float(literal_min)),
+        "literal_argmin": [_rounded_float(value) for value in literal_argmin],
+    }
+
+
 def _rounded_eigenvalues(values: np.ndarray) -> list[float]:
     nonzero = values[np.abs(values) > 1e-3]
     return [float(value) for value in sorted(set(np.round(nonzero, 5)))]
@@ -153,7 +287,20 @@ def build_report() -> dict[str, object]:
                     "expected_kernel_dimension": 26,
                     "min_positive_eigenvalue": _rounded_float(float(positive_generic.min())),
                 },
-            }
+            },
+            "born_oppenheimer_vbo_lemma_5_2": {
+                "reference": "verify_2602_0032.py Lemma 5.2 diagnostic",
+                "versions": {
+                    "proof": "omega^2 = khat^2 + m_a(theta)^2",
+                    "literal": "paper-v1 literal equations (2)+(3) inside sin^2",
+                },
+                "hessian_rows": _born_oppenheimer_diagnostic_rows(),
+                "grid_scan": _born_oppenheimer_grid_scan(),
+                "consumption_limit": (
+                    "Finite-dimensional diagnostic for the conditional paper only; "
+                    "it records a proof-formula versus literal-formula mismatch."
+                ),
+            },
         },
     }
     return report
