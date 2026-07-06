@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-06T11:13:32+02:00.
+Last audited by the hourly satellite: 2026-07-06T13:19:22+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `5ac75cdce7b9cfa082d30b2a9a85330bfb4a8d4b`.
+- Audited main HEAD: `11290de6c4423816396ca05510af1a9f1d068f23`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28780084910`
-  - `heartbeat`: success, run `28780084791`
+  - `ci`: success, run `28782094766`
+  - `heartbeat`: success, run `28782094610`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7, #34, and #42.
@@ -33,8 +33,8 @@ Last audited by the hourly satellite: 2026-07-06T11:13:32+02:00.
   SU(2) `2^3` Hessian and Born-Oppenheimer `V_BO` proof-vs-literal
   diagnostics with exact file/API names for mother-side review.
 - `data/processed/verify_2602_0041_report.json`: conditional 2602.0041
-  Ricci, corrected beta-flow, geometric-sum, and H-DOB kappa-window contract
-  for issue #42.
+  Ricci, corrected beta-flow, geometric-sum, H-DOB kappa-window, and compact
+  four-rotor entropy-pipeline contract for issue #42.
 - `docs/DATASETS.md`: raw Monte Carlo JSON schema for smoke data.
 
 ## Current blockers for stronger claims
@@ -49,6 +49,6 @@ Last audited by the hourly satellite: 2026-07-06T11:13:32+02:00.
 
 ## Next exact step
 
-After this 2602.0041 formula-window contract lands, extend only one additional
-verifier slice, preferably the compact four-rotor entropy or Rothaus diagnostic,
-if it can remain deterministic and explicitly conditional.
+After this 2602.0041 four-rotor entropy slice lands, extend only one additional
+verifier slice, preferably a Rothaus alpha diagnostic, if it can remain
+deterministic and explicitly conditional.

@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `5ac75cdce7b9cfa082d30b2a9a85330bfb4a8d4b`.
+  `11290de6c4423816396ca05510af1a9f1d068f23`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -285,6 +285,7 @@ Payload fields:
 - `diagnostics.corrected_beta_flow`
 - `diagnostics.geometric_sum`
 - `diagnostics.h_dob_kappa_window_exhibit`
+- `diagnostics.compact_four_rotor_entropy_pipeline`
 - per beta-flow row: `beta`, `b0_su2`, `C_Nc_equals_1_over_2b0`,
   `step_2_b0_log2`, `n_max_estimate`, `n_floor`, `beta_at_n_floor`,
   `beta_at_n_floor_plus_1`, `floor_brackets_zero`
@@ -304,14 +305,20 @@ Current diagnostic values:
   `C_Gamma = (n_floor + 1)^2`, fixed `kappa = 250.0`.
 - The threshold increases on the beta grid; fixed kappa covers the first row
   but not the larger-beta rows in this exhibit.
+- Compact four-rotor entropy pipeline: `rotor_count = 4`,
+  `grid_points_per_rotor = 8`, `beta = 0.75`, `state_count = 4096`,
+  with Gibbs weights from
+  `sum_i (1 - cos(theta_{i+1} - theta_i))` on a discrete torus and the
+  checked identity `D(mu||uniform) = log(state_count) - H(mu)`.
 
 Possible mother consumption:
 
 - Use the JSON as a CI-backed contract for issue #42's verifier-boundary
   routing before importing a fuller 2602.0041 verifier.
-- Treat the rows as deterministic diagnostics of formulas and window pressure,
-  not as a proof of H-XSD, H-DOB, companion papers 2602.0054-2602.0057, source
-  construction, hRpoly, continuum construction, mass gap, or Clay.
+- Treat the rows and finite entropy pipeline as deterministic diagnostics of
+  formulas and window pressure, not as a proof of H-XSD, H-DOB, companion
+  papers 2602.0054-2602.0057, source construction, hRpoly, continuum
+  construction, mass gap, or Clay.
 
 ## Sidecar artifact manifest
 
@@ -399,7 +406,8 @@ Conditional 2602.0041 manifest contract:
   `python scripts/verify_2602_0041.py --output`.
 - `tests/test_verify_2602_0041.py` compares the committed JSON with
   `build_report()` and checks the Ricci convention row, corrected beta-flow
-  zero bracketing, geometric sum, and monotone H-DOB kappa-window exhibit.
+  zero bracketing, geometric sum, monotone H-DOB kappa-window exhibit, and
+  compact four-rotor entropy-pipeline identity.
 - The contract is formula-routing evidence only; it does not discharge H-XSD
   or H-DOB and does not prove source construction, hRpoly, continuum
   construction, a mass gap, or Clay.
