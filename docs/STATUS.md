@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-06T18:35:00+02:00.
+Last audited by the hourly satellite: 2026-07-06T19:41:45+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `e68a300e69e06919a11d5ed5c117cb22c1666087`.
+- Audited main HEAD: `604f74275e4212621168ff32fc3b6f88386c4890`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28804166370`
-  - `heartbeat`: success, run `28806966801`
+  - `ci`: success, run `28807812292`
+  - `heartbeat`: success, run `28807812393`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7, #34, and #42.
@@ -27,8 +27,8 @@ Last audited by the hourly satellite: 2026-07-06T18:35:00+02:00.
   sidecar artifacts to exact regeneration commands, inputs, outputs, and
   verification commands.
 - `data/processed/mother_sync_snapshot.json`: metadata-only synchronization
-  snapshot pinning sidecar `main` and mother `main` without any mathematical
-  claim.
+  snapshot pinning the audited sidecar `main` and mother `main` without any
+  mathematical claim.
 - `scripts/aqft_bridges/gaussian_covariance_oracle.py` and
   `scripts/aqft_bridges/transfer_gap_oracle.py`: importable deterministic
   builders for the committed AQFT bridge certificate JSON files.
@@ -45,9 +45,10 @@ Last audited by the hourly satellite: 2026-07-06T18:35:00+02:00.
 ## Current blockers for stronger claims
 
 - No Lean theorem is exported by this repository.
-- Mother synchronization pins now reference mother main
-  `42b77fae7118e6be69210233bfc7172bf7845eec`; refresh them again before any
-  later cross-repo claim.
+- Mother synchronization pins reference mother main
+  `42b77fae7118e6be69210233bfc7172bf7845eec`; the snapshot sidecar
+  `audited_head` is the pre-merge sync point and must be refreshed again before
+  any later cross-repo claim.
 - The certified honesty-gap report is a 2D sandbox report, not a 4D continuum
   statement.
 - No gradient-flow integration is present; `docs/LEAN_YM_FLOW_COORDINATION.md`
@@ -55,6 +56,6 @@ Last audited by the hourly satellite: 2026-07-06T18:35:00+02:00.
 
 ## Next exact step
 
-After this synchronization refresh lands, prefer a new `agent-task` unit with an
-exact sidecar artifact target. Do not extend issue #34 again unless a specific
-upstream verifier/source reference is named.
+With main green at `604f74275e4212621168ff32fc3b6f88386c4890`, prefer a new
+`agent-task` unit with an exact sidecar artifact target. Do not extend issue
+#34 again unless a specific upstream verifier/source reference is named.
