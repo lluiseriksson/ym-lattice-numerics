@@ -56,6 +56,26 @@ def test_verify_2602_0041_h_dob_window_exhibit_is_monotone() -> None:
     assert rows[-1]["fixed_kappa_exceeds_threshold"] is False
 
 
+def test_verify_2602_0041_compact_four_rotor_entropy_pipeline() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+    entropy = report["diagnostics"]["compact_four_rotor_entropy_pipeline"]
+
+    assert entropy["scope"] == "finite compact four-rotor entropy pipeline on a discrete torus"
+    assert entropy["parameters"] == {
+        "rotor_count": 4,
+        "grid_points_per_rotor": 8,
+        "beta": 0.75,
+    }
+    assert entropy["state_count"] == 4096
+    assert entropy["gibbs_weight"] == "exp(-beta*energy)"
+    assert entropy["entropy_identity"] == "D(mu||uniform) = log(state_count) - H(mu)"
+    assert entropy["entropy_identity_residual"] == 0.0
+    assert entropy["all_probabilities_positive"] is True
+    assert 0.0 < entropy["min_probability"] < entropy["max_probability"] < 1.0
+    assert entropy["relative_entropy_to_uniform"] > 0.0
+    assert entropy["mean_energy"] > 0.0
+
+
 def test_verify_2602_0041_cli_writes_same_report(tmp_path: Path) -> None:
     generated = tmp_path / "verify_2602_0041_report.json"
 

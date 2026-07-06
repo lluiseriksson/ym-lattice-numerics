@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import itertools
 import json
 import math
 from pathlib import Path
@@ -15,6 +16,11 @@ H_DOB_PARAMETERS = {
     "gamma0": 1.0,
     "c_gamma_power": 2,
     "fixed_kappa_exhibit": 250.0,
+}
+FOUR_ROTOR_ENTROPY_PARAMETERS = {
+    "rotor_count": 4,
+    "grid_points_per_rotor": 8,
+    "beta": 0.75,
 }
 
 
@@ -74,6 +80,59 @@ def _h_dob_window_row(beta: float) -> dict[str, object]:
     }
 
 
+def _four_rotor_energy(state: tuple[int, ...], grid_points: int) -> float:
+    angles = [2.0 * math.pi * index / grid_points for index in state]
+    return sum(
+        1.0 - math.cos(angles[(index + 1) % len(angles)] - angles[index])
+        for index in range(len(angles))
+    )
+
+
+def _four_rotor_entropy_pipeline() -> dict[str, object]:
+    params = FOUR_ROTOR_ENTROPY_PARAMETERS
+    rotor_count = int(params["rotor_count"])
+    grid_points = int(params["grid_points_per_rotor"])
+    beta = float(params["beta"])
+
+    energies = [
+        _four_rotor_energy(state, grid_points)
+        for state in itertools.product(range(grid_points), repeat=rotor_count)
+    ]
+    weights = [math.exp(-beta * energy) for energy in energies]
+    partition = sum(weights)
+    probabilities = [weight / partition for weight in weights]
+    state_count = grid_points**rotor_count
+    uniform_probability = 1.0 / state_count
+    shannon_entropy = -sum(
+        probability * math.log(probability) for probability in probabilities
+    )
+    relative_entropy = sum(
+        probability * math.log(probability / uniform_probability)
+        for probability in probabilities
+    )
+    mean_energy = sum(
+        probability * energy for probability, energy in zip(probabilities, energies)
+    )
+    identity_residual = relative_entropy - (math.log(state_count) - shannon_entropy)
+
+    return {
+        "scope": "finite compact four-rotor entropy pipeline on a discrete torus",
+        "parameters": params,
+        "state_count": state_count,
+        "energy_model": "sum_i (1 - cos(theta_{i+1} - theta_i)) with periodic boundary",
+        "gibbs_weight": "exp(-beta*energy)",
+        "partition_function": _rounded(partition),
+        "mean_energy": _rounded(mean_energy),
+        "shannon_entropy": _rounded(shannon_entropy),
+        "relative_entropy_to_uniform": _rounded(relative_entropy),
+        "entropy_identity": "D(mu||uniform) = log(state_count) - H(mu)",
+        "entropy_identity_residual": _rounded(identity_residual),
+        "all_probabilities_positive": all(probability > 0.0 for probability in probabilities),
+        "min_probability": _rounded(min(probabilities), 15),
+        "max_probability": _rounded(max(probabilities), 15),
+    }
+
+
 def build_report() -> dict[str, object]:
     beta_flow_rows = [_beta_flow_row(beta) for beta in BETA_VALUES]
     h_dob_rows = [_h_dob_window_row(beta) for beta in BETA_VALUES]
@@ -119,6 +178,7 @@ def build_report() -> dict[str, object]:
                     left < right for left, right in zip(thresholds, thresholds[1:])
                 ),
             },
+            "compact_four_rotor_entropy_pipeline": _four_rotor_entropy_pipeline(),
         },
     }
     return report
