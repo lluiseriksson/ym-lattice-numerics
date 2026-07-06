@@ -7,9 +7,9 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `fdee248a5c6975909eb6373418d09733d1f390b6`.
+  `e68a300e69e06919a11d5ed5c117cb22c1666087`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
-  - mother main commit: `6ea7c8c0504c87b0e01ebdd4ae179ac53846717c`
+  - mother main commit: `42b77fae7118e6be69210233bfc7172bf7845eec`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
   - Mathlib commit: `07642720480157414db592fa85b626dafb71355b`
 - Machine-readable synchronization snapshot:
@@ -72,8 +72,8 @@ Payload fields:
 
 Current pins:
 
-- Sidecar `main`: `fdee248a5c6975909eb6373418d09733d1f390b6`.
-- Mother `main`: `6ea7c8c0504c87b0e01ebdd4ae179ac53846717c`.
+- Sidecar `main`: `e68a300e69e06919a11d5ed5c117cb22c1666087`.
+- Mother `main`: `42b77fae7118e6be69210233bfc7172bf7845eec`.
 - Lean image: `leanprover/lean4:v4.29.0-rc6`.
 - Mathlib commit: `07642720480157414db592fa85b626dafb71355b`.
 

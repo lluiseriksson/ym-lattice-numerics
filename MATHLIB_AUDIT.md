@@ -4,7 +4,7 @@ Audit date: 2026-07-06.
 
 Mother repository pins observed:
 
-- Mother main commit: `6ea7c8c0504c87b0e01ebdd4ae179ac53846717c`
+- Mother main commit: `42b77fae7118e6be69210233bfc7172bf7845eec`
 - `lean-toolchain`: `leanprover/lean4:v4.29.0-rc6`
 - Mathlib: `leanprover-community/mathlib4@07642720480157414db592fa85b626dafb71355b`
 - Snapshot: `data/processed/mother_sync_snapshot.json`
