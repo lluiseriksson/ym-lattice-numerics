@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-06T15:19:41+02:00.
+Last audited by the hourly satellite: 2026-07-06T16:50:00+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `0651294ea7d8a4a0f28083de70d8c68bc643eacd`.
+- Audited main HEAD: `fdee248a5c6975909eb6373418d09733d1f390b6`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28791588652`
-  - `heartbeat`: success, run `28793242228`
+  - `ci`: success, run `28799174620`
+  - `heartbeat`: success, run `28799172135`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7, #34, and #42.
@@ -26,6 +26,9 @@ Last audited by the hourly satellite: 2026-07-06T15:19:41+02:00.
 - `data/processed/artifact_manifest.json`: machine-readable map from generated
   sidecar artifacts to exact regeneration commands, inputs, outputs, and
   verification commands.
+- `data/processed/mother_sync_snapshot.json`: metadata-only synchronization
+  snapshot pinning sidecar `main` and mother `main` without any mathematical
+  claim.
 - `scripts/aqft_bridges/gaussian_covariance_oracle.py` and
   `scripts/aqft_bridges/transfer_gap_oracle.py`: importable deterministic
   builders for the committed AQFT bridge certificate JSON files.
@@ -42,8 +45,9 @@ Last audited by the hourly satellite: 2026-07-06T15:19:41+02:00.
 ## Current blockers for stronger claims
 
 - No Lean theorem is exported by this repository.
-- Mother synchronization pins still reference the commits recorded in
-  `CONSTANTS.md` and `MATHLIB_AUDIT.md`; refresh them before cross-repo claims.
+- Mother synchronization pins now reference mother main
+  `6ea7c8c0504c87b0e01ebdd4ae179ac53846717c`; refresh them again before any
+  later cross-repo claim.
 - The certified honesty-gap report is a 2D sandbox report, not a 4D continuum
   statement.
 - No gradient-flow integration is present; `docs/LEAN_YM_FLOW_COORDINATION.md`
@@ -51,6 +55,6 @@ Last audited by the hourly satellite: 2026-07-06T15:19:41+02:00.
 
 ## Next exact step
 
-After this transfer-window slice lands, do not extend issue #34 again unless a
-specific upstream verifier/source reference is named. Prefer a mother-sync pin
-refresh or a new `agent-task` unit with an exact sidecar artifact target.
+After this mother-sync snapshot lands, prefer a new `agent-task` unit with an
+exact sidecar artifact target. Do not extend issue #34 again unless a specific
+upstream verifier/source reference is named.

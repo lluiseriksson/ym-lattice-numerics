@@ -44,6 +44,26 @@
       ]
     },
     {
+      "id": "mother_sync_snapshot",
+      "scope": "metadata-only mother synchronization snapshot",
+      "producer": "scripts/mother_sync_snapshot.py",
+      "command_argv": [
+        "python",
+        "scripts/mother_sync_snapshot.py",
+        "--output",
+        "data/processed/mother_sync_snapshot.json"
+      ],
+      "inputs": [
+        "configs/mother_sync_snapshot.yml"
+      ],
+      "outputs": [
+        "data/processed/mother_sync_snapshot.json"
+      ],
+      "verification": [
+        "python -m pytest tests/test_mother_sync_snapshot.py"
+      ]
+    },
+    {
       "id": "honesty_gap_2d",
       "scope": "certified exact-2D honesty-gap sidecar report",
       "producer": "scripts/honesty_gap_2d.py",

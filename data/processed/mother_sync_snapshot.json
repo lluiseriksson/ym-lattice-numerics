@@ -1,0 +1,36 @@
+{
+  "audited_at": "2026-07-06T16:50:00+02:00",
+  "honesty": "Metadata-only synchronization snapshot. It is not a Lean theorem, continuum statement, source construction, or mass-gap claim.",
+  "mother": {
+    "branch": "main",
+    "commit": "6ea7c8c0504c87b0e01ebdd4ae179ac53846717c",
+    "lean_toolchain": "leanprover/lean4:v4.29.0-rc6",
+    "mathlib_commit": "07642720480157414db592fa85b626dafb71355b",
+    "repo": "https://github.com/lluiseriksson/THE-ERIKSSON-PROGRAMME"
+  },
+  "notes": [
+    "Only the mother main commit moved since the previous pin.",
+    "Lean toolchain and Mathlib commit remained unchanged in the observed mother files."
+  ],
+  "observed_by": [
+    "git ls-remote https://github.com/lluiseriksson/THE-ERIKSSON-PROGRAMME.git refs/heads/main",
+    "gh api repos/lluiseriksson/THE-ERIKSSON-PROGRAMME/contents/lean-toolchain?ref=main",
+    "gh api repos/lluiseriksson/THE-ERIKSSON-PROGRAMME/contents/lake-manifest.json?ref=main"
+  ],
+  "schema_version": 1,
+  "sidecar": {
+    "audited_head": "fdee248a5c6975909eb6373418d09733d1f390b6",
+    "branch": "main",
+    "ci": {
+      "conclusion": "success",
+      "run_id": "28799174620",
+      "workflow": "ci"
+    },
+    "heartbeat": {
+      "conclusion": "success",
+      "run_id": "28799172135",
+      "workflow": "heartbeat"
+    },
+    "repo": "https://github.com/lluiseriksson/ym-lattice-numerics"
+  }
+}

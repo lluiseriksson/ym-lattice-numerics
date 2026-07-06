@@ -6,9 +6,10 @@ This file is the human-readable synchronization surface for M3.
 
 - repository: `https://github.com/lluiseriksson/THE-ERIKSSON-PROGRAMME`
 - synchronized branch: `main`
-- synchronized commit: `7a71754b93da6f447544211af51fd513a90b086c`
+- synchronized commit: `6ea7c8c0504c87b0e01ebdd4ae179ac53846717c`
 - Lean toolchain: `leanprover/lean4:v4.29.0-rc6`
 - Mathlib commit: `07642720480157414db592fa85b626dafb71355b`
+- sidecar snapshot: `data/processed/mother_sync_snapshot.json`
 
 ## Certified windows
 
