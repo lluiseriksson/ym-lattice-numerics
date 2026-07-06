@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `84bc3c93d0548ef239b8d503d12d65877b584cef`.
+  `eed4ab1debb4ec6d81a43281237b0c3aed53b3bc`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -220,6 +220,14 @@ Current artifact ids and outputs:
 - `aqft_transfer_gap`:
   `data/processed/aqft_bridges/transfer_gap_certificate.json`,
   `data/processed/aqft_bridges/run_transfer_gap.log`
+
+Manifest scope semantics:
+
+- `m0_su2_smoke`: `smoke Monte Carlo dataset and plot`.
+- `constants_smoke_report`: `synthetic constant-check schema example`.
+- `honesty_gap_2d`: `certified exact-2D honesty-gap sidecar report`.
+- `aqft_gaussian_covariance`: `finite-lattice Gaussian covariance numerical bridge oracle`.
+- `aqft_transfer_gap`: `discrete Gaussian transfer-gap numerical bridge oracle`.
 
 AQFT manifest contract:
 

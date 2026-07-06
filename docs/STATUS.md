@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-06T00:10:53+02:00.
+Last audited by the hourly satellite: 2026-07-06T01:14:43+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `84bc3c93d0548ef239b8d503d12d65877b584cef`.
+- Audited main HEAD: `eed4ab1debb4ec6d81a43281237b0c3aed53b3bc`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28751852117`
-  - `heartbeat`: success, run `28755240651`
+  - `ci`: success, run `28758018632`
+  - `heartbeat`: success, run `28758018607`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -43,7 +43,7 @@ Last audited by the hourly satellite: 2026-07-06T00:10:53+02:00.
 
 ## Next exact step
 
-After this manifest-output documentation check merges, keep the next
-reproducibility change focused on one manifest field at a time: either document
-the exact `scope` semantics in `docs/MOTHER_DIGEST.md`, or add a blocker if a
-new artifact needs a producer command that cannot be redirected to `tmp_path`.
+After this manifest-scope documentation check merges, keep the next
+reproducibility change focused on one manifest field at a time: either add a
+temporary regeneration check for the AQFT manifest entries, or add a blocker if
+their log-output contract needs a separate CLI flag before safe redirection.
