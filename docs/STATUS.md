@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-06T03:37:46+02:00.
+Last audited by the hourly satellite: 2026-07-06T05:42:41+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `5947d7ef797c7a3ad0c603dbe273259b6af83afb`.
+- Audited main HEAD: `c19fac9dc7f1e33302d3fefc8af1fa6b5dba1370`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28760804146`
-  - `heartbeat`: success, run `28760804120`
+  - `ci`: success, run `28764867221`
+  - `heartbeat`: success, run `28764867195`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7.
@@ -43,7 +43,7 @@ Last audited by the hourly satellite: 2026-07-06T03:37:46+02:00.
 
 ## Next exact step
 
-After this manifest verification-target check merges, keep the next
-reproducibility change focused on one manifest field at a time: either add a
-freshness check for committed AQFT `run_*.log` outputs, or document a blocker
-if those logs need a separate CLI flag before safe redirection.
+After this AQFT log/manifest contract merges, keep the next reproducibility
+change focused on one generated artifact at a time: either add a
+manifest-driven temporary regeneration check for another deterministic output,
+or document the exact blocker if an artifact still rewrites committed files.

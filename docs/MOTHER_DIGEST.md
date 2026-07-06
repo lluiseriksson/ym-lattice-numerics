@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `5947d7ef797c7a3ad0c603dbe273259b6af83afb`.
+  `c19fac9dc7f1e33302d3fefc8af1fa6b5dba1370`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -244,6 +244,8 @@ AQFT manifest contract:
 - The generated temporary certificate JSON should match the corresponding
   `build_certificate()` payload, allowing only the repository test tolerance
   for floating-point last-bit drift.
+- Each committed `stdout_log` must end with a `certificate written:` line whose
+  path matches the certificate output declared by the manifest `command_argv`.
 
 Possible mother/satellite consumption:
 
