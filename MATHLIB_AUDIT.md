@@ -4,14 +4,14 @@ Audit date: 2026-07-06.
 
 Mother repository pins observed:
 
-- Mother main commit: `42b77fae7118e6be69210233bfc7172bf7845eec`
+- Mother main commit: `7e08458bcce48a9080a21fe90375cae62557a122`
 - `lean-toolchain`: `leanprover/lean4:v4.29.0-rc6`
 - Mathlib: `leanprover-community/mathlib4@07642720480157414db592fa85b626dafb71355b`
 - Snapshot: `data/processed/mother_sync_snapshot.json`
 
 Local audit method:
 
-- Refreshed mother repository metadata from `main` on 2026-07-06.
+- Refreshed mother repository metadata from `main` on 2026-07-07.
 - The Mathlib commit did not change from the previous audit.
 - Checked out Mathlib at the pinned commit in `work/mathlib4-audit` during the original API audit.
 - Searched relevant Lean files with `rg` for unitary groups, special unitary groups, Haar/probability

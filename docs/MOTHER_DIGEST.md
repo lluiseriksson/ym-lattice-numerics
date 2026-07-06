@@ -7,9 +7,9 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `604f74275e4212621168ff32fc3b6f88386c4890`.
+  `814820004d0b363791561bcc1cf1721a831e04d7`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
-  - mother main commit: `42b77fae7118e6be69210233bfc7172bf7845eec`
+  - mother main commit: `7e08458bcce48a9080a21fe90375cae62557a122`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
   - Mathlib commit: `07642720480157414db592fa85b626dafb71355b`
 - Machine-readable synchronization snapshot:
@@ -73,8 +73,8 @@ Payload fields:
 Current pins:
 
 - Sidecar audited by the committed snapshot:
-  `e68a300e69e06919a11d5ed5c117cb22c1666087`.
-- Mother `main`: `42b77fae7118e6be69210233bfc7172bf7845eec`.
+  `814820004d0b363791561bcc1cf1721a831e04d7`.
+- Mother `main`: `7e08458bcce48a9080a21fe90375cae62557a122`.
 - Lean image: `leanprover/lean4:v4.29.0-rc6`.
 - Mathlib commit: `07642720480157414db592fa85b626dafb71355b`.
 
@@ -85,7 +85,7 @@ Possible mother consumption:
 - Treat it as routing metadata only; it is not a Lean theorem, continuum
   statement, source construction, or mass-gap claim.
 - Refresh this snapshot before using it for any sidecar state after
-  `604f74275e4212621168ff32fc3b6f88386c4890`.
+  `814820004d0b363791561bcc1cf1721a831e04d7`.
 
 ## Interval arithmetic surface
 
