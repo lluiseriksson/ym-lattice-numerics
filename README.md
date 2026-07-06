@@ -40,7 +40,7 @@ sidecar step.
 The latest committed synchronization snapshot for
 `lluiseriksson/THE-ERIKSSON-PROGRAMME` records:
 
-- main commit: `6ea7c8c0504c87b0e01ebdd4ae179ac53846717c`
+- main commit: `42b77fae7118e6be69210233bfc7172bf7845eec`
 - Lean toolchain: `leanprover/lean4:v4.29.0-rc6`
 - Mathlib commit: `07642720480157414db592fa85b626dafb71355b`
 - snapshot JSON: `data/processed/mother_sync_snapshot.json`
