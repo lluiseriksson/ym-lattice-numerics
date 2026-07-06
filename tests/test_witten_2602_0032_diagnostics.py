@@ -81,6 +81,32 @@ def test_witten_2602_0032_born_oppenheimer_diagnostics_are_explicit() -> None:
     ]
 
 
+def test_witten_2602_0032_transfer_matrix_synthetic_check_is_explicit() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+    diagnostic = report["diagnostics"]["finite_window_transfer_matrix_synthetic"]
+
+    assert diagnostic["reference"] == "synthetic finite-window transfer-matrix check"
+    assert "Synthetic finite-matrix sanity check only" in diagnostic["consumption_limit"]
+    assert diagnostic["parameters"] == {
+        "beta": 0.85,
+        "pinning": 0.2,
+        "window": "|theta| <= pi/2",
+    }
+    assert diagnostic["max_gap_change_after_doubling"] < 1e-6
+
+    rows = diagnostic["rows"]
+    assert [row["grid_size"] for row in rows] == [8, 16, 32]
+    assert [row["window_points"] for row in rows] == [5, 9, 17]
+    assert all(row["symmetry_error"] == 0.0 for row in rows)
+    assert all(0.5 < row["normalized_gap"] < 0.7 for row in rows)
+    assert all(
+        row["window_leading_eigenvalue"] < row["leading_eigenvalue"] for row in rows
+    )
+    assert rows[0]["gap_change_from_previous_grid"] is None
+    assert rows[1]["gap_change_from_previous_grid"] < 1e-6
+    assert rows[2]["gap_change_from_previous_grid"] < 1e-9
+
+
 def test_witten_2602_0032_cli_writes_same_report(tmp_path: Path) -> None:
     generated = tmp_path / "witten_2602_0032_diagnostics.json"
 

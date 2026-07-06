@@ -58,6 +58,52 @@
         "proof": "omega^2 = khat^2 + m_a(theta)^2"
       }
     },
+    "finite_window_transfer_matrix_synthetic": {
+      "consumption_limit": "Synthetic finite-matrix sanity check only; it is not a transfer operator construction for the conditional paper.",
+      "max_gap_change_after_doubling": 5.05042e-07,
+      "model": "one compact rotor with cosine coupling and cosine pinning",
+      "parameters": {
+        "beta": 0.85,
+        "pinning": 0.2,
+        "window": "|theta| <= pi/2"
+      },
+      "reference": "synthetic finite-window transfer-matrix check",
+      "rows": [
+        {
+          "gap_change_from_previous_grid": null,
+          "grid_size": 8,
+          "leading_eigenvalue": 7.963841881818,
+          "normalized_gap": 0.615018951938,
+          "second_eigenvalue": 3.065928194261,
+          "symmetry_error": 0.0,
+          "window_leading_eigenvalue": 6.627946765688,
+          "window_normalized_gap": 0.615914338785,
+          "window_points": 5
+        },
+        {
+          "gap_change_from_previous_grid": 5.05042e-07,
+          "grid_size": 16,
+          "leading_eigenvalue": 15.927682676719,
+          "normalized_gap": 0.615019456981,
+          "second_eigenvalue": 6.131847925923,
+          "symmetry_error": 0.0,
+          "window_leading_eigenvalue": 12.671848746332,
+          "window_normalized_gap": 0.644968282882,
+          "window_points": 9
+        },
+        {
+          "gap_change_from_previous_grid": 0.0,
+          "grid_size": 32,
+          "leading_eigenvalue": 31.855365353439,
+          "normalized_gap": 0.615019456981,
+          "second_eigenvalue": 12.263695851846,
+          "symmetry_error": 0.0,
+          "window_leading_eigenvalue": 24.714276081406,
+          "window_normalized_gap": 0.660912533567,
+          "window_points": 17
+        }
+      ]
+    },
     "wilson_hessian_su2_2x2x2": {
       "generic_theta": {
         "expected_kernel_dimension": 26,
