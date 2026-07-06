@@ -19,6 +19,10 @@ def _normalized_command_text(text: str) -> str:
     return text.replace("\\", "/")
 
 
+def _normalized_path_text(text: str) -> str:
+    return str(Path(_normalized_command_text(text)).as_posix()).lstrip("./")
+
+
 def _verification_targets(command: str) -> list[str]:
     parts = _normalized_command_text(command).split()
     if parts[:3] == ["python", "-m", "pytest"]:
@@ -95,14 +99,19 @@ def test_artifact_manifest_paths_and_commands_are_current() -> None:
             assert output_path not in produced_outputs
             produced_outputs.add(output_path)
         if stdout_log := artifact.get("stdout_log"):
+            assert "--output" in artifact["command_argv"]
+            output_index = artifact["command_argv"].index("--output") + 1
+            certificate_output = artifact["command_argv"][output_index]
+            assert stdout_log != certificate_output
+            assert certificate_output in artifact["outputs"]
+
             assert stdout_log in artifact["outputs"]
             log_text = (ROOT / stdout_log).read_text(encoding="utf-8").strip()
             assert log_text
-            assert "certificate written:" in log_text
-
-            non_log_outputs = [path for path in artifact["outputs"] if path != stdout_log]
-            assert non_log_outputs
-            assert any(Path(path).name in log_text for path in non_log_outputs)
+            final_line = log_text.splitlines()[-1]
+            assert final_line.startswith("certificate written: ")
+            logged_output = final_line.removeprefix("certificate written: ")
+            assert _normalized_path_text(logged_output) == _normalized_path_text(certificate_output)
 
     assert len(seen_ids) == len(artifacts)
     assert "data/processed/honesty_gap_2d.json" in produced_outputs
