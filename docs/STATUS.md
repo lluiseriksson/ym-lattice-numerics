@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-06T14:15:46+02:00.
+Last audited by the hourly satellite: 2026-07-06T15:19:41+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `25a94c7c6c84493223c041514ca965d097add6ef`.
+- Audited main HEAD: `0651294ea7d8a4a0f28083de70d8c68bc643eacd`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28787849913`
-  - `heartbeat`: success, run `28787849920`
+  - `ci`: success, run `28791588652`
+  - `heartbeat`: success, run `28793242228`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7, #34, and #42.
@@ -31,7 +31,8 @@ Last audited by the hourly satellite: 2026-07-06T14:15:46+02:00.
   builders for the committed AQFT bridge certificate JSON files.
 - `data/processed/witten_2602_0032_diagnostics.json`: conditional 2602.0032
   SU(2) `2^3` Hessian and Born-Oppenheimer `V_BO` proof-vs-literal
-  diagnostics with exact file/API names for mother-side review.
+  diagnostics plus a synthetic finite-window transfer-matrix check, with exact
+  file/API names for mother-side review.
 - `data/processed/verify_2602_0041_report.json`: conditional 2602.0041
   Ricci, corrected beta-flow, geometric-sum, H-DOB kappa-window, and compact
   four-rotor entropy-pipeline plus Rothaus alpha bookkeeping contract for
@@ -50,6 +51,6 @@ Last audited by the hourly satellite: 2026-07-06T14:15:46+02:00.
 
 ## Next exact step
 
-After this Rothaus alpha slice lands, avoid further 2602.0041 expansion unless
-an exact upstream verifier/source reference is named; otherwise route the next
-hourly unit to issue #34 or to a mother-sync pin refresh.
+After this transfer-window slice lands, do not extend issue #34 again unless a
+specific upstream verifier/source reference is named. Prefer a mother-sync pin
+refresh or a new `agent-task` unit with an exact sidecar artifact target.

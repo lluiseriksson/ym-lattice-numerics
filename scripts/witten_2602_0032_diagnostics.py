@@ -227,6 +227,79 @@ def _born_oppenheimer_grid_scan() -> dict[str, object]:
     }
 
 
+def _transfer_matrix_kernel(
+    grid_size: int, beta: float, pinning: float
+) -> tuple[np.ndarray, np.ndarray]:
+    theta = 2.0 * np.pi * np.arange(grid_size) / grid_size
+    delta = theta[:, None] - theta[None, :]
+    onsite = 1.0 - np.cos(theta)
+    kernel = np.exp(
+        beta * np.cos(delta) - 0.5 * pinning * (onsite[:, None] + onsite[None, :])
+    )
+    return theta, kernel
+
+
+def _finite_window_transfer_matrix_diagnostic() -> dict[str, object]:
+    beta = 0.85
+    pinning = 0.2
+    rows = []
+    previous_gap = None
+    gap_changes = []
+    for grid_size in (8, 16, 32):
+        theta, kernel = _transfer_matrix_kernel(grid_size, beta, pinning)
+        eigenvalues = np.linalg.eigvalsh(kernel)
+        leading = float(eigenvalues[-1])
+        second = float(eigenvalues[-2])
+        normalized_gap = 1.0 - second / leading
+
+        wrapped_theta = (theta + np.pi) % (2.0 * np.pi) - np.pi
+        window_mask = np.abs(wrapped_theta) <= np.pi / 2.0 + 1e-12
+        window_kernel = kernel[np.ix_(window_mask, window_mask)]
+        window_eigenvalues = np.linalg.eigvalsh(window_kernel)
+        window_leading = float(window_eigenvalues[-1])
+        window_second = float(window_eigenvalues[-2])
+
+        gap_change = None
+        if previous_gap is not None:
+            gap_change = abs(normalized_gap - previous_gap)
+            gap_changes.append(gap_change)
+        previous_gap = normalized_gap
+
+        rows.append(
+            {
+                "grid_size": grid_size,
+                "window_points": int(np.sum(window_mask)),
+                "leading_eigenvalue": _rounded_float(leading),
+                "second_eigenvalue": _rounded_float(second),
+                "normalized_gap": _rounded_float(normalized_gap),
+                "gap_change_from_previous_grid": (
+                    None if gap_change is None else _rounded_float(gap_change)
+                ),
+                "window_leading_eigenvalue": _rounded_float(window_leading),
+                "window_normalized_gap": _rounded_float(
+                    1.0 - window_second / window_leading
+                ),
+                "symmetry_error": _rounded_float(float(np.abs(kernel - kernel.T).max())),
+            }
+        )
+
+    return {
+        "reference": "synthetic finite-window transfer-matrix check",
+        "model": "one compact rotor with cosine coupling and cosine pinning",
+        "parameters": {
+            "beta": beta,
+            "pinning": pinning,
+            "window": "|theta| <= pi/2",
+        },
+        "rows": rows,
+        "max_gap_change_after_doubling": _rounded_float(max(gap_changes)),
+        "consumption_limit": (
+            "Synthetic finite-matrix sanity check only; it is not a transfer "
+            "operator construction for the conditional paper."
+        ),
+    }
+
+
 def _rounded_eigenvalues(values: np.ndarray) -> list[float]:
     nonzero = values[np.abs(values) > 1e-3]
     return [float(value) for value in sorted(set(np.round(nonzero, 5)))]
@@ -301,6 +374,9 @@ def build_report() -> dict[str, object]:
                     "it records a proof-formula versus literal-formula mismatch."
                 ),
             },
+            "finite_window_transfer_matrix_synthetic": (
+                _finite_window_transfer_matrix_diagnostic()
+            ),
         },
     }
     return report

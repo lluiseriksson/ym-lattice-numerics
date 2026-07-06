@@ -74,8 +74,9 @@ The report records only finite-dimensional numerical diagnostics for the
 conditional 2602.0032 paper: the SU(2) `2^3` Wilson-action Hessian at
 `theta = 0`, a generic-theta Hessian check, a quartic toron ratio, and the
 Born-Oppenheimer `V_BO` proof-formula versus literal-formula diagnostic from
-the reference verification script. It is not a proof artifact or a continuum
-claim.
+the reference verification script. It also records a synthetic finite-window
+transfer-matrix check for one compact rotor on grids `8`, `16`, and `32`. It
+is not a proof artifact, transfer operator construction, or continuum claim.
 
 ## Conditional 2602.0041 LSI/H-DOB window contract
 

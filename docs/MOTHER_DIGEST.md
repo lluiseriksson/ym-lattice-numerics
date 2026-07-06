@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `25a94c7c6c84493223c041514ca965d097add6ef`.
+  `0651294ea7d8a4a0f28083de70d8c68bc643eacd`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -216,6 +216,7 @@ Payload fields:
 - `honesty`
 - `diagnostics.wilson_hessian_su2_2x2x2`
 - `diagnostics.born_oppenheimer_vbo_lemma_5_2`
+- `diagnostics.finite_window_transfer_matrix_synthetic`
 - `theta_zero.kernel_dimension`
 - `theta_zero.flat_tangent_dimension_reference`
 - `theta_zero.max_abs_deviation_from_maxwell_reference`
@@ -227,6 +228,10 @@ Payload fields:
 - `hessian_rows[].literal_hessian_diag`
 - `grid_scan.proof_min_off_coroot_lattice`
 - `grid_scan.literal_min`
+- `rows[].grid_size`
+- `rows[].normalized_gap`
+- `rows[].window_normalized_gap`
+- `max_gap_change_after_doubling`
 
 Current diagnostic values:
 
@@ -248,6 +253,15 @@ Current diagnostic values:
   `proof_min_off_coroot_lattice` about `9.9158`, `literal_min` about
   `-2.4495` at `[-4.4429, -4.4429, -4.4429]`, using the first grid point
   under the explicit tie-break.
+- Synthetic finite-window transfer-matrix check:
+  one compact rotor with cosine coupling and cosine pinning, `beta = 0.85`,
+  `pinning = 0.2`, and window `|theta| <= pi/2`.
+- Transfer-matrix grid sizes: `8`, `16`, and `32`, with window point counts
+  `5`, `9`, and `17`.
+- Full-matrix normalized gap is about `0.615019` on the finer grids, with
+  `max_gap_change_after_doubling = 5.05042e-07`.
+- Window-restricted normalized gaps are about `0.615914`, `0.644968`, and
+  `0.660913`.
 
 Possible mother consumption:
 
@@ -258,6 +272,8 @@ Possible mother consumption:
   theorem exports.
 - Treat the Born-Oppenheimer rows as a finite-dimensional proof-formula versus
   literal-formula diagnostic only.
+- Treat the finite-window transfer matrix as a synthetic sanity check only,
+  not as a transfer operator construction for the conditional paper.
 - The report is intentionally scoped to one diagnostic cluster from the
   reference `verify_2602_0032.py`; it does not assert any continuum
   reconstruction or physical gap.
@@ -405,6 +421,9 @@ Conditional 2602.0032 manifest contract:
   with `build_report()` and checks the expected kernel dimensions, eigenvalue
   representatives, generic-theta positivity, quartic toron ratio, and the
   Born-Oppenheimer proof-formula versus literal-formula rows.
+- The same test file checks the synthetic transfer-matrix grid sizes,
+  window point counts, symmetry error, normalized gaps, and gap stability
+  under grid doubling.
 - The diagnostic is conditional paper evidence only; it is not a Lean theorem,
   a source construction, a continuum statement, or a mass-gap claim.
 
