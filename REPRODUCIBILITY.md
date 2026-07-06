@@ -92,5 +92,6 @@ package: Ricci convention coherence for `Ric = Nc/2` at `SU(2)`, the corrected
 decreasing beta flow, the elementary geometric sum `r/(1-r)^2`, and an explicit
 H-DOB kappa-vs-beta window exhibit. It also records a finite compact
 four-rotor entropy pipeline on an 8-point grid as a deterministic conditional
-diagnostic. It does not discharge H-XSD or H-DOB and is not a
-source-construction, hRpoly, continuum, mass-gap, or Clay claim.
+diagnostic, plus a finite Rothaus-style alpha bookkeeping grid for the toy
+cost `C0/(1-alpha) + epsilon/alpha`. It does not discharge H-XSD or H-DOB and
+is not a source-construction, hRpoly, continuum, mass-gap, or Clay claim.

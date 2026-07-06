@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `11290de6c4423816396ca05510af1a9f1d068f23`.
+  `25a94c7c6c84493223c041514ca965d097add6ef`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -286,12 +286,16 @@ Payload fields:
 - `diagnostics.geometric_sum`
 - `diagnostics.h_dob_kappa_window_exhibit`
 - `diagnostics.compact_four_rotor_entropy_pipeline`
+- `diagnostics.rothaus_alpha_tradeoff`
 - per beta-flow row: `beta`, `b0_su2`, `C_Nc_equals_1_over_2b0`,
   `step_2_b0_log2`, `n_max_estimate`, `n_floor`, `beta_at_n_floor`,
   `beta_at_n_floor_plus_1`, `floor_brackets_zero`
 - per H-DOB row: `beta`, `n_floor_from_corrected_flow`, `log_R_nmax`,
   `C_Gamma_model`, `threshold_log_rhs`, `fixed_kappa_exhibit`,
   `fixed_kappa_exceeds_threshold`
+- per Rothaus alpha row: `alpha`,
+  `constant_multiplier_1_over_1_minus_alpha`,
+  `defect_multiplier_1_over_alpha`, `toy_combined_cost`
 
 Current diagnostic values:
 
@@ -310,15 +314,20 @@ Current diagnostic values:
   with Gibbs weights from
   `sum_i (1 - cos(theta_{i+1} - theta_i))` on a discrete torus and the
   checked identity `D(mu||uniform) = log(state_count) - H(mu)`.
+- Rothaus alpha tradeoff grid: `alpha = 0.125`, `0.25`, `0.5`, `0.75`,
+  and `0.875`; toy formula
+  `toy_cost(alpha) = C0/(1-alpha) + epsilon/alpha` with `C0 = 2.0` and
+  `epsilon = 0.25`; grid minimizer `alpha = 0.25`. This is bookkeeping for
+  constants and defects, not a formal Rothaus lemma.
 
 Possible mother consumption:
 
 - Use the JSON as a CI-backed contract for issue #42's verifier-boundary
   routing before importing a fuller 2602.0041 verifier.
-- Treat the rows and finite entropy pipeline as deterministic diagnostics of
-  formulas and window pressure, not as a proof of H-XSD, H-DOB, companion
-  papers 2602.0054-2602.0057, source construction, hRpoly, continuum
-  construction, mass gap, or Clay.
+- Treat the rows, finite entropy pipeline, and alpha grid as deterministic
+  diagnostics of formulas and window pressure, not as a proof of H-XSD,
+  H-DOB, companion papers 2602.0054-2602.0057, source construction, hRpoly,
+  continuum construction, mass gap, or Clay.
 
 ## Sidecar artifact manifest
 
@@ -406,8 +415,8 @@ Conditional 2602.0041 manifest contract:
   `python scripts/verify_2602_0041.py --output`.
 - `tests/test_verify_2602_0041.py` compares the committed JSON with
   `build_report()` and checks the Ricci convention row, corrected beta-flow
-  zero bracketing, geometric sum, monotone H-DOB kappa-window exhibit, and
-  compact four-rotor entropy-pipeline identity.
+  zero bracketing, geometric sum, monotone H-DOB kappa-window exhibit, compact
+  four-rotor entropy-pipeline identity, and Rothaus alpha tradeoff grid.
 - The contract is formula-routing evidence only; it does not discharge H-XSD
   or H-DOB and does not prove source construction, hRpoly, continuum
   construction, a mass gap, or Clay.

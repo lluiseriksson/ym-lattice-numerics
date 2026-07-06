@@ -76,6 +76,27 @@ def test_verify_2602_0041_compact_four_rotor_entropy_pipeline() -> None:
     assert entropy["mean_energy"] > 0.0
 
 
+def test_verify_2602_0041_rothaus_alpha_tradeoff_grid() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+    tradeoff = report["diagnostics"]["rothaus_alpha_tradeoff"]
+    rows = tradeoff["rows"]
+
+    assert tradeoff["scope"] == "finite Rothaus-style alpha bookkeeping grid"
+    assert tradeoff["formula"] == "toy_cost(alpha) = C0/(1-alpha) + epsilon/alpha"
+    assert tradeoff["parameters"] == {
+        "alpha_grid": [0.125, 0.25, 0.5, 0.75, 0.875],
+        "base_lsi_constant": 2.0,
+        "defect_weight": 0.25,
+    }
+    assert [row["alpha"] for row in rows] == tradeoff["parameters"]["alpha_grid"]
+    assert tradeoff["grid_minimizer_alpha"] == 0.25
+    assert tradeoff["minimizer_is_interior_to_grid"] is True
+    assert tradeoff["constant_multiplier_increases_with_alpha"] is True
+    assert tradeoff["defect_multiplier_decreases_with_alpha"] is True
+    assert rows[0]["toy_combined_cost"] > tradeoff["grid_minimizer_cost"]
+    assert rows[-1]["toy_combined_cost"] > tradeoff["grid_minimizer_cost"]
+
+
 def test_verify_2602_0041_cli_writes_same_report(tmp_path: Path) -> None:
     generated = tmp_path / "verify_2602_0041_report.json"
 
