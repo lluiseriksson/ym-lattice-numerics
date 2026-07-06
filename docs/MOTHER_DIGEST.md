@@ -7,11 +7,13 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `0651294ea7d8a4a0f28083de70d8c68bc643eacd`.
+  `fdee248a5c6975909eb6373418d09733d1f390b6`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
-  - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
+  - mother main commit: `6ea7c8c0504c87b0e01ebdd4ae179ac53846717c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
   - Mathlib commit: `07642720480157414db592fa85b626dafb71355b`
+- Machine-readable synchronization snapshot:
+  `data/processed/mother_sync_snapshot.json`.
 - Re-synchronize those files before treating any exported number as aligned
   with a newer mother commit.
 - `docs/STATUS.md` records the latest hourly satellite heartbeat and the next
@@ -48,6 +50,39 @@ Possible mother consumption:
   exactly soluble 2D sandbox.
 - Do not use this as evidence for four-dimensional continuum Yang-Mills or as
   a mass-gap claim.
+
+## Mother synchronization snapshot
+
+Files:
+
+- Producer: `scripts/mother_sync_snapshot.py`
+- Config: `configs/mother_sync_snapshot.yml`
+- Output: `data/processed/mother_sync_snapshot.json`
+- Test: `tests/test_mother_sync_snapshot.py`
+
+Payload fields:
+
+- `schema_version`
+- `audited_at`
+- `honesty`
+- `sidecar`
+- `mother`
+- `observed_by`
+- `notes`
+
+Current pins:
+
+- Sidecar `main`: `fdee248a5c6975909eb6373418d09733d1f390b6`.
+- Mother `main`: `6ea7c8c0504c87b0e01ebdd4ae179ac53846717c`.
+- Lean image: `leanprover/lean4:v4.29.0-rc6`.
+- Mathlib commit: `07642720480157414db592fa85b626dafb71355b`.
+
+Possible mother consumption:
+
+- Use this JSON as the metadata-only synchronization surface before checking
+  whether sidecar constants are aligned with the mother repository.
+- Treat it as routing metadata only; it is not a Lean theorem, continuum
+  statement, source construction, or mass-gap claim.
 
 ## Interval arithmetic surface
 
@@ -363,6 +398,7 @@ Current artifact ids and outputs:
 - `m0_su2_smoke`: `data/raw/m0_su2_smoke.json`,
   `data/raw/m0_su2_smoke.csv`, `figures/m0_su2_smoke_plaquette.png`
 - `constants_smoke_report`: `data/processed/constants_smoke_report.json`
+- `mother_sync_snapshot`: `data/processed/mother_sync_snapshot.json`
 - `honesty_gap_2d`: `data/processed/honesty_gap_2d.json`
 - `aqft_gaussian_covariance`:
   `data/processed/aqft_bridges/gaussian_covariance_certificate.json`,
@@ -379,6 +415,7 @@ Manifest scope semantics:
 
 - `m0_su2_smoke`: `smoke Monte Carlo dataset and plot`.
 - `constants_smoke_report`: `synthetic constant-check schema example`.
+- `mother_sync_snapshot`: `metadata-only mother synchronization snapshot`.
 - `honesty_gap_2d`: `certified exact-2D honesty-gap sidecar report`.
 - `aqft_gaussian_covariance`: `finite-lattice Gaussian covariance numerical bridge oracle`.
 - `aqft_transfer_gap`: `discrete Gaussian transfer-gap numerical bridge oracle`.

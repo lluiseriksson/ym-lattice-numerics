@@ -37,14 +37,16 @@ sidecar step.
 
 ## Synchronization pins
 
-At repository creation, the mother repository `lluiseriksson/THE-ERIKSSON-PROGRAMME` had:
+The latest committed synchronization snapshot for
+`lluiseriksson/THE-ERIKSSON-PROGRAMME` records:
 
-- main commit: `7a71754b93da6f447544211af51fd513a90b086c`
+- main commit: `6ea7c8c0504c87b0e01ebdd4ae179ac53846717c`
 - Lean toolchain: `leanprover/lean4:v4.29.0-rc6`
 - Mathlib commit: `07642720480157414db592fa85b626dafb71355b`
+- snapshot JSON: `data/processed/mother_sync_snapshot.json`
 
-Those pins are recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`. If the mother repository moves,
-regenerate this metadata before treating any numerical window as synchronized.
+Those pins are recorded in `CONSTANTS.md`, `MATHLIB_AUDIT.md`, and the snapshot JSON. If the mother
+repository moves, regenerate this metadata before treating any numerical window as synchronized.
 
 ## Honesty rules
 

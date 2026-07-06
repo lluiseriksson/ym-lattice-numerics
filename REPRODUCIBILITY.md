@@ -26,6 +26,20 @@ This writes:
 
 The smoke constants are schema examples only.
 
+## Mother synchronization snapshot
+
+```powershell
+python scripts\mother_sync_snapshot.py --output data\processed\mother_sync_snapshot.json
+```
+
+This writes:
+
+- `data/processed/mother_sync_snapshot.json`
+
+The snapshot is metadata-only. It records the observed sidecar `main` HEAD,
+mother `main` commit, Lean toolchain, and Mathlib commit for synchronization
+routing; it is not a mathematical claim.
+
 ## Certified 2D honesty-gap report
 
 ```powershell
