@@ -22,6 +22,11 @@ FOUR_ROTOR_ENTROPY_PARAMETERS = {
     "grid_points_per_rotor": 8,
     "beta": 0.75,
 }
+ROTHAUS_ALPHA_PARAMETERS = {
+    "alpha_grid": [0.125, 0.25, 0.5, 0.75, 0.875],
+    "base_lsi_constant": 2.0,
+    "defect_weight": 0.25,
+}
 
 
 def _rounded(value: float, digits: int = 12) -> float:
@@ -133,6 +138,52 @@ def _four_rotor_entropy_pipeline() -> dict[str, object]:
     }
 
 
+def _rothaus_alpha_tradeoff() -> dict[str, object]:
+    params = ROTHAUS_ALPHA_PARAMETERS
+    base_constant = float(params["base_lsi_constant"])
+    defect_weight = float(params["defect_weight"])
+    rows = []
+    for alpha in params["alpha_grid"]:
+        alpha = float(alpha)
+        constant_multiplier = 1.0 / (1.0 - alpha)
+        defect_multiplier = 1.0 / alpha
+        rows.append(
+            {
+                "alpha": alpha,
+                "constant_multiplier_1_over_1_minus_alpha": _rounded(
+                    constant_multiplier
+                ),
+                "defect_multiplier_1_over_alpha": _rounded(defect_multiplier),
+                "toy_combined_cost": _rounded(
+                    base_constant * constant_multiplier
+                    + defect_weight * defect_multiplier
+                ),
+            }
+        )
+
+    costs = [float(row["toy_combined_cost"]) for row in rows]
+    minimizer_index = min(range(len(costs)), key=costs.__getitem__)
+    return {
+        "scope": "finite Rothaus-style alpha bookkeeping grid",
+        "formula": "toy_cost(alpha) = C0/(1-alpha) + epsilon/alpha",
+        "parameters": params,
+        "rows": rows,
+        "grid_minimizer_alpha": rows[minimizer_index]["alpha"],
+        "grid_minimizer_cost": rows[minimizer_index]["toy_combined_cost"],
+        "minimizer_is_interior_to_grid": 0 < minimizer_index < len(rows) - 1,
+        "constant_multiplier_increases_with_alpha": all(
+            left["constant_multiplier_1_over_1_minus_alpha"]
+            < right["constant_multiplier_1_over_1_minus_alpha"]
+            for left, right in zip(rows, rows[1:])
+        ),
+        "defect_multiplier_decreases_with_alpha": all(
+            left["defect_multiplier_1_over_alpha"]
+            > right["defect_multiplier_1_over_alpha"]
+            for left, right in zip(rows, rows[1:])
+        ),
+    }
+
+
 def build_report() -> dict[str, object]:
     beta_flow_rows = [_beta_flow_row(beta) for beta in BETA_VALUES]
     h_dob_rows = [_h_dob_window_row(beta) for beta in BETA_VALUES]
@@ -179,6 +230,7 @@ def build_report() -> dict[str, object]:
                 ),
             },
             "compact_four_rotor_entropy_pipeline": _four_rotor_entropy_pipeline(),
+            "rothaus_alpha_tradeoff": _rothaus_alpha_tradeoff(),
         },
     }
     return report

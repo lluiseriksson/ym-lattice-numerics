@@ -112,6 +112,58 @@
       "formula": "Ric = Nc/2",
       "group": "SU(2)",
       "value": 1.0
+    },
+    "rothaus_alpha_tradeoff": {
+      "constant_multiplier_increases_with_alpha": true,
+      "defect_multiplier_decreases_with_alpha": true,
+      "formula": "toy_cost(alpha) = C0/(1-alpha) + epsilon/alpha",
+      "grid_minimizer_alpha": 0.25,
+      "grid_minimizer_cost": 3.666666666667,
+      "minimizer_is_interior_to_grid": true,
+      "parameters": {
+        "alpha_grid": [
+          0.125,
+          0.25,
+          0.5,
+          0.75,
+          0.875
+        ],
+        "base_lsi_constant": 2.0,
+        "defect_weight": 0.25
+      },
+      "rows": [
+        {
+          "alpha": 0.125,
+          "constant_multiplier_1_over_1_minus_alpha": 1.142857142857,
+          "defect_multiplier_1_over_alpha": 8.0,
+          "toy_combined_cost": 4.285714285714
+        },
+        {
+          "alpha": 0.25,
+          "constant_multiplier_1_over_1_minus_alpha": 1.333333333333,
+          "defect_multiplier_1_over_alpha": 4.0,
+          "toy_combined_cost": 3.666666666667
+        },
+        {
+          "alpha": 0.5,
+          "constant_multiplier_1_over_1_minus_alpha": 2.0,
+          "defect_multiplier_1_over_alpha": 2.0,
+          "toy_combined_cost": 4.5
+        },
+        {
+          "alpha": 0.75,
+          "constant_multiplier_1_over_1_minus_alpha": 4.0,
+          "defect_multiplier_1_over_alpha": 1.333333333333,
+          "toy_combined_cost": 8.333333333333
+        },
+        {
+          "alpha": 0.875,
+          "constant_multiplier_1_over_1_minus_alpha": 8.0,
+          "defect_multiplier_1_over_alpha": 1.142857142857,
+          "toy_combined_cost": 16.285714285714
+        }
+      ],
+      "scope": "finite Rothaus-style alpha bookkeeping grid"
     }
   },
   "honesty": "Numerical sidecar contract only. This report does not discharge H-XSD or H-DOB, does not verify companion papers 2602.0054-2602.0057, and does not prove source construction, hRpoly, continuum construction, a mass gap, or Clay.",
