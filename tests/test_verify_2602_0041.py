@@ -1,0 +1,77 @@
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+from scripts.verify_2602_0041 import build_report
+
+
+ROOT = Path(__file__).resolve().parents[1]
+REPORT_PATH = ROOT / "data" / "processed" / "verify_2602_0041_report.json"
+
+
+def test_verify_2602_0041_report_matches_generator() -> None:
+    committed = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+
+    assert committed == build_report()
+
+
+def test_verify_2602_0041_contract_boundaries_are_explicit() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+    diagnostics = report["diagnostics"]
+
+    assert report["schema_version"] == 1
+    assert "does not discharge H-XSD or H-DOB" in report["honesty"]
+    assert "does not prove source construction" in report["honesty"]
+
+    ricci = diagnostics["ricci_convention"]
+    assert ricci["formula"] == "Ric = Nc/2"
+    assert ricci["value"] == 1.0
+    assert ricci["coherent"] is True
+
+    flow_rows = diagnostics["corrected_beta_flow"]["rows"]
+    assert [row["beta"] for row in flow_rows] == [10.0, 20.0, 40.0]
+    for row in flow_rows:
+        assert row["floor_brackets_zero"] is True
+        assert row["C_Nc_equals_1_over_2b0"] > 0.0
+        assert row["n_max_estimate"] > 0.0
+
+    geometric = diagnostics["geometric_sum"]
+    assert geometric["formula"] == "sum_{n>=1} n*r^n = r/(1-r)^2"
+    assert geometric["closed_value"] == 2.0
+
+
+def test_verify_2602_0041_h_dob_window_exhibit_is_monotone() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+    window = report["diagnostics"]["h_dob_kappa_window_exhibit"]
+    rows = window["rows"]
+
+    assert window["threshold_increases_over_beta_grid"] is True
+    assert [row["beta"] for row in rows] == [10.0, 20.0, 40.0]
+    thresholds = [row["threshold_log_rhs"] for row in rows]
+    assert thresholds == sorted(thresholds)
+    assert rows[0]["fixed_kappa_exceeds_threshold"] is True
+    assert rows[-1]["fixed_kappa_exceeds_threshold"] is False
+
+
+def test_verify_2602_0041_cli_writes_same_report(tmp_path: Path) -> None:
+    generated = tmp_path / "verify_2602_0041_report.json"
+
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/verify_2602_0041.py",
+            "--output",
+            str(generated),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert json.loads(generated.read_text(encoding="utf-8")) == json.loads(
+        REPORT_PATH.read_text(encoding="utf-8")
+    )

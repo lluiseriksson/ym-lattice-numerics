@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `ab511c830ec666e1e28f10de9993acb687f67db1`.
+  `5ac75cdce7b9cfa082d30b2a9a85330bfb4a8d4b`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `7a71754b93da6f447544211af51fd513a90b086c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -262,6 +262,57 @@ Possible mother consumption:
   reference `verify_2602_0032.py`; it does not assert any continuum
   reconstruction or physical gap.
 
+## Conditional 2602.0041 LSI/H-DOB window contract
+
+Files:
+
+- Producer: `scripts/verify_2602_0041.py`
+- Output: `data/processed/verify_2602_0041_report.json`
+- Test: `tests/test_verify_2602_0041.py`
+
+Importable script APIs:
+
+- `verify_2602_0041.build_report()`
+- `verify_2602_0041.write_report(report, output)`
+- `verify_2602_0041.main(argv=None)`
+
+Payload fields:
+
+- `schema_version`
+- `source`
+- `honesty`
+- `diagnostics.ricci_convention`
+- `diagnostics.corrected_beta_flow`
+- `diagnostics.geometric_sum`
+- `diagnostics.h_dob_kappa_window_exhibit`
+- per beta-flow row: `beta`, `b0_su2`, `C_Nc_equals_1_over_2b0`,
+  `step_2_b0_log2`, `n_max_estimate`, `n_floor`, `beta_at_n_floor`,
+  `beta_at_n_floor_plus_1`, `floor_brackets_zero`
+- per H-DOB row: `beta`, `n_floor_from_corrected_flow`, `log_R_nmax`,
+  `C_Gamma_model`, `threshold_log_rhs`, `fixed_kappa_exhibit`,
+  `fixed_kappa_exceeds_threshold`
+
+Current diagnostic values:
+
+- Ricci convention row: `SU(2)`, `Ric = Nc/2`, value `1.0`.
+- Corrected beta flow: `beta_k = beta - 2*b0*k*log(2)` with beta grid
+  `10.0`, `20.0`, `40.0`; each `n_floor` brackets the zero crossing.
+- Geometric sum check: for `r = 0.5`, `r/(1-r)^2 = 2.0`.
+- H-DOB exhibit shape:
+  `kappa > log[((M R_nmax)^d C_Gamma r)/(1-r)^2]`.
+- Exhibit parameters: `d = 4`, `M = 2.0`, `r = 0.5`,
+  `C_Gamma = (n_floor + 1)^2`, fixed `kappa = 250.0`.
+- The threshold increases on the beta grid; fixed kappa covers the first row
+  but not the larger-beta rows in this exhibit.
+
+Possible mother consumption:
+
+- Use the JSON as a CI-backed contract for issue #42's verifier-boundary
+  routing before importing a fuller 2602.0041 verifier.
+- Treat the rows as deterministic diagnostics of formulas and window pressure,
+  not as a proof of H-XSD, H-DOB, companion papers 2602.0054-2602.0057, source
+  construction, hRpoly, continuum construction, mass gap, or Clay.
+
 ## Sidecar artifact manifest
 
 File: `data/processed/artifact_manifest.json`
@@ -289,6 +340,8 @@ Current artifact ids and outputs:
   `data/processed/aqft_bridges/run_transfer_gap.log`
 - `witten_2602_0032_hessian`:
   `data/processed/witten_2602_0032_diagnostics.json`
+- `verify_2602_0041_lsi_h_dob`:
+  `data/processed/verify_2602_0041_report.json`
 
 Manifest scope semantics:
 
@@ -298,6 +351,7 @@ Manifest scope semantics:
 - `aqft_gaussian_covariance`: `finite-lattice Gaussian covariance numerical bridge oracle`.
 - `aqft_transfer_gap`: `discrete Gaussian transfer-gap numerical bridge oracle`.
 - `witten_2602_0032_hessian`: `conditional 2602.0032 SU(2) 2^3 Hessian diagnostic`.
+- `verify_2602_0041_lsi_h_dob`: `conditional 2602.0041 LSI/H-DOB window verifier contract`.
 
 AQFT manifest contract:
 
@@ -337,6 +391,18 @@ Conditional 2602.0032 manifest contract:
   Born-Oppenheimer proof-formula versus literal-formula rows.
 - The diagnostic is conditional paper evidence only; it is not a Lean theorem,
   a source construction, a continuum statement, or a mass-gap claim.
+
+Conditional 2602.0041 manifest contract:
+
+- `verify_2602_0041_lsi_h_dob` uses producer
+  `scripts/verify_2602_0041.py` and `command_argv` beginning with
+  `python scripts/verify_2602_0041.py --output`.
+- `tests/test_verify_2602_0041.py` compares the committed JSON with
+  `build_report()` and checks the Ricci convention row, corrected beta-flow
+  zero bracketing, geometric sum, and monotone H-DOB kappa-window exhibit.
+- The contract is formula-routing evidence only; it does not discharge H-XSD
+  or H-DOB and does not prove source construction, hRpoly, continuum
+  construction, a mass gap, or Clay.
 
 Possible mother/satellite consumption:
 

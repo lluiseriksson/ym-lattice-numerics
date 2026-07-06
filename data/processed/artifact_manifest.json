@@ -129,6 +129,26 @@
       "verification": [
         "python -m pytest tests/test_witten_2602_0032_diagnostics.py"
       ]
+    },
+    {
+      "id": "verify_2602_0041_lsi_h_dob",
+      "scope": "conditional 2602.0041 LSI/H-DOB window verifier contract",
+      "producer": "scripts/verify_2602_0041.py",
+      "command_argv": [
+        "python",
+        "scripts/verify_2602_0041.py",
+        "--output",
+        "data/processed/verify_2602_0041_report.json"
+      ],
+      "inputs": [
+        "scripts/verify_2602_0041.py"
+      ],
+      "outputs": [
+        "data/processed/verify_2602_0041_report.json"
+      ],
+      "verification": [
+        "python -m pytest tests/test_verify_2602_0041.py"
+      ]
     }
   ]
 }

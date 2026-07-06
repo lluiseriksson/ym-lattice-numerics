@@ -1,0 +1,145 @@
+from __future__ import annotations
+
+import argparse
+import json
+import math
+from pathlib import Path
+
+
+NC = 2
+BETA_VALUES = [10.0, 20.0, 40.0]
+H_DOB_PARAMETERS = {
+    "dimension": 4,
+    "M": 2.0,
+    "r": 0.5,
+    "gamma0": 1.0,
+    "c_gamma_power": 2,
+    "fixed_kappa_exhibit": 250.0,
+}
+
+
+def _rounded(value: float, digits: int = 12) -> float:
+    return float(round(float(value), digits))
+
+
+def _b0(n_colors: int = NC) -> float:
+    return 11.0 * n_colors / (24.0 * math.pi**2)
+
+
+def _c_nc(n_colors: int = NC) -> float:
+    return 1.0 / (2.0 * _b0(n_colors))
+
+
+def _beta_flow_row(beta: float) -> dict[str, object]:
+    step = 2.0 * _b0() * math.log(2.0)
+    n_max_estimate = beta / step
+    n_floor = math.floor(n_max_estimate)
+    beta_at_floor = beta - step * n_floor
+    beta_at_next = beta - step * (n_floor + 1)
+    return {
+        "beta": beta,
+        "b0_su2": _rounded(_b0()),
+        "C_Nc_equals_1_over_2b0": _rounded(_c_nc()),
+        "step_2_b0_log2": _rounded(step),
+        "n_max_estimate": _rounded(n_max_estimate),
+        "n_floor": n_floor,
+        "beta_at_n_floor": _rounded(beta_at_floor),
+        "beta_at_n_floor_plus_1": _rounded(beta_at_next),
+        "floor_brackets_zero": beta_at_floor >= 0.0 and beta_at_next < 0.0,
+    }
+
+
+def _h_dob_window_row(beta: float) -> dict[str, object]:
+    flow = _beta_flow_row(beta)
+    n_floor = int(flow["n_floor"])
+    params = H_DOB_PARAMETERS
+    dimension = int(params["dimension"])
+    r = float(params["r"])
+    log_r_over_one_minus_r_squared = math.log(r) - 2.0 * math.log(1.0 - r)
+    c_gamma = float(params["gamma0"]) * (n_floor + 1) ** int(params["c_gamma_power"])
+    log_threshold = (
+        dimension * (math.log(float(params["M"])) + n_floor * math.log(2.0))
+        + math.log(c_gamma)
+        + log_r_over_one_minus_r_squared
+    )
+    fixed_kappa = float(params["fixed_kappa_exhibit"])
+    return {
+        "beta": beta,
+        "n_floor_from_corrected_flow": n_floor,
+        "log_R_nmax": _rounded(n_floor * math.log(2.0)),
+        "C_Gamma_model": _rounded(c_gamma),
+        "threshold_log_rhs": _rounded(log_threshold),
+        "fixed_kappa_exhibit": fixed_kappa,
+        "fixed_kappa_exceeds_threshold": fixed_kappa > log_threshold,
+    }
+
+
+def build_report() -> dict[str, object]:
+    beta_flow_rows = [_beta_flow_row(beta) for beta in BETA_VALUES]
+    h_dob_rows = [_h_dob_window_row(beta) for beta in BETA_VALUES]
+    thresholds = [row["threshold_log_rhs"] for row in h_dob_rows]
+
+    report = {
+        "schema_version": 1,
+        "source": "2602.0041 v3 deterministic LSI/H-DOB verifier boundary subset",
+        "honesty": (
+            "Numerical sidecar contract only. This report does not discharge H-XSD "
+            "or H-DOB, does not verify companion papers 2602.0054-2602.0057, and "
+            "does not prove source construction, hRpoly, continuum construction, "
+            "a mass gap, or Clay."
+        ),
+        "diagnostics": {
+            "ricci_convention": {
+                "group": "SU(2)",
+                "formula": "Ric = Nc/2",
+                "Nc": NC,
+                "value": _rounded(NC / 2.0),
+                "expected_value": 1.0,
+                "coherent": _rounded(NC / 2.0) == 1.0,
+            },
+            "corrected_beta_flow": {
+                "formula": "beta_k = beta - 2*b0*k*log(2)",
+                "n_max_formula": "n_max ~= beta/(2*b0*log(2)) = beta*C(Nc)/log(2)",
+                "rows": beta_flow_rows,
+            },
+            "geometric_sum": {
+                "r": H_DOB_PARAMETERS["r"],
+                "formula": "sum_{n>=1} n*r^n = r/(1-r)^2",
+                "closed_value": _rounded(
+                    H_DOB_PARAMETERS["r"] / (1.0 - H_DOB_PARAMETERS["r"]) ** 2
+                ),
+            },
+            "h_dob_kappa_window_exhibit": {
+                "threshold_shape": (
+                    "kappa > log[((M R_nmax)^d C_Gamma r)/(1-r)^2]"
+                ),
+                "parameters": H_DOB_PARAMETERS,
+                "rows": h_dob_rows,
+                "threshold_increases_over_beta_grid": all(
+                    left < right for left, right in zip(thresholds, thresholds[1:])
+                ),
+            },
+        },
+    }
+    return report
+
+
+def write_report(report: dict[str, object], output: Path) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("data/processed/verify_2602_0041_report.json"),
+    )
+    args = parser.parse_args(argv)
+    write_report(build_report(), args.output)
+    print(f"2602.0041 diagnostics written: {args.output}")
+
+
+if __name__ == "__main__":
+    main()

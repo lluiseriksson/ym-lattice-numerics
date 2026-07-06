@@ -1,17 +1,17 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-06T10:10:40+02:00.
+Last audited by the hourly satellite: 2026-07-06T11:13:32+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `ab511c830ec666e1e28f10de9993acb687f67db1`.
+- Audited main HEAD: `5ac75cdce7b9cfa082d30b2a9a85330bfb4a8d4b`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28775071727`
-  - `heartbeat`: success, run `28775071730`
+  - `ci`: success, run `28780084910`
+  - `heartbeat`: success, run `28780084791`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
-  #7 and #34.
+  #7, #34, and #42.
 
 ## Mother-facing surfaces currently worth consuming
 
@@ -32,6 +32,9 @@ Last audited by the hourly satellite: 2026-07-06T10:10:40+02:00.
 - `data/processed/witten_2602_0032_diagnostics.json`: conditional 2602.0032
   SU(2) `2^3` Hessian and Born-Oppenheimer `V_BO` proof-vs-literal
   diagnostics with exact file/API names for mother-side review.
+- `data/processed/verify_2602_0041_report.json`: conditional 2602.0041
+  Ricci, corrected beta-flow, geometric-sum, and H-DOB kappa-window contract
+  for issue #42.
 - `docs/DATASETS.md`: raw Monte Carlo JSON schema for smoke data.
 
 ## Current blockers for stronger claims
@@ -46,6 +49,6 @@ Last audited by the hourly satellite: 2026-07-06T10:10:40+02:00.
 
 ## Next exact step
 
-After the conditional 2602.0032 Born-Oppenheimer diagnostic lands, extend the
-same JSON pattern to the finite-window doubling diagnostic only if it can
-remain small, deterministic, and clearly conditional.
+After this 2602.0041 formula-window contract lands, extend only one additional
+verifier slice, preferably the compact four-rotor entropy or Rothaus diagnostic,
+if it can remain deterministic and explicitly conditional.

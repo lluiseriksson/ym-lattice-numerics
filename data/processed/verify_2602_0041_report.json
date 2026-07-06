@@ -1,0 +1,100 @@
+{
+  "diagnostics": {
+    "corrected_beta_flow": {
+      "formula": "beta_k = beta - 2*b0*k*log(2)",
+      "n_max_formula": "n_max ~= beta/(2*b0*log(2)) = beta*C(Nc)/log(2)",
+      "rows": [
+        {
+          "C_Nc_equals_1_over_2b0": 5.383420582412,
+          "b0_su2": 0.092877751672,
+          "beta": 10.0,
+          "beta_at_n_floor": 0.085795436923,
+          "beta_at_n_floor_plus_1": -0.042960466494,
+          "floor_brackets_zero": true,
+          "n_floor": 77,
+          "n_max_estimate": 77.666341772659,
+          "step_2_b0_log2": 0.128755903417
+        },
+        {
+          "C_Nc_equals_1_over_2b0": 5.383420582412,
+          "b0_su2": 0.092877751672,
+          "beta": 20.0,
+          "beta_at_n_floor": 0.042834970429,
+          "beta_at_n_floor_plus_1": -0.085920932987,
+          "floor_brackets_zero": true,
+          "n_floor": 155,
+          "n_max_estimate": 155.332683545318,
+          "step_2_b0_log2": 0.128755903417
+        },
+        {
+          "C_Nc_equals_1_over_2b0": 5.383420582412,
+          "b0_su2": 0.092877751672,
+          "beta": 40.0,
+          "beta_at_n_floor": 0.085669940859,
+          "beta_at_n_floor_plus_1": -0.043085962558,
+          "floor_brackets_zero": true,
+          "n_floor": 310,
+          "n_max_estimate": 310.665367090636,
+          "step_2_b0_log2": 0.128755903417
+        }
+      ]
+    },
+    "geometric_sum": {
+      "closed_value": 2.0,
+      "formula": "sum_{n>=1} n*r^n = r/(1-r)^2",
+      "r": 0.5
+    },
+    "h_dob_kappa_window_exhibit": {
+      "parameters": {
+        "M": 2.0,
+        "c_gamma_power": 2,
+        "dimension": 4,
+        "fixed_kappa_exhibit": 250.0,
+        "gamma0": 1.0,
+        "r": 0.5
+      },
+      "rows": [
+        {
+          "C_Gamma_model": 6084.0,
+          "beta": 10.0,
+          "fixed_kappa_exceeds_threshold": true,
+          "fixed_kappa_exhibit": 250.0,
+          "log_R_nmax": 53.372332903116,
+          "n_floor_from_corrected_flow": 77,
+          "threshold_log_rhs": 225.668485168642
+        },
+        {
+          "C_Gamma_model": 24336.0,
+          "beta": 20.0,
+          "fixed_kappa_exceeds_threshold": false,
+          "fixed_kappa_exhibit": 250.0,
+          "log_R_nmax": 107.437812986792,
+          "n_floor_from_corrected_flow": 155,
+          "threshold_log_rhs": 443.316699864465
+        },
+        {
+          "C_Gamma_model": 96721.0,
+          "beta": 40.0,
+          "fixed_kappa_exceeds_threshold": false,
+          "fixed_kappa_exhibit": 250.0,
+          "log_R_nmax": 214.875625973583,
+          "n_floor_from_corrected_flow": 310,
+          "threshold_log_rhs": 874.44782562149
+        }
+      ],
+      "threshold_increases_over_beta_grid": true,
+      "threshold_shape": "kappa > log[((M R_nmax)^d C_Gamma r)/(1-r)^2]"
+    },
+    "ricci_convention": {
+      "Nc": 2,
+      "coherent": true,
+      "expected_value": 1.0,
+      "formula": "Ric = Nc/2",
+      "group": "SU(2)",
+      "value": 1.0
+    }
+  },
+  "honesty": "Numerical sidecar contract only. This report does not discharge H-XSD or H-DOB, does not verify companion papers 2602.0054-2602.0057, and does not prove source construction, hRpoly, continuum construction, a mass gap, or Clay.",
+  "schema_version": 1,
+  "source": "2602.0041 v3 deterministic LSI/H-DOB verifier boundary subset"
+}
