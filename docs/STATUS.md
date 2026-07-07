@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-07T01:06:40+02:00.
+Last audited by the hourly satellite: 2026-07-07T02:17:18+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `9d96c57b222ce8e691599906c1b4d2419d20e051`.
+- Audited main HEAD: `8552c68d65ed2db1b790d57da4ec469b2386f12a`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28827473938`
-  - `heartbeat`: success, run `28828034149`
+  - `ci`: success, run `28830581467`
+  - `heartbeat`: success, run `28830581450`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7, #34, and #42.
@@ -55,6 +55,6 @@ Last audited by the hourly satellite: 2026-07-07T01:06:40+02:00.
 
 ## Next exact step
 
-With main green at `9d96c57b222ce8e691599906c1b4d2419d20e051`, prefer a new
-`agent-task` unit with an exact sidecar artifact target. Do not extend issue
+After the manifest round-trip check for `verify_2602_0041_lsi_h_dob` lands,
+prefer a new exact `agent-task` sidecar artifact target. Do not extend issue
 #34 again unless a specific upstream verifier/source reference is named.
