@@ -183,6 +183,33 @@ def test_constants_smoke_report_matches_manifest_regeneration(tmp_path: Path) ->
     assert generated_report == committed_report
 
 
+def test_verify_2602_0041_report_matches_manifest_regeneration(tmp_path: Path) -> None:
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    artifact = next(
+        artifact for artifact in manifest["artifacts"] if artifact["id"] == "verify_2602_0041_lsi_h_dob"
+    )
+
+    assert artifact["command_argv"] == [
+        "python",
+        "scripts/verify_2602_0041.py",
+        "--output",
+        "data/processed/verify_2602_0041_report.json",
+    ]
+    assert artifact["verification"] == ["python -m pytest tests/test_verify_2602_0041.py"]
+
+    generated_output = tmp_path / Path(artifact["outputs"][0]).name
+    command = list(artifact["command_argv"])
+    command[0] = sys.executable
+    command[command.index("--output") + 1] = str(generated_output)
+
+    subprocess.run(command, cwd=ROOT, check=True, capture_output=True, text=True)
+
+    committed_report = json.loads((ROOT / artifact["outputs"][0]).read_text(encoding="utf-8"))
+    generated_report = json.loads(generated_output.read_text(encoding="utf-8"))
+
+    assert generated_report == committed_report
+
+
 def test_m0_smoke_dataset_matches_manifest_regeneration(tmp_path: Path) -> None:
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     artifact = next(artifact for artifact in manifest["artifacts"] if artifact["id"] == "m0_su2_smoke")

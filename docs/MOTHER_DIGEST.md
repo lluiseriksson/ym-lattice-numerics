@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `9d96c57b222ce8e691599906c1b4d2419d20e051`.
+  `8552c68d65ed2db1b790d57da4ec469b2386f12a`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `48e066040c224c848d2f1f8b39d346de72d6506c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -476,6 +476,9 @@ Conditional 2602.0041 manifest contract:
   `build_report()` and checks the Ricci convention row, corrected beta-flow
   zero bracketing, geometric sum, monotone H-DOB kappa-window exhibit, compact
   four-rotor entropy-pipeline identity, and Rothaus alpha tradeoff grid.
+- `tests/test_artifact_manifest.py` also runs the manifest `command_argv` with
+  `--output` redirected to a temporary path and compares the generated JSON
+  with `data/processed/verify_2602_0041_report.json`.
 - The contract is formula-routing evidence only; it does not discharge H-XSD
   or H-DOB and does not prove source construction, hRpoly, continuum
   construction, a mass gap, or Clay.
