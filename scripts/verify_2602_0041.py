@@ -27,6 +27,11 @@ ROTHAUS_ALPHA_PARAMETERS = {
     "base_lsi_constant": 2.0,
     "defect_weight": 0.25,
 }
+DEFECT_LSI_BUDGET_PARAMETERS = {
+    "base_lsi_constant": 2.0,
+    "defect_grid": [0.03125, 0.0625, 0.125, 0.25, 0.5],
+    "max_relative_loss": 0.25,
+}
 UNIFORM_POINCARE_PARAMETERS = {
     "cycle_points": 8,
     "fourier_mode": 1,
@@ -193,6 +198,37 @@ def _rothaus_alpha_tradeoff() -> dict[str, object]:
     }
 
 
+def _defect_lsi_budget_bookkeeping() -> dict[str, object]:
+    params = DEFECT_LSI_BUDGET_PARAMETERS
+    base_constant = float(params["base_lsi_constant"])
+    max_relative_loss = float(params["max_relative_loss"])
+
+    rows = []
+    for defect in params["defect_grid"]:
+        defect = float(defect)
+        residual = base_constant - defect
+        relative_loss = defect / base_constant
+        rows.append(
+            {
+                "defect_epsilon": defect,
+                "toy_residual_constant": _rounded(residual),
+                "relative_loss": _rounded(relative_loss),
+                "residual_is_positive": residual > 0.0,
+                "within_budget": relative_loss <= max_relative_loss,
+            }
+        )
+
+    return {
+        "scope": "finite defect-LSI budget bookkeeping grid",
+        "formula": "toy_residual_constant = C0 - epsilon",
+        "parameters": params,
+        "rows": rows,
+        "all_residuals_positive": all(row["residual_is_positive"] for row in rows),
+        "all_rows_within_relative_budget": all(row["within_budget"] for row in rows),
+        "no_defect_lsi_or_tensorization_claim": True,
+    }
+
+
 def _uniform_cycle_poincare_check() -> dict[str, object]:
     params = UNIFORM_POINCARE_PARAMETERS
     cycle_points = int(params["cycle_points"])
@@ -331,6 +367,7 @@ def build_report() -> dict[str, object]:
             },
             "compact_four_rotor_entropy_pipeline": _four_rotor_entropy_pipeline(),
             "rothaus_alpha_tradeoff": _rothaus_alpha_tradeoff(),
+            "defect_lsi_budget_bookkeeping": _defect_lsi_budget_bookkeeping(),
             "uniform_cycle_poincare_check": _uniform_cycle_poincare_check(),
             "finite_polymer_counting_bookkeeping": (
                 _finite_polymer_counting_bookkeeping()

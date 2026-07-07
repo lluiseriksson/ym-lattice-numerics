@@ -59,6 +59,61 @@
         }
       ]
     },
+    "defect_lsi_budget_bookkeeping": {
+      "all_residuals_positive": true,
+      "all_rows_within_relative_budget": true,
+      "formula": "toy_residual_constant = C0 - epsilon",
+      "no_defect_lsi_or_tensorization_claim": true,
+      "parameters": {
+        "base_lsi_constant": 2.0,
+        "defect_grid": [
+          0.03125,
+          0.0625,
+          0.125,
+          0.25,
+          0.5
+        ],
+        "max_relative_loss": 0.25
+      },
+      "rows": [
+        {
+          "defect_epsilon": 0.03125,
+          "relative_loss": 0.015625,
+          "residual_is_positive": true,
+          "toy_residual_constant": 1.96875,
+          "within_budget": true
+        },
+        {
+          "defect_epsilon": 0.0625,
+          "relative_loss": 0.03125,
+          "residual_is_positive": true,
+          "toy_residual_constant": 1.9375,
+          "within_budget": true
+        },
+        {
+          "defect_epsilon": 0.125,
+          "relative_loss": 0.0625,
+          "residual_is_positive": true,
+          "toy_residual_constant": 1.875,
+          "within_budget": true
+        },
+        {
+          "defect_epsilon": 0.25,
+          "relative_loss": 0.125,
+          "residual_is_positive": true,
+          "toy_residual_constant": 1.75,
+          "within_budget": true
+        },
+        {
+          "defect_epsilon": 0.5,
+          "relative_loss": 0.25,
+          "residual_is_positive": true,
+          "toy_residual_constant": 1.5,
+          "within_budget": true
+        }
+      ],
+      "scope": "finite defect-LSI budget bookkeeping grid"
+    },
     "finite_polymer_counting_bookkeeping": {
       "activity_ratio_2d_times_activity": 0.25,
       "encoding": "rooted connected polymer is over-counted by a step sequence with (2*d)^(size-1) choices",

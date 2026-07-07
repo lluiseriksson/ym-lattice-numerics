@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-07T04:20:37+02:00.
+Last audited by the hourly satellite: 2026-07-07T05:36:51+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `72524e70bbb6edbe81500a44e7a7f5f3113cb071`.
+- Audited main HEAD: `548bc41ca8aff12142b707dd8e6b9c5aa8e3e6f2`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28834883166`
-  - `heartbeat`: success, run `28834883165`
+  - `ci`: success, run `28837218941`
+  - `heartbeat`: success, run `28837218964`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7, #34, and #42.
@@ -38,9 +38,9 @@ Last audited by the hourly satellite: 2026-07-07T04:20:37+02:00.
   file/API names for mother-side review.
 - `data/processed/verify_2602_0041_report.json`: conditional 2602.0041
   Ricci, corrected beta-flow, geometric-sum, H-DOB kappa-window, compact
-  four-rotor entropy-pipeline, Rothaus alpha bookkeeping, uniform-cycle
-  Poincare normalization, and finite rooted polymer-counting bookkeeping
-  contracts for issue #42.
+  four-rotor entropy-pipeline, Rothaus alpha bookkeeping, defect-LSI budget
+  bookkeeping, uniform-cycle Poincare normalization, and finite rooted
+  polymer-counting bookkeeping contracts for issue #42.
 - `docs/DATASETS.md`: raw Monte Carlo JSON schema for smoke data.
 
 ## Current blockers for stronger claims
@@ -56,8 +56,8 @@ Last audited by the hourly satellite: 2026-07-07T04:20:37+02:00.
 
 ## Next exact step
 
-After the finite polymer-counting bookkeeping slice lands, prefer either a
-precise `agent-task` for the next sidecar artifact target or one more very
-small conditional 2602.0041 verifier slice already named in issue #42. Do not
-extend issue #34 again unless a specific upstream verifier/source reference is
-named.
+After the finite defect-LSI budget bookkeeping slice lands, prefer either a
+precise `agent-task` for the next sidecar artifact target or the still-named
+2602.0041 Lemma 6.2 verifier-boundary row, if it can be kept finite and
+explicitly non-claiming. Do not extend issue #34 again unless a specific
+upstream verifier/source reference is named.
