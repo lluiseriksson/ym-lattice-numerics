@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-07T02:17:18+02:00.
+Last audited by the hourly satellite: 2026-07-07T03:17:30+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `8552c68d65ed2db1b790d57da4ec469b2386f12a`.
+- Audited main HEAD: `38177ef4804f284110af5c44ec2c95f85a59861c`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28830581467`
-  - `heartbeat`: success, run `28830581450`
+  - `ci`: success, run `28833602576`
+  - `heartbeat`: success, run `28833602575`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7, #34, and #42.
@@ -37,9 +37,9 @@ Last audited by the hourly satellite: 2026-07-07T02:17:18+02:00.
   diagnostics plus a synthetic finite-window transfer-matrix check, with exact
   file/API names for mother-side review.
 - `data/processed/verify_2602_0041_report.json`: conditional 2602.0041
-  Ricci, corrected beta-flow, geometric-sum, H-DOB kappa-window, and compact
-  four-rotor entropy-pipeline plus Rothaus alpha bookkeeping contract for
-  issue #42.
+  Ricci, corrected beta-flow, geometric-sum, H-DOB kappa-window, compact
+  four-rotor entropy-pipeline, Rothaus alpha bookkeeping, and uniform-cycle
+  Poincare normalization contract for issue #42.
 - `docs/DATASETS.md`: raw Monte Carlo JSON schema for smoke data.
 
 ## Current blockers for stronger claims
@@ -55,6 +55,7 @@ Last audited by the hourly satellite: 2026-07-07T02:17:18+02:00.
 
 ## Next exact step
 
-After the manifest round-trip check for `verify_2602_0041_lsi_h_dob` lands,
-prefer a new exact `agent-task` sidecar artifact target. Do not extend issue
-#34 again unless a specific upstream verifier/source reference is named.
+After the uniform-cycle Poincare check lands, prefer either a precise
+`agent-task` for the next sidecar artifact target or a very small conditional
+2602.0041 verifier slice already named in issue #42. Do not extend issue #34
+again unless a specific upstream verifier/source reference is named.

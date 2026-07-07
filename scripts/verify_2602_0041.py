@@ -27,6 +27,10 @@ ROTHAUS_ALPHA_PARAMETERS = {
     "base_lsi_constant": 2.0,
     "defect_weight": 0.25,
 }
+UNIFORM_POINCARE_PARAMETERS = {
+    "cycle_points": 8,
+    "fourier_mode": 1,
+}
 
 
 def _rounded(value: float, digits: int = 12) -> float:
@@ -184,6 +188,47 @@ def _rothaus_alpha_tradeoff() -> dict[str, object]:
     }
 
 
+def _uniform_cycle_poincare_check() -> dict[str, object]:
+    params = UNIFORM_POINCARE_PARAMETERS
+    cycle_points = int(params["cycle_points"])
+    mode = int(params["fourier_mode"])
+    values = [
+        math.cos(2.0 * math.pi * mode * index / cycle_points)
+        for index in range(cycle_points)
+    ]
+    mean = sum(values) / cycle_points
+    centered = [value - mean for value in values]
+    variance = sum(value * value for value in centered) / cycle_points
+    generator_values = [
+        values[index]
+        - 0.5 * (values[(index - 1) % cycle_points] + values[(index + 1) % cycle_points])
+        for index in range(cycle_points)
+    ]
+    dirichlet = sum(
+        value * generator_value
+        for value, generator_value in zip(centered, generator_values)
+    ) / cycle_points
+    spectral_gap = 1.0 - math.cos(2.0 * math.pi / cycle_points)
+    poincare_constant = 1.0 / spectral_gap
+    return {
+        "scope": "finite uniform Poincare normalization check on Z/NZ",
+        "state_space": "cycle graph with uniform measure",
+        "operator": "I-P for the nearest-neighbor simple random walk",
+        "parameters": params,
+        "test_function": "cos(2*pi*mode*x/N)",
+        "mean": _rounded(mean),
+        "variance": _rounded(variance),
+        "dirichlet_form": _rounded(dirichlet),
+        "spectral_gap": _rounded(spectral_gap),
+        "poincare_constant": _rounded(poincare_constant),
+        "mode_saturates_constant": _rounded(
+            variance - poincare_constant * dirichlet
+        )
+        == 0.0,
+        "no_lsi_or_defect_claim": True,
+    }
+
+
 def build_report() -> dict[str, object]:
     beta_flow_rows = [_beta_flow_row(beta) for beta in BETA_VALUES]
     h_dob_rows = [_h_dob_window_row(beta) for beta in BETA_VALUES]
@@ -231,6 +276,7 @@ def build_report() -> dict[str, object]:
             },
             "compact_four_rotor_entropy_pipeline": _four_rotor_entropy_pipeline(),
             "rothaus_alpha_tradeoff": _rothaus_alpha_tradeoff(),
+            "uniform_cycle_poincare_check": _uniform_cycle_poincare_check(),
         },
     }
     return report

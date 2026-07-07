@@ -97,6 +97,27 @@ def test_verify_2602_0041_rothaus_alpha_tradeoff_grid() -> None:
     assert rows[-1]["toy_combined_cost"] > tradeoff["grid_minimizer_cost"]
 
 
+def test_verify_2602_0041_uniform_cycle_poincare_check() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+    poincare = report["diagnostics"]["uniform_cycle_poincare_check"]
+
+    assert poincare["scope"] == "finite uniform Poincare normalization check on Z/NZ"
+    assert poincare["state_space"] == "cycle graph with uniform measure"
+    assert poincare["operator"] == "I-P for the nearest-neighbor simple random walk"
+    assert poincare["parameters"] == {
+        "cycle_points": 8,
+        "fourier_mode": 1,
+    }
+    assert poincare["test_function"] == "cos(2*pi*mode*x/N)"
+    assert poincare["mean"] == 0.0
+    assert poincare["variance"] == 0.5
+    assert poincare["dirichlet_form"] > 0.0
+    assert poincare["spectral_gap"] > 0.0
+    assert poincare["poincare_constant"] > 1.0
+    assert poincare["mode_saturates_constant"] is True
+    assert poincare["no_lsi_or_defect_claim"] is True
+
+
 def test_verify_2602_0041_cli_writes_same_report(tmp_path: Path) -> None:
     generated = tmp_path / "verify_2602_0041_report.json"
 
