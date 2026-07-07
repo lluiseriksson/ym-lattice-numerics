@@ -97,6 +97,26 @@ def test_verify_2602_0041_rothaus_alpha_tradeoff_grid() -> None:
     assert rows[-1]["toy_combined_cost"] > tradeoff["grid_minimizer_cost"]
 
 
+def test_verify_2602_0041_defect_lsi_budget_bookkeeping() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+    budget = report["diagnostics"]["defect_lsi_budget_bookkeeping"]
+    rows = budget["rows"]
+
+    assert budget["scope"] == "finite defect-LSI budget bookkeeping grid"
+    assert budget["formula"] == "toy_residual_constant = C0 - epsilon"
+    assert budget["parameters"] == {
+        "base_lsi_constant": 2.0,
+        "defect_grid": [0.03125, 0.0625, 0.125, 0.25, 0.5],
+        "max_relative_loss": 0.25,
+    }
+    assert [row["defect_epsilon"] for row in rows] == budget["parameters"]["defect_grid"]
+    assert budget["all_residuals_positive"] is True
+    assert budget["all_rows_within_relative_budget"] is True
+    assert rows[0]["toy_residual_constant"] > rows[-1]["toy_residual_constant"]
+    assert rows[-1]["relative_loss"] == 0.25
+    assert budget["no_defect_lsi_or_tensorization_claim"] is True
+
+
 def test_verify_2602_0041_uniform_cycle_poincare_check() -> None:
     report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
     poincare = report["diagnostics"]["uniform_cycle_poincare_check"]
