@@ -1,14 +1,14 @@
 # Hourly status heartbeat
 
-Last audited by the hourly satellite: 2026-07-07T05:36:51+02:00.
+Last audited by the hourly satellite: 2026-07-07T07:45:37+02:00.
 
 ## Repository state
 
 - Default branch: `main`.
-- Audited main HEAD: `548bc41ca8aff12142b707dd8e6b9c5aa8e3e6f2`.
+- Audited main HEAD: `f4c6dad39958ebf1280424c657b447a754d07343`.
 - Latest audited workflow runs on that HEAD:
-  - `ci`: success, run `28837218941`
-  - `heartbeat`: success, run `28837218964`
+  - `ci`: success, run `28843614923`
+  - `heartbeat`: success, run `28843614970`
 - Open PRs at audit time before this branch: none.
 - Open issues with `agent-task`, `blocked`, or `interface-change`: `agent-task`
   #7, #34, and #42.
@@ -39,8 +39,9 @@ Last audited by the hourly satellite: 2026-07-07T05:36:51+02:00.
 - `data/processed/verify_2602_0041_report.json`: conditional 2602.0041
   Ricci, corrected beta-flow, geometric-sum, H-DOB kappa-window, compact
   four-rotor entropy-pipeline, Rothaus alpha bookkeeping, defect-LSI budget
-  bookkeeping, uniform-cycle Poincare normalization, and finite rooted
-  polymer-counting bookkeeping contracts for issue #42.
+  bookkeeping, Lemma 6.2 boundary bookkeeping, uniform-cycle Poincare
+  normalization, and finite rooted polymer-counting bookkeeping contracts for
+  issue #42.
 - `docs/DATASETS.md`: raw Monte Carlo JSON schema for smoke data.
 
 ## Current blockers for stronger claims
@@ -56,8 +57,8 @@ Last audited by the hourly satellite: 2026-07-07T05:36:51+02:00.
 
 ## Next exact step
 
-After the finite defect-LSI budget bookkeeping slice lands, prefer either a
-precise `agent-task` for the next sidecar artifact target or the still-named
-2602.0041 Lemma 6.2 verifier-boundary row, if it can be kept finite and
-explicitly non-claiming. Do not extend issue #34 again unless a specific
-upstream verifier/source reference is named.
+After this Lemma 6.2 boundary-bookkeeping slice lands, prefer a precise new
+`agent-task` for the next sidecar artifact target or a blocked issue naming the
+missing upstream formula/source needed for any further 2602.0041 verifier
+slice. Do not extend issue #34 again unless a specific upstream
+verifier/source reference is named.
