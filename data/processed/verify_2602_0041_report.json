@@ -215,6 +215,68 @@
       "threshold_increases_over_beta_grid": true,
       "threshold_shape": "kappa > log[((M R_nmax)^d C_Gamma r)/(1-r)^2]"
     },
+    "lemma_6_2_boundary_bookkeeping": {
+      "boundary_cost_is_monotone": true,
+      "first_block_count_exceeding_budget": 16,
+      "formula": "toy_boundary_cost = interface_count * epsilon_boundary",
+      "no_lemma_6_2_or_defect_lsi_claim": true,
+      "parameters": {
+        "block_grid": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "boundary_budget": 1.0,
+        "interface_penalty": 0.125,
+        "local_constant": 2.0
+      },
+      "rows": [
+        {
+          "block_count": 1,
+          "boundary_to_local_ratio": 0.0,
+          "interface_count": 0,
+          "local_constant_sum": 2.0,
+          "toy_boundary_cost": 0.0,
+          "within_boundary_budget": true
+        },
+        {
+          "block_count": 2,
+          "boundary_to_local_ratio": 0.03125,
+          "interface_count": 1,
+          "local_constant_sum": 4.0,
+          "toy_boundary_cost": 0.125,
+          "within_boundary_budget": true
+        },
+        {
+          "block_count": 4,
+          "boundary_to_local_ratio": 0.046875,
+          "interface_count": 3,
+          "local_constant_sum": 8.0,
+          "toy_boundary_cost": 0.375,
+          "within_boundary_budget": true
+        },
+        {
+          "block_count": 8,
+          "boundary_to_local_ratio": 0.0546875,
+          "interface_count": 7,
+          "local_constant_sum": 16.0,
+          "toy_boundary_cost": 0.875,
+          "within_boundary_budget": true
+        },
+        {
+          "block_count": 16,
+          "boundary_to_local_ratio": 0.05859375,
+          "interface_count": 15,
+          "local_constant_sum": 32.0,
+          "toy_boundary_cost": 1.875,
+          "within_boundary_budget": false
+        }
+      ],
+      "scope": "finite Lemma 6.2 verifier-boundary bookkeeping ledger",
+      "upstream_formula_required_for_stronger_check": true
+    },
     "ricci_convention": {
       "Nc": 2,
       "coherent": true,
