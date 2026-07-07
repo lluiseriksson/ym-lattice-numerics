@@ -31,6 +31,11 @@ UNIFORM_POINCARE_PARAMETERS = {
     "cycle_points": 8,
     "fourier_mode": 1,
 }
+POLYMER_COUNTING_PARAMETERS = {
+    "dimension": 4,
+    "max_size": 6,
+    "activity": 1.0 / 32.0,
+}
 
 
 def _rounded(value: float, digits: int = 12) -> float:
@@ -229,6 +234,56 @@ def _uniform_cycle_poincare_check() -> dict[str, object]:
     }
 
 
+def _finite_polymer_counting_bookkeeping() -> dict[str, object]:
+    params = POLYMER_COUNTING_PARAMETERS
+    dimension = int(params["dimension"])
+    max_size = int(params["max_size"])
+    activity = float(params["activity"])
+    neighbor_choices = 2 * dimension
+    ratio = neighbor_choices * activity
+
+    rows = []
+    prefix_weight = 0.0
+    for size in range(1, max_size + 1):
+        walk_encoding_bound = neighbor_choices ** (size - 1)
+        weighted_term = walk_encoding_bound * activity**size
+        prefix_weight += weighted_term
+        rows.append(
+            {
+                "size": size,
+                "walk_encoding_bound": walk_encoding_bound,
+                "weighted_term": _rounded(weighted_term, 15),
+                "prefix_weight": _rounded(prefix_weight, 15),
+            }
+        )
+
+    infinite_geometric_envelope = activity / (1.0 - ratio)
+    tail_after_max_size = (
+        activity * ratio**max_size / (1.0 - ratio) if ratio < 1.0 else math.inf
+    )
+    return {
+        "scope": "finite rooted polymer-counting bookkeeping envelope",
+        "parameters": params,
+        "encoding": (
+            "rooted connected polymer is over-counted by a step sequence with "
+            "(2*d)^(size-1) choices"
+        ),
+        "neighbor_choices_2d": neighbor_choices,
+        "activity_ratio_2d_times_activity": _rounded(ratio),
+        "ratio_is_subcritical": ratio < 1.0,
+        "rows": rows,
+        "finite_prefix_weight": _rounded(prefix_weight, 15),
+        "tail_after_max_size": _rounded(tail_after_max_size, 15),
+        "infinite_geometric_envelope": _rounded(infinite_geometric_envelope, 15),
+        "prefix_plus_tail_matches_envelope": _rounded(
+            prefix_weight + tail_after_max_size - infinite_geometric_envelope,
+            15,
+        )
+        == 0.0,
+        "no_unrooted_polymer_or_activity_claim": True,
+    }
+
+
 def build_report() -> dict[str, object]:
     beta_flow_rows = [_beta_flow_row(beta) for beta in BETA_VALUES]
     h_dob_rows = [_h_dob_window_row(beta) for beta in BETA_VALUES]
@@ -277,6 +332,9 @@ def build_report() -> dict[str, object]:
             "compact_four_rotor_entropy_pipeline": _four_rotor_entropy_pipeline(),
             "rothaus_alpha_tradeoff": _rothaus_alpha_tradeoff(),
             "uniform_cycle_poincare_check": _uniform_cycle_poincare_check(),
+            "finite_polymer_counting_bookkeeping": (
+                _finite_polymer_counting_bookkeeping()
+            ),
         },
     }
     return report
