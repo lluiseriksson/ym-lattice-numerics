@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `38177ef4804f284110af5c44ec2c95f85a59861c`.
+  `72524e70bbb6edbe81500a44e7a7f5f3113cb071`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `48e066040c224c848d2f1f8b39d346de72d6506c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -342,6 +342,7 @@ Payload fields:
 - `diagnostics.compact_four_rotor_entropy_pipeline`
 - `diagnostics.rothaus_alpha_tradeoff`
 - `diagnostics.uniform_cycle_poincare_check`
+- `diagnostics.finite_polymer_counting_bookkeeping`
 - per beta-flow row: `beta`, `b0_su2`, `C_Nc_equals_1_over_2b0`,
   `step_2_b0_log2`, `n_max_estimate`, `n_floor`, `beta_at_n_floor`,
   `beta_at_n_floor_plus_1`, `floor_brackets_zero`
@@ -382,15 +383,22 @@ Current diagnostic values:
   mode `cos(2*pi*x/8)`, variance `0.5`, spectral gap about `0.292893`, and
   the mode saturating the finite Poincare constant. This is a discrete
   normalization check only, not an LSI or defect claim.
+- Finite polymer-counting bookkeeping: dimension `4`, activity `1/32`,
+  maximum size `6`, rooted walk-encoding envelope `(2*d)^(size-1)`,
+  ratio `(2*d)*activity = 0.25`, finite prefix weight about `0.0416565`,
+  tail after size `6` about `1.01725e-05`, and infinite geometric envelope
+  about `0.0416667`. This is over-counting bookkeeping only, not an unrooted
+  polymer enumeration or an activity estimate.
 
 Possible mother consumption:
 
 - Use the JSON as a CI-backed contract for issue #42's verifier-boundary
   routing before importing a fuller 2602.0041 verifier.
-- Treat the rows, finite entropy pipeline, alpha grid, and uniform-cycle
-  Poincare check as deterministic diagnostics of formulas and window pressure,
-  not as a proof of H-XSD, H-DOB, companion papers 2602.0054-2602.0057,
-  source construction, hRpoly, continuum construction, mass gap, or Clay.
+- Treat the rows, finite entropy pipeline, alpha grid, uniform-cycle Poincare
+  check, and finite polymer-counting bookkeeping as deterministic diagnostics
+  of formulas and window pressure, not as a proof of H-XSD, H-DOB, companion
+  papers 2602.0054-2602.0057, source construction, hRpoly, continuum
+  construction, mass gap, or Clay.
 
 ## Sidecar artifact manifest
 
@@ -485,7 +493,8 @@ Conditional 2602.0041 manifest contract:
   `build_report()` and checks the Ricci convention row, corrected beta-flow
   zero bracketing, geometric sum, monotone H-DOB kappa-window exhibit, compact
   four-rotor entropy-pipeline identity, Rothaus alpha tradeoff grid, and
-  uniform-cycle Poincare normalization check.
+  uniform-cycle Poincare normalization check, and finite polymer-counting
+  bookkeeping envelope.
 - `tests/test_artifact_manifest.py` also runs the manifest `command_argv` with
   `--output` redirected to a temporary path and compares the generated JSON
   with `data/processed/verify_2602_0041_report.json`.

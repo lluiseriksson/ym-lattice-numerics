@@ -118,6 +118,36 @@ def test_verify_2602_0041_uniform_cycle_poincare_check() -> None:
     assert poincare["no_lsi_or_defect_claim"] is True
 
 
+def test_verify_2602_0041_finite_polymer_counting_bookkeeping() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+    counting = report["diagnostics"]["finite_polymer_counting_bookkeeping"]
+    rows = counting["rows"]
+
+    assert counting["scope"] == "finite rooted polymer-counting bookkeeping envelope"
+    assert counting["parameters"] == {
+        "dimension": 4,
+        "max_size": 6,
+        "activity": 1.0 / 32.0,
+    }
+    assert counting["neighbor_choices_2d"] == 8
+    assert counting["activity_ratio_2d_times_activity"] == 0.25
+    assert counting["ratio_is_subcritical"] is True
+    assert [row["size"] for row in rows] == [1, 2, 3, 4, 5, 6]
+    assert [row["walk_encoding_bound"] for row in rows] == [
+        1,
+        8,
+        64,
+        512,
+        4096,
+        32768,
+    ]
+    assert rows[-1]["prefix_weight"] == counting["finite_prefix_weight"]
+    assert counting["tail_after_max_size"] > 0.0
+    assert counting["finite_prefix_weight"] < counting["infinite_geometric_envelope"]
+    assert counting["prefix_plus_tail_matches_envelope"] is True
+    assert counting["no_unrooted_polymer_or_activity_claim"] is True
+
+
 def test_verify_2602_0041_cli_writes_same_report(tmp_path: Path) -> None:
     generated = tmp_path / "verify_2602_0041_report.json"
 

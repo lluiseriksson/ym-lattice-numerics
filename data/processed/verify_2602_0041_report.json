@@ -59,6 +59,61 @@
         }
       ]
     },
+    "finite_polymer_counting_bookkeeping": {
+      "activity_ratio_2d_times_activity": 0.25,
+      "encoding": "rooted connected polymer is over-counted by a step sequence with (2*d)^(size-1) choices",
+      "finite_prefix_weight": 0.041656494140625,
+      "infinite_geometric_envelope": 0.041666666666667,
+      "neighbor_choices_2d": 8,
+      "no_unrooted_polymer_or_activity_claim": true,
+      "parameters": {
+        "activity": 0.03125,
+        "dimension": 4,
+        "max_size": 6
+      },
+      "prefix_plus_tail_matches_envelope": true,
+      "ratio_is_subcritical": true,
+      "rows": [
+        {
+          "prefix_weight": 0.03125,
+          "size": 1,
+          "walk_encoding_bound": 1,
+          "weighted_term": 0.03125
+        },
+        {
+          "prefix_weight": 0.0390625,
+          "size": 2,
+          "walk_encoding_bound": 8,
+          "weighted_term": 0.0078125
+        },
+        {
+          "prefix_weight": 0.041015625,
+          "size": 3,
+          "walk_encoding_bound": 64,
+          "weighted_term": 0.001953125
+        },
+        {
+          "prefix_weight": 0.04150390625,
+          "size": 4,
+          "walk_encoding_bound": 512,
+          "weighted_term": 0.00048828125
+        },
+        {
+          "prefix_weight": 0.0416259765625,
+          "size": 5,
+          "walk_encoding_bound": 4096,
+          "weighted_term": 0.0001220703125
+        },
+        {
+          "prefix_weight": 0.041656494140625,
+          "size": 6,
+          "walk_encoding_bound": 32768,
+          "weighted_term": 3.0517578125e-05
+        }
+      ],
+      "scope": "finite rooted polymer-counting bookkeeping envelope",
+      "tail_after_max_size": 1.0172526042e-05
+    },
     "geometric_sum": {
       "closed_value": 2.0,
       "formula": "sum_{n>=1} n*r^n = r/(1-r)^2",
