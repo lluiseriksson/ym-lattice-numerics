@@ -164,6 +164,23 @@
         }
       ],
       "scope": "finite Rothaus-style alpha bookkeeping grid"
+    },
+    "uniform_cycle_poincare_check": {
+      "dirichlet_form": 0.146446609407,
+      "mean": -0.0,
+      "mode_saturates_constant": true,
+      "no_lsi_or_defect_claim": true,
+      "operator": "I-P for the nearest-neighbor simple random walk",
+      "parameters": {
+        "cycle_points": 8,
+        "fourier_mode": 1
+      },
+      "poincare_constant": 3.414213562373,
+      "scope": "finite uniform Poincare normalization check on Z/NZ",
+      "spectral_gap": 0.292893218813,
+      "state_space": "cycle graph with uniform measure",
+      "test_function": "cos(2*pi*mode*x/N)",
+      "variance": 0.5
     }
   },
   "honesty": "Numerical sidecar contract only. This report does not discharge H-XSD or H-DOB, does not verify companion papers 2602.0054-2602.0057, and does not prove source construction, hRpoly, continuum construction, a mass gap, or Clay.",
