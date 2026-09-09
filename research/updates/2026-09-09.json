@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "reviewed_on": "2026-09-09",
+  "window": {
+    "start": "2026-09-03",
+    "end": "2026-09-09",
+    "calendar_week_start": "2026-09-07"
+  },
+  "coverage": "targeted, non-exhaustive",
+  "repository_card": {
+    "repository": "lluiseriksson/ym-lattice-numerics",
+    "source_ids": [
+      "2608.27267",
+      "2609.04117",
+      "2609.08169"
+    ],
+    "local_anchors": [
+      "README.md",
+      "docs/MOTHER_DIGEST.md",
+      "CONSTANTS.md"
+    ],
+    "frontier": "The shipped Wilson Monte Carlo run is a smoke ensemble; numerical constants do not establish the continuum regime.",
+    "bridge_hypothesis": "Use maximal-tree gauge for finite observable cross-checks and the open-SU(2) study for a separate dynamics benchmark. Preserve gauge-invariant observables; separate matter content, dimension, Euclidean sampling and real-time bath coupling.",
+    "next_finite_task": "Compare plaquette and loop values before/after finite tree gauge fixing with fixed seeds. For a future Lindblad benchmark report truncation, trace preservation, Gauss-law residual and rate versus bath strength, including a Zeno regime.",
+    "falsifier": "Reject equivalence on a gauge-invariant observable mismatch. Reject monotone-rate extrapolation if increasing dissipation slows relaxation or if truncation dominates the estimated gap.",
+    "related_repositories": [
+      "lean-2d-yang-mills",
+      "finite-sample-spectral-certificates",
+      "ym-audit"
+    ],
+    "proposal_status": "speculative; not executed or formally verified",
+    "eliminated_hypotheses": [],
+    "inspected_commit": "f4c6dad39958ebf1280424c657b447a754d07343"
+  },
+  "sources": [
+    {
+      "id": "arxiv:2608.27267",
+      "arxiv_id": "2608.27267",
+      "title": "Efficient Quantum Simulations of Yang-Mills theory with Maximal-tree Gauge",
+      "authors": [
+        "Li, Tianyin",
+        "Li, Ying-Ying",
+        "Wang, Xiaoyang",
+        "Xing, Hongxi"
+      ],
+      "first_submitted": "2026-08-27",
+      "latest_revision": "2026-08-27",
+      "reviewed_version": "v1",
+      "url": "https://arxiv.org/abs/2608.27267v1",
+      "doi": "10.48550/arXiv.2608.27267",
+      "verified_on": "2026-09-09",
+      "recency": "background",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "v1: abstract and maximal-tree gauge construction",
+      "source_claim": "Li and collaborators use maximal-tree gauge and field-amplitude digitization to obtain polynomial resource bounds for Hamiltonian Yang-Mills simulation through QSVT.",
+      "limits": "Hamiltonian simulation complexity is distinct from an exact Haar edge-coordinate equivalence, Euclidean reflection positivity, and a continuum mass gap. First posted 27 August; a September news mention is not a new submission.",
+      "tags": [
+        "gauge-fixing",
+        "spanning-trees",
+        "yang-mills",
+        "quantum-simulation"
+      ],
+      "abstract_page_sha256": "8fa19bcafeebf9e933c70192ace6a9b2ff01e8e6d04fd2e98295d10ef400f233",
+      "reviewed_full_text_sha256": "05f7e0cd23badc54c61dc3bafa5237f4126a6c2bcdda0d97b621cd3bb719dd1c",
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    },
+    {
+      "id": "arxiv:2609.04117",
+      "arxiv_id": "2609.04117",
+      "title": "Non-Abelian string melting and thermalization in an open lattice gauge theory",
+      "authors": [
+        "Verde, Erick Parra",
+        "Cataldi, Giovanni",
+        "Kühn, Stefan",
+        "Magnifico, Giuseppe",
+        "Halimeh, Jad C."
+      ],
+      "first_submitted": "2026-09-03",
+      "latest_revision": "2026-09-03",
+      "reviewed_version": "v1",
+      "url": "https://arxiv.org/abs/2609.04117v1",
+      "doi": "10.48550/arXiv.2609.04117",
+      "verified_on": "2026-09-09",
+      "recency": "new-in-trailing-week",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "v1: model, thermalization discussion and strong-dephasing reduction",
+      "source_claim": "A tensor-network study couples 1+1D SU(2) gauge theory with matter to a gauge-preserving Lindblad bath. It finds nonmonotonic relaxation and derives an exclusion-process description in a strong-dephasing limit.",
+      "limits": "This is an open-system finite/truncated lattice setting, not pure 4D Euclidean Yang-Mills. A Liouvillian relaxation rate is not automatically a Hamiltonian gap, and the strong-dephasing expansion has its own regime.",
+      "tags": [
+        "yang-mills",
+        "lindblad",
+        "zeno",
+        "tensor-networks"
+      ],
+      "abstract_page_sha256": "5bd8e4f32445c083e75584d29d5ef41d78ed422d5c848b77e706f123fb496a82",
+      "reviewed_full_text_sha256": "7eec747973d16173df4cf1775f12720a3e7ba56b4fcdf158063e15d681b8fa00",
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    },
+    {
+      "id": "arxiv:2609.08169",
+      "arxiv_id": "2609.08169",
+      "title": "On overlap concentration in the Curie-Weiss Random Field model",
+      "authors": [
+        "Li, Yutong",
+        "Sandhu, Juspreet Singh",
+        "Shi, Jonathan"
+      ],
+      "first_submitted": "2026-09-08",
+      "latest_revision": "2026-09-08",
+      "reviewed_version": "v1",
+      "url": "https://arxiv.org/abs/2609.08169v1",
+      "doi": "10.48550/arXiv.2609.08169",
+      "verified_on": "2026-09-09",
+      "recency": "new-this-calendar-week",
+      "publication_status": "preprint; peer-review status not established in this sweep",
+      "evidence_level": "literature",
+      "review_depth": "Abstract and submission history",
+      "source_claim": "A Curie-Weiss random-field result gives sub-Gaussian overlap tails under beta<1 and a specifically matched Gaussian field law, via Laplace analysis and a moment-generating-function bootstrap.",
+      "limits": "The field law and matching condition are part of the result. Mean-field replica overlap concentration does not yield spatial covariance decay or Yang-Mills small-field estimates.",
+      "tags": [
+        "gaussian",
+        "concentration",
+        "moment-bounds"
+      ],
+      "abstract_page_sha256": "9b3830d9a99e27d44203704b004b9c090710c65459a9a551461701bff57bbcd6",
+      "reviewed_full_text_sha256": null,
+      "reuse": "Bibliographic metadata and original synthesis only; no permission to train on linked full text is inferred."
+    }
+  ]
+}
