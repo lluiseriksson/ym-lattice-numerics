@@ -7,7 +7,7 @@ exports no Lean theorem.
 ## Synchronization
 
 - Last audited main HEAD for this digest:
-  `548bc41ca8aff12142b707dd8e6b9c5aa8e3e6f2`.
+  `f4c6dad39958ebf1280424c657b447a754d07343`.
 - Mother pins recorded in `CONSTANTS.md` and `MATHLIB_AUDIT.md`:
   - mother main commit: `48e066040c224c848d2f1f8b39d346de72d6506c`
   - Lean image: `leanprover/lean4:v4.29.0-rc6`
@@ -342,6 +342,7 @@ Payload fields:
 - `diagnostics.compact_four_rotor_entropy_pipeline`
 - `diagnostics.rothaus_alpha_tradeoff`
 - `diagnostics.defect_lsi_budget_bookkeeping`
+- `diagnostics.lemma_6_2_boundary_bookkeeping`
 - `diagnostics.uniform_cycle_poincare_check`
 - `diagnostics.finite_polymer_counting_bookkeeping`
 - per beta-flow row: `beta`, `b0_su2`, `C_Nc_equals_1_over_2b0`,
@@ -356,6 +357,9 @@ Payload fields:
 - per defect-LSI budget row: `defect_epsilon`,
   `toy_residual_constant`, `relative_loss`, `residual_is_positive`,
   `within_budget`
+- per Lemma 6.2 boundary row: `block_count`, `interface_count`,
+  `local_constant_sum`, `toy_boundary_cost`, `boundary_to_local_ratio`,
+  `within_boundary_budget`
 - per uniform Poincare row: `cycle_points`, `fourier_mode`, `variance`,
   `dirichlet_form`, `spectral_gap`, `poincare_constant`,
   `mode_saturates_constant`
@@ -387,6 +391,13 @@ Current diagnostic values:
   `toy_residual_constant = C0 - epsilon` with `C0 = 2.0` and maximum
   relative loss `0.25`. This is finite algebraic bookkeeping only, not a
   defect-LSI or tensorization claim.
+- Lemma 6.2 boundary bookkeeping ledger: block grid `1`, `2`, `4`, `8`,
+  and `16`, local constant `2.0`, interface penalty `0.125`, boundary
+  budget `1.0`, and toy formula
+  `toy_boundary_cost = interface_count * epsilon_boundary`. The boundary
+  cost is monotone on the grid, and the first row exceeding this toy budget
+  is `block_count = 16`. This is verifier-boundary bookkeeping only; the
+  upstream symbolic formula is still required for any stronger check.
 - Uniform Poincare normalization check: cycle graph `Z/8Z` with uniform
   measure, operator `I-P` for nearest-neighbor simple random walk, Fourier
   mode `cos(2*pi*x/8)`, variance `0.5`, spectral gap about `0.292893`, and
@@ -404,10 +415,11 @@ Possible mother consumption:
 - Use the JSON as a CI-backed contract for issue #42's verifier-boundary
   routing before importing a fuller 2602.0041 verifier.
 - Treat the rows, finite entropy pipeline, alpha grid, defect budget,
-  uniform-cycle Poincare check, and finite polymer-counting bookkeeping as
-  deterministic diagnostics of formulas and window pressure, not as a proof of
-  H-XSD, H-DOB, companion papers 2602.0054-2602.0057, source construction,
-  hRpoly, continuum construction, mass gap, or Clay.
+  Lemma 6.2 boundary ledger, uniform-cycle Poincare check, and finite
+  polymer-counting bookkeeping as deterministic diagnostics of formulas and
+  window pressure, not as a proof of H-XSD, H-DOB, companion papers
+  2602.0054-2602.0057, source construction, hRpoly, continuum construction,
+  mass gap, or Clay.
 
 ## Sidecar artifact manifest
 
@@ -502,8 +514,9 @@ Conditional 2602.0041 manifest contract:
   `build_report()` and checks the Ricci convention row, corrected beta-flow
   zero bracketing, geometric sum, monotone H-DOB kappa-window exhibit, compact
   four-rotor entropy-pipeline identity, Rothaus alpha tradeoff grid,
-  defect-LSI budget bookkeeping grid, uniform-cycle Poincare normalization
-  check, and finite polymer-counting bookkeeping envelope.
+  defect-LSI budget bookkeeping grid, Lemma 6.2 boundary ledger,
+  uniform-cycle Poincare normalization check, and finite polymer-counting
+  bookkeeping envelope.
 - `tests/test_artifact_manifest.py` also runs the manifest `command_argv` with
   `--output` redirected to a temporary path and compares the generated JSON
   with `data/processed/verify_2602_0041_report.json`.

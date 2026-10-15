@@ -117,6 +117,30 @@ def test_verify_2602_0041_defect_lsi_budget_bookkeeping() -> None:
     assert budget["no_defect_lsi_or_tensorization_claim"] is True
 
 
+def test_verify_2602_0041_lemma_6_2_boundary_bookkeeping() -> None:
+    report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
+    ledger = report["diagnostics"]["lemma_6_2_boundary_bookkeeping"]
+    rows = ledger["rows"]
+
+    assert ledger["scope"] == "finite Lemma 6.2 verifier-boundary bookkeeping ledger"
+    assert ledger["formula"] == "toy_boundary_cost = interface_count * epsilon_boundary"
+    assert ledger["parameters"] == {
+        "block_grid": [1, 2, 4, 8, 16],
+        "local_constant": 2.0,
+        "interface_penalty": 0.125,
+        "boundary_budget": 1.0,
+    }
+    assert [row["block_count"] for row in rows] == ledger["parameters"]["block_grid"]
+    assert [row["interface_count"] for row in rows] == [0, 1, 3, 7, 15]
+    assert rows[0]["toy_boundary_cost"] == 0.0
+    assert rows[-1]["toy_boundary_cost"] == 1.875
+    assert rows[-1]["boundary_to_local_ratio"] < 0.06
+    assert ledger["boundary_cost_is_monotone"] is True
+    assert ledger["first_block_count_exceeding_budget"] == 16
+    assert ledger["upstream_formula_required_for_stronger_check"] is True
+    assert ledger["no_lemma_6_2_or_defect_lsi_claim"] is True
+
+
 def test_verify_2602_0041_uniform_cycle_poincare_check() -> None:
     report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
     poincare = report["diagnostics"]["uniform_cycle_poincare_check"]

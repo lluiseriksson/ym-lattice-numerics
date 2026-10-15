@@ -32,6 +32,12 @@ DEFECT_LSI_BUDGET_PARAMETERS = {
     "defect_grid": [0.03125, 0.0625, 0.125, 0.25, 0.5],
     "max_relative_loss": 0.25,
 }
+LEMMA_6_2_BOUNDARY_PARAMETERS = {
+    "block_grid": [1, 2, 4, 8, 16],
+    "local_constant": 2.0,
+    "interface_penalty": 0.125,
+    "boundary_budget": 1.0,
+}
 UNIFORM_POINCARE_PARAMETERS = {
     "cycle_points": 8,
     "fourier_mode": 1,
@@ -229,6 +235,54 @@ def _defect_lsi_budget_bookkeeping() -> dict[str, object]:
     }
 
 
+def _lemma_6_2_boundary_bookkeeping() -> dict[str, object]:
+    params = LEMMA_6_2_BOUNDARY_PARAMETERS
+    local_constant = float(params["local_constant"])
+    interface_penalty = float(params["interface_penalty"])
+    boundary_budget = float(params["boundary_budget"])
+
+    rows = []
+    for block_count in params["block_grid"]:
+        block_count = int(block_count)
+        interface_count = max(block_count - 1, 0)
+        local_constant_sum = block_count * local_constant
+        toy_boundary_cost = interface_count * interface_penalty
+        rows.append(
+            {
+                "block_count": block_count,
+                "interface_count": interface_count,
+                "local_constant_sum": _rounded(local_constant_sum),
+                "toy_boundary_cost": _rounded(toy_boundary_cost),
+                "boundary_to_local_ratio": _rounded(
+                    toy_boundary_cost / local_constant_sum
+                ),
+                "within_boundary_budget": toy_boundary_cost <= boundary_budget,
+            }
+        )
+
+    first_exceeding = next(
+        (
+            row["block_count"]
+            for row in rows
+            if not bool(row["within_boundary_budget"])
+        ),
+        None,
+    )
+    return {
+        "scope": "finite Lemma 6.2 verifier-boundary bookkeeping ledger",
+        "formula": "toy_boundary_cost = interface_count * epsilon_boundary",
+        "parameters": params,
+        "rows": rows,
+        "boundary_cost_is_monotone": all(
+            left["toy_boundary_cost"] < right["toy_boundary_cost"]
+            for left, right in zip(rows, rows[1:])
+        ),
+        "first_block_count_exceeding_budget": first_exceeding,
+        "upstream_formula_required_for_stronger_check": True,
+        "no_lemma_6_2_or_defect_lsi_claim": True,
+    }
+
+
 def _uniform_cycle_poincare_check() -> dict[str, object]:
     params = UNIFORM_POINCARE_PARAMETERS
     cycle_points = int(params["cycle_points"])
@@ -368,6 +422,7 @@ def build_report() -> dict[str, object]:
             "compact_four_rotor_entropy_pipeline": _four_rotor_entropy_pipeline(),
             "rothaus_alpha_tradeoff": _rothaus_alpha_tradeoff(),
             "defect_lsi_budget_bookkeeping": _defect_lsi_budget_bookkeeping(),
+            "lemma_6_2_boundary_bookkeeping": _lemma_6_2_boundary_bookkeeping(),
             "uniform_cycle_poincare_check": _uniform_cycle_poincare_check(),
             "finite_polymer_counting_bookkeeping": (
                 _finite_polymer_counting_bookkeeping()
